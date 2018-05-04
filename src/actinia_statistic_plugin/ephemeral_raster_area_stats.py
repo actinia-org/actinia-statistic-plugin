@@ -11,11 +11,11 @@ from flask.json import dumps
 import pickle
 import tempfile
 from copy import deepcopy
-from flask_restful_swagger_2 import swagger, Schema
-from actinia_core.resources.common.response_models import CategoricalStatisticsResultModel,\
-    ProcessingResponseModel, RasterAreaStatsResponseModel
+from flask_restful_swagger_2 import swagger
 from actinia_core.resources.common.app import auth
 from actinia_core.resources.common.logging_interface import log_api_call
+from .response_models import CategoricalStatisticsResultModel,\
+    ProcessingResponseModel, RasterAreaStatsResponseModel
 
 __license__ = "GPLv3"
 __author__     = "Sören Gebbert"
@@ -58,7 +58,7 @@ SCHEMA_DOC={
         },
         {
             'name': 'shape',
-            'description': 'GML or GeoJSON definition of the polygon to compute the statistics for.',
+            'description': 'GeoJSON definition of the polygon to compute the statistics for.',
             'required': True,
             'in': 'body',
             'schema': {"type":"string"}

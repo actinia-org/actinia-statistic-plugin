@@ -12,10 +12,10 @@ from actinia_core.resources.ephemeral_processing import EphemeralProcessing
 from actinia_core.resources.resource_base import ResourceBase
 from actinia_core.resources.common.redis_interface import enqueue_job
 from flask_restful_swagger_2 import swagger
-from actinia_core.resources.common.response_models import ProcessingResponseModel,\
-    AreaUnivarResultModel, RasterAreaUnivarStatsResponseModel
 from actinia_core.resources.common.app import auth
 from actinia_core.resources.common.logging_interface import log_api_call
+from .response_models import ProcessingResponseModel,\
+    AreaUnivarResultModel, RasterAreaUnivarStatsResponseModel
 
 __license__ = "GPLv3"
 __author__     = "Sören Gebbert"
@@ -55,7 +55,7 @@ SCHEMA_DOC={
         },
         {
             'name': 'shape',
-            'description': 'GML or GeoJSON definition of the polygon to compute the statistics for.',
+            'description': 'GeoJSON definition of the polygon to compute the statistics for.',
             'required': True,
             'in': 'body',
             'schema': {"type":"string"}

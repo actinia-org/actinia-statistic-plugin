@@ -142,5 +142,6 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(value_list[0][3], "b")
         self.assertEqual(value_list[0][4], "c")
 
+
 if __name__ == '__main__':
     unittest.main()

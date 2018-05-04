@@ -14,10 +14,10 @@ from actinia_core.resources.resource_base import ResourceBase
 from actinia_core.resources.common.redis_interface import enqueue_job
 from actinia_core.resources.common.graas_exceptions import AsyncProcessError
 from flask_restful_swagger_2 import swagger
-from actinia_core.resources.common.response_models import CategoricalStatisticsResultModel,\
-    ProcessingResponseModel, RasterAreaStatsResponseModel
 from actinia_core.resources.common.app import auth
 from actinia_core.resources.common.logging_interface import log_api_call
+from .response_models import CategoricalStatisticsResultModel,\
+    ProcessingResponseModel, RasterAreaStatsResponseModel
 
 __license__ = "GPLv3"
 __author__     = "Sören Gebbert"
@@ -71,7 +71,7 @@ SCHEMA_DOC={
         },
         {
             'name': 'shape',
-            'description': 'GML or GeoJSON definition of the polygon to compute the statistics for. The .',
+            'description': 'GeoJSON definition of the polygon to compute the statistics for. The .',
             'required': True,
             'in': 'body',
             'schema': {"type":"string"}
