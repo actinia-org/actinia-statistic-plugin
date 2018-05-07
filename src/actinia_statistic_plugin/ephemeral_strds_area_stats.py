@@ -16,8 +16,9 @@ from actinia_core.resources.common.graas_exceptions import AsyncProcessError
 from flask_restful_swagger_2 import swagger
 from actinia_core.resources.common.app import auth
 from actinia_core.resources.common.logging_interface import log_api_call
-from .response_models import CategoricalStatisticsResultModel,\
-    ProcessingResponseModel, RasterAreaStatsResponseModel
+from .response_models import CategoricalStatisticsResultModel, RasterAreaStatsResponseModel
+from actinia_core.resources.common.response_models import ProcessingErrorResponseModel
+
 
 __license__ = "GPLv3"
 __author__     = "Sören Gebbert"
@@ -27,7 +28,7 @@ __email__      = "soerengebbert@googlemail.com"
 
 
 SCHEMA_DOC={
-    'tags': ['space-time raster dataset algorithms'],
+    'tags': ['STRDS Algorithms'],
     'description': 'Compute areal categorical statistics on a raster map layer contained in a '
                    'space-time raster dataset based on an input polygon. '
                    'The input polygon must be provided as GeoJSON content'
@@ -84,7 +85,7 @@ SCHEMA_DOC={
         },
         '400': {
             'description':'The error message and a detailed log why raster statistic did not succeeded',
-            'schema':ProcessingResponseModel
+            'schema':ProcessingErrorResponseModel
         }
     }
  }

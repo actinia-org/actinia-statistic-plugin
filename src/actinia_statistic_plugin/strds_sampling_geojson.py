@@ -9,7 +9,7 @@ from flask import jsonify, make_response
 from flask.json import dumps as json_dumps
 from copy import deepcopy
 from flask_restful_swagger_2 import swagger
-from actinia_core.resources.common.response_models import ProcessingResponseModel
+from actinia_core.resources.common.response_models import ProcessingResponseModel, ProcessingErrorResponseModel
 from actinia_core.resources.ephemeral_processing import EphemeralProcessing
 from actinia_core.resources.resource_base import ResourceBase
 from actinia_core.resources.common.redis_interface import enqueue_job
@@ -153,11 +153,11 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
 
 
 SCHEMA_DOC = {
-    'tags': ['space-time raster dataset algorithms'],
-    'description': 'Spatial sampling of a space-time raster dataset with vector points. The vector points must '
+    'tags': ['STRDS Algorithms'],
+    'description': 'Spatial sampling of a space-time raster dataset (STRDS) with vector points. The vector points must '
                    'be provided as GeoJSON vector point format that includes correct coordinate system '
                    'specification. The result of the sampling is located in the resource response'
-                   'JSON docuement after the processing was finished, '
+                   'JSON document after the processing was finished, '
                    'as a list of timestamped values for each vector point. '
                    'Minimum required user role: user.',
     'consumes': ['application/json'],
@@ -216,7 +216,7 @@ SCHEMA_DOC = {
         },
         '400': {
             'description': 'The error message and a detailed log why strds sampling did not succeeded',
-            'schema': ProcessingResponseModel
+            'schema': ProcessingErrorResponseModel
         }
     }
 }

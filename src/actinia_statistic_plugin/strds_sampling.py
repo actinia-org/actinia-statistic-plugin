@@ -8,7 +8,7 @@ import tempfile
 from flask import jsonify, make_response
 from copy import deepcopy
 from flask_restful_swagger_2 import swagger, Schema
-from actinia_core.resources.common.response_models import ProcessingResponseModel
+from actinia_core.resources.common.response_models import ProcessingResponseModel, ProcessingErrorResponseModel
 from actinia_core.resources.ephemeral_processing import EphemeralProcessing
 from actinia_core.resources.resource_base import ResourceBase
 from actinia_core.resources.common.redis_interface import enqueue_job
@@ -178,7 +178,7 @@ class PointListModel(Schema):
 
 
 SCHEMA_DOC = {
-    'tags': ['space-time raster dataset algorithms'],
+    'tags': ['STRDS Algorithms'],
     'description': 'Spatial sampling of a space-time raster dataset with vector points. The vector points must '
                    'be in the same coordinate reference system as the location that contains the '
                    'space-time raster dataset. The result of the sampling is located in the resource response'
@@ -225,7 +225,7 @@ SCHEMA_DOC = {
         },
         '400': {
             'description': 'The error message and a detailed log why strds sampling did not succeeded',
-            'schema': ProcessingResponseModel
+            'schema': ProcessingErrorResponseModel
         }
     }
 }

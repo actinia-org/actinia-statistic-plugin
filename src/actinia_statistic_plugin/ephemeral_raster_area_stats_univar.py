@@ -14,8 +14,8 @@ from actinia_core.resources.common.redis_interface import enqueue_job
 from flask_restful_swagger_2 import swagger
 from actinia_core.resources.common.app import auth
 from actinia_core.resources.common.logging_interface import log_api_call
-from .response_models import ProcessingResponseModel,\
-    AreaUnivarResultModel, RasterAreaUnivarStatsResponseModel
+from .response_models import AreaUnivarResultModel, RasterAreaUnivarStatsResponseModel
+from actinia_core.resources.common.response_models import ProcessingErrorResponseModel
 
 __license__ = "GPLv3"
 __author__     = "Sören Gebbert"
@@ -25,7 +25,7 @@ __email__      = "soerengebbert@googlemail.com"
 
 
 SCHEMA_DOC={
-    'tags': ['raster map layer algorithms'],
+    'tags': ['Raster Algorithms'],
     'description': 'Compute areal univariate statistics on a raster map layer based on an input polygon. '
                    'The input polygon must be provided as GeoJSON content in the request body. A correct '
                    'coordinate reference system must be present in the GeoJSON definition. '
@@ -68,7 +68,7 @@ SCHEMA_DOC={
         },
         '400': {
             'description':'The error message and a detailed log why raster statistic did not succeeded',
-            'schema':ProcessingResponseModel
+            'schema':ProcessingErrorResponseModel
         }
     }
  }
