@@ -178,7 +178,7 @@ class PointListModel(Schema):
 
 
 SCHEMA_DOC = {
-    'tags': ['STRDS Algorithms'],
+    'tags': ['STRDS Sampling'],
     'description': 'Spatial sampling of a space-time raster dataset with vector points. The vector points must '
                    'be in the same coordinate reference system as the location that contains the '
                    'space-time raster dataset. The result of the sampling is located in the resource response'

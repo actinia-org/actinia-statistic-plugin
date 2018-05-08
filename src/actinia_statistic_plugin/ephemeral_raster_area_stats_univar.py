@@ -25,7 +25,7 @@ __email__      = "soerengebbert@googlemail.com"
 
 
 SCHEMA_DOC={
-    'tags': ['Raster Algorithms'],
+    'tags': ['Raster Statistics'],
     'description': 'Compute areal univariate statistics on a raster map layer based on an input polygon. '
                    'The input polygon must be provided as GeoJSON content in the request body. A correct '
                    'coordinate reference system must be present in the GeoJSON definition. '
@@ -93,6 +93,7 @@ class AsyncEphemeralRasterAreaStatsUnivarResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
+        """Compute areal univariate statistics on a raster map layer based on an input polygon asynchronously."""
         self._execute(location_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
@@ -105,6 +106,7 @@ class SyncEphemeralRasterAreaStatsUnivarResource(AsyncEphemeralRasterAreaStatsUn
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
+        """Compute areal univariate statistics on a raster map layer based on an input polygon synchronously."""
         check = self._execute(location_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()

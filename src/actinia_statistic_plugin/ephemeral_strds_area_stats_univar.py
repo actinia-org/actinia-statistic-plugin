@@ -28,7 +28,7 @@ __email__      = "soerengebbert@googlemail.com"
 
 
 SCHEMA_DOC={
-    'tags': ['STRDS Algorithms'],
+    'tags': ['STRDS Statistics'],
     'description': 'Compute areal univariate statistics on a raster map layer contained in a '
                    'space-time raster dataset based on an input polygon. '
                    'The input polygon must be provided as GeoJSON content in the request body. A correct '
@@ -88,8 +88,7 @@ SCHEMA_DOC={
 
 
 class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
-    """Compute area statistics based on a vector map for a single raster layer
-    that is temporally sampled from a STRDS by a timestamp.
+    """Compute area statistics based on a vector map for a single raster layer that is temporally sampled from a STRDS by a timestamp.
     """
     decorators = [log_api_call, auth.login_required]
 

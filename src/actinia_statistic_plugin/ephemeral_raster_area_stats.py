@@ -25,7 +25,7 @@ __email__      = "soerengebbert@googlemail.com"
 
 
 SCHEMA_DOC={
-    'tags': ['Raster Algorithms'],
+    'tags': ['Raster Statistics'],
     'description': 'Compute areal categorical statistics on a raster map layer based on an input polygon. '
                    'The input polygon must be provided as GeoJSON content in the request body. A correct '
                    'coordinate reference system must be present in the GeoJSON definition. '

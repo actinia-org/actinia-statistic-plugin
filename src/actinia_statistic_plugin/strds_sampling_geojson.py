@@ -153,7 +153,7 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
 
 
 SCHEMA_DOC = {
-    'tags': ['STRDS Algorithms'],
+    'tags': ['STRDS Sampling'],
     'description': 'Spatial sampling of a space-time raster dataset (STRDS) with vector points. The vector points must '
                    'be provided as GeoJSON vector point format that includes correct coordinate system '
                    'specification. The result of the sampling is located in the resource response'
