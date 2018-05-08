@@ -13,7 +13,6 @@ from actinia_core.resources.common.response_models import ProcessingResponseMode
 from actinia_core.resources.ephemeral_processing import EphemeralProcessing
 from actinia_core.resources.resource_base import ResourceBase
 from actinia_core.resources.common.redis_interface import enqueue_job
-from actinia_core.resources.common.graas_exceptions import AsyncProcessError
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
