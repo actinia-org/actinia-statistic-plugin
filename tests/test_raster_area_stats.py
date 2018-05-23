@@ -6,9 +6,9 @@ from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
 try:
-    from .test_resource_base import ActiniaResourceTestCaseBase
+    from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except:
-    from test_resource_base import ActiniaResourceTestCaseBase
+    from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
@@ -30,7 +30,7 @@ JSON = {
 class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_async_raster_area_stats_json(self):
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/'
                               'area_stats_async',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -43,7 +43,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         time.sleep(1)
 
     def test_sync_raster_area_stats_1(self):
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/'
                               'area_stats_sync',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -57,7 +57,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(len(value_list), 16)
 
     def test_sync_raster_area_stats_2(self):
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_sync',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -73,7 +73,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         #################### ERRORS ###############################################
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_sync',
                               headers=self.admin_auth_header,
                               data="{}",
@@ -84,7 +84,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
     def test_sync_raster_area_stats_error_wrong_request_missing_json(self):
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_sync',
                               headers=self.admin_auth_header,
                               data=None,

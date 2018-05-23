@@ -5,9 +5,9 @@ from pprint import pprint
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 try:
-    from .test_resource_base import ActiniaResourceTestCaseBase
+    from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except:
-    from test_resource_base import ActiniaResourceTestCaseBase
+    from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 
 __license__ = "GPLv3"
@@ -36,7 +36,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_async_sampling(self):
 
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
                               'sampling_async',
                               headers=self.user_auth_header,
                               data=json_dump({"points":[["a", "-5.095406","38.840583"],
@@ -54,7 +54,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
         rv_resource_id = resp["resource_id"]
 
         while True:
-            rv = self.server.get("/resources/%s/%s" % (rv_user_id, rv_resource_id),
+            rv = self.server.get(URL_PREFIX + "/resources/%s/%s" % (rv_user_id, rv_resource_id),
                                  headers=self.user_auth_header)
             print(rv.data)
             resp = json_load(rv.data)
@@ -77,7 +77,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling(self):
 
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
                               'sampling_sync',
                               headers=self.user_auth_header,
                               data=json_dump({"points":[["a", "-5.095406","38.840583"],
@@ -101,7 +101,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling_geojson(self):
 
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
                               'sampling_sync_geojson',
                               headers=self.user_auth_header,
                               data=json_dump(JSON),
@@ -121,7 +121,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling_where(self):
 
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/'
                               'sampling_sync',
                               headers=self.user_auth_header,
                               data=json_dump({"points":[["a", "-5.095406","38.840583"],

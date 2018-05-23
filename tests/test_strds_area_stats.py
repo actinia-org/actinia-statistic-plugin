@@ -6,9 +6,9 @@ from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
 try:
-    from .test_resource_base import ActiniaResourceTestCaseBase
+    from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except:
-    from test_resource_base import ActiniaResourceTestCaseBase
+    from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
@@ -31,7 +31,7 @@ JSON = {
 class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_async_raster_area_stats_json(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00:00:00/'
                               'area_stats_async',
@@ -48,7 +48,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(len(data["process_results"]), 29)
 
     def test_sync_raster_area_stats_1(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00:00:00/'
                               'area_stats_sync',
@@ -64,7 +64,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(len(value_list), 29)
 
     def test_sync_raster_area_stats_2(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00:00:00/'
                               'area_stats_sync',
@@ -82,7 +82,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
     #################### ERRORS ###############################################
 
     def test_sync_raster_area_stats_error_no_map_found(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2021-01-01T00:00:00/'
                               'area_stats_sync',
@@ -95,7 +95,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
     def test_sync_raster_area_stats_wrong_content_type(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00:00:00/'
                               'area_stats_sync',
@@ -108,7 +108,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
     def test_sync_raster_area_stats_error_nodata(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00:00:00/'
                               'area_stats_sync',
@@ -121,7 +121,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
     def test_sync_raster_area_stats_error(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00:00:00/'
                               'area_stats_sync',
@@ -134,7 +134,7 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
     def test_sync_raster_area_stats_error_wrong_timestamp(self):
-        rv = self.server.post('/locations/ECAD/mapsets/PERMANENT/strds/'
+        rv = self.server.post(URL_PREFIX + '/locations/ECAD/mapsets/PERMANENT/strds/'
                               'temperature_mean_1950_2013_yearly_celsius/'
                               'timestamp/2001-01-01T00.00.00/'
                               'area_stats_sync',

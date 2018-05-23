@@ -5,9 +5,9 @@ from pprint import pprint
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 try:
-    from .test_resource_base import ActiniaResourceTestCaseBase
+    from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except:
-    from test_resource_base import ActiniaResourceTestCaseBase
+    from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 
 __license__ = "GPLv3"
@@ -29,7 +29,7 @@ JSON = {
 class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_async_raster_area_stats_json(self):
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/'
                               'area_stats_univar_async',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -43,7 +43,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_1(self):
 
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -59,7 +59,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_2(self):
 
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -77,7 +77,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
 
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=" This is no data",
@@ -89,7 +89,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_module_error(self):
 
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=json_dump({}),
@@ -101,7 +101,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_nodata_error(self):
 
-        rv = self.server.post('/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=None,
