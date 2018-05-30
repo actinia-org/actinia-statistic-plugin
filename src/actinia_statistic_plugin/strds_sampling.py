@@ -22,7 +22,10 @@ __email__ = "soerengebbert@googlemail.com"
 
 
 class STRDSSampleResponseModel(ProcessingResponseModel):
-    """The response content that is returned by the POST request
+    """Response schema for a STRDS sampling result.
+
+    This schema is a derivative of the ProcessingResponseModel that defines a different
+    *process_results* schema.
     """
     type = 'object'
     properties = deepcopy(ProcessingResponseModel.properties)

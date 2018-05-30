@@ -13,7 +13,7 @@ __email__ = "soerengebbert@googlemail.com"
 class UnivarResultModel(Schema):
     """Response schema for the result of univariate computations of raster layers.
 
-    It is used as schema to define the process_result in a  ProcessingResponseModel.
+    It is used as schema to define the *process_result* in a ProcessingResponseModel derivative.
     """
     type = 'object'
     properties = {
@@ -78,7 +78,7 @@ class UnivarResultModel(Schema):
 class CategoricalStatisticsResultModel(Schema):
     """Response schema for the result of r.stats computations of raster layers.
 
-    It is used as schema to define the process_result in a  ProcessingResponseModel.
+    It is used as schema to define the *process_result* in a ProcessingResponseModel derivative.
     """
     type = 'object'
     required = ['cat', 'name', 'area', 'cell_count', 'percent']
@@ -117,7 +117,10 @@ class CategoricalStatisticsResultModel(Schema):
 
 
 class RasterAreaStatsResponseModel(ProcessingResponseModel):
-    """Response schema for a list of categorical statistics
+    """Response schema for a list of categorical statistics.
+
+    This schema is a derivative of the ProcessingResponseModel that defines a different
+    *process_results* schema.
     """
     type = 'object'
     properties = deepcopy(ProcessingResponseModel.properties)
@@ -130,8 +133,8 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
         'accept_timestamp': 1525464162.5039973,
         'api_info': {'endpoint': 'syncephemeralrasterareastatsresource',
                      'method': 'POST',
-                     'path': '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync',
-                     'request_url': 'http://localhost/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync'},
+                     'path': '/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync',
+                     'request_url': 'http://localhost/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync'},
         'datetime': '2018-05-04 22:02:43.014544',
         'http_code': 200,
         'message': 'Processing successfully finished',
@@ -287,7 +290,7 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
         'time_delta': 0.5105781555175781,
         'timestamp': 1525464163.0145323,
         'urls': {'resources': [],
-                 'status': 'http://localhost/resources/admin/resource_id-9757d66b-4986-4bc7-9b7d-7f985900fb20'},
+                 'status': 'http://localhost/api/v1/resources/admin/resource_id-9757d66b-4986-4bc7-9b7d-7f985900fb20'},
         'user_id': 'admin'
     }
 
@@ -296,21 +299,7 @@ class AreaUnivarResultModel(Schema):
     """Response schema for the result of univariate computations of raster layers
     based on a vector area.
 
-    It is used as schema to define the process_result in a  ProcessingResponseModel.
-
-    cat
-    fid
-    raster_number
-    raster_minimum
-    raster_maximum
-    raster_range
-    raster_average
-    raster_median
-    raster_stddev
-    raster_sum
-    raster_variance
-    raster_coeff_var
-
+    It is used as schema to define the *process_result* in a ProcessingResponseModel derivative.
     """
     type = 'object'
     properties = {
@@ -380,6 +369,9 @@ class AreaUnivarResultModel(Schema):
 class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
     """Response schema for resources that generate area univariate result lists
      as processing results.
+
+    This schema is a derivative of the ProcessingResponseModel that defines a different
+    *process_results* schema.
     """
     type = 'object'
     properties = deepcopy(ProcessingResponseModel.properties)
@@ -393,8 +385,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         'accept_timestamp': 1525464434.1089664,
         'api_info': {'endpoint': 'syncephemeralrasterareastatsunivarresource',
                      'method': 'POST',
-                     'path': '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync',
-                     'request_url': 'http://localhost/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync'},
+                     'path': '/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync',
+                     'request_url': 'http://localhost/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync'},
         'datetime': '2018-05-04 22:07:15.793146',
         'http_code': 200,
         'message': 'Processing successfully finished',
@@ -479,6 +471,6 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         'time_delta': 1.6842188835144043,
         'timestamp': 1525464435.7931283,
         'urls': {'resources': [],
-                 'status': 'http://localhost/resources/admin/resource_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590'},
+                 'status': 'http://localhost/api/v1/resources/admin/resource_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590'},
         'user_id': 'admin'
     }

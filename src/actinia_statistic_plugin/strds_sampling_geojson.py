@@ -21,7 +21,7 @@ __maintainer__ = "Sören Gebbert"
 __email__ = "soerengebbert@googlemail.com"
 
 
-class STRDSSampleResponseModel(ProcessingResponseModel):
+class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
     """The response content that is returned by the POST request
     """
     type = 'object'
@@ -38,8 +38,8 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplinggeojsonresource",
             "method": "POST",
-            "path": "/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
-            "request_url": "http://localhost/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson"
+            "path": "/api/v1/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
+            "request_url": "http://localhost/api/v1/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson"
         },
         "datetime": "2017-09-04 19:41:42.622865",
         "http_code": 200,
@@ -145,7 +145,7 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
         "timestamp": 1504546902.622857,
         "urls": {
             "resources": [],
-            "status": "http://localhost/status/admin/resource_id-6ee74d8c-1ef6-4b01-a098-2bc04bcb75c8"
+            "status": "http://localhost/api/v1/status/admin/resource_id-6ee74d8c-1ef6-4b01-a098-2bc04bcb75c8"
         },
         "user_id": "admin"
     }
@@ -211,7 +211,7 @@ SCHEMA_DOC = {
     'responses': {
         '200': {
             'description': 'The result of the strds sampling',
-            'schema': STRDSSampleResponseModel
+            'schema': STRDSSampleGeoJSONResponseModel
         },
         '400': {
             'description': 'The error message and a detailed log why strds sampling did not succeeded',
@@ -272,7 +272,7 @@ class AsyncEphemeralSTRDSSamplingGeoJSON(EphemeralProcessing):
 
     def __init__(self, *args):
         EphemeralProcessing.__init__(self, *args)
-        self.response_model_class = STRDSSampleResponseModel
+        self.response_model_class = STRDSSampleGeoJSONResponseModel
 
     def _execute(self):
         self._setup()
