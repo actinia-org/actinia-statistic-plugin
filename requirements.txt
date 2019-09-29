@@ -3,5 +3,5 @@
 # Remember to also add them in setup.cfg but unpinned.
 #
 # iny sync with requirements for actinia_core
-Flask==0.12.3
+Flask==1.0
 Flask-RESTful==0.3.6
