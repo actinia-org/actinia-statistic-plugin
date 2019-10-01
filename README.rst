@@ -12,7 +12,7 @@ Note:
     processing of geographical data that uses GRASS GIS for computational tasks.
 
     The Actinia service consists of the *Actinia Core* that provides the basic but sophisticated processing service
-    and *Actinia plugins* that provide problem specific services like Sentinel 2A and Landsat NDVI computation,
+    and *Actinia plugins* that provide problem specific services like Sentinel-2 and Landsat NDVI computation,
     spatio-temporal statistical analysis and many more.
 
     [1] https://github.com/mundialis/actinia_core
