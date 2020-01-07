@@ -1,11 +1,10 @@
 FROM alpine:edge as build
 
 RUN apk add git python3
-RUN git config --global http.sslVerify false
 RUN pip3 install --upgrade pip pep517 wheel
 
 # Build
-RUN git clone https://github.com/mundialis/actinia_statistic_plugin.git /src/actinia_statistic_plugin
+COPY . /src/actinia_statistic_plugin
 WORKDIR /src/actinia_statistic_plugin
 # TODO: include tests. Currently only running whith actinia_core installed
 # RUN pip3 install -r requirements.txt && python3 setup.py test
