@@ -17,7 +17,7 @@ FROM alpine:edge
 COPY --from=build /build/actinia*.whl /build/
 COPY docker/create_release_with_asset.sh .
 
-ARG release_url=https://api.github.com/repos/mmacata/actinia_statistic_plugin/releases
+ARG release_url=https://api.github.com/repos/mundialis/actinia_statistic_plugin/releases
 ARG tag=0.0
 ARG credentials=dummy:dummy
 ARG file=/build/actinia*.whl
