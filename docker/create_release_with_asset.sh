@@ -25,4 +25,4 @@ then
     exit 1
 fi
 
-curl -u $env_credentials -H "Accept: application/vnd.github.manifold-preview" -H "Content-Type: application/zip" --data-binary @$env_file "$url" > resp.json && cat resp.json
+curl -u $env_credentials -H "Accept: application/vnd.github.manifold-preview" -H "Content-Type: application/zip" --data-binary @$filefull "$url" > resp.json && cat resp.json
