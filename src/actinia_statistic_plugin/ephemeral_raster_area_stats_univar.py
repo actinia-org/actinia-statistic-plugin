@@ -13,7 +13,7 @@ from actinia_core.resources.resource_base import ResourceBase
 from actinia_core.resources.common.redis_interface import enqueue_job
 from flask_restful_swagger_2 import swagger
 from actinia_core.resources.common.app import auth
-from actinia_core.resources.common.logging_interface import log_api_call
+from actinia_core.resources.common.api_logger import log_api_call
 from .response_models import AreaUnivarResultModel, RasterAreaUnivarStatsResponseModel
 from actinia_core.resources.common.response_models import ProcessingErrorResponseModel
 
