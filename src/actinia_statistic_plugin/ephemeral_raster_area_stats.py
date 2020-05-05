@@ -13,7 +13,7 @@ import tempfile
 from copy import deepcopy
 from flask_restful_swagger_2 import swagger
 from actinia_core.resources.common.app import auth
-from actinia_core.resources.common.logging_interface import log_api_call
+from actinia_core.resources.common.api_logger import log_api_call
 from .response_models import CategoricalStatisticsResultModel, RasterAreaStatsResponseModel
 from actinia_core.resources.common.response_models import ProcessingErrorResponseModel
 
