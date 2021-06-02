@@ -8,11 +8,11 @@ import tempfile
 from flask import jsonify, make_response
 from copy import deepcopy
 from flask_restful_swagger_2 import swagger, Schema
-from actinia_core.resources.common.response_models import ProcessingResponseModel, ProcessingErrorResponseModel
-from actinia_core.resources.ephemeral_processing import EphemeralProcessing
-from actinia_core.resources.resource_base import ResourceBase
-from actinia_core.resources.common.redis_interface import enqueue_job
-from actinia_core.resources.common.exceptions import AsyncProcessError
+from actinia_core.models.response_models import ProcessingResponseModel, ProcessingErrorResponseModel
+from actinia_core.rest.ephemeral_processing import EphemeralProcessing
+from actinia_core.rest.resource_base import ResourceBase
+from actinia_core.core.common.redis_interface import enqueue_job
+from actinia_core.core.common.exceptions import AsyncProcessError
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
