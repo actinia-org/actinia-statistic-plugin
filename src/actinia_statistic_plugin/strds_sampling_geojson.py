@@ -13,6 +13,7 @@ from actinia_core.models.response_models import ProcessingResponseModel, Process
 from actinia_core.rest.ephemeral_processing import EphemeralProcessing
 from actinia_core.rest.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
+from actinia_core.core.common.app import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
@@ -38,8 +39,8 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplinggeojsonresource",
             "method": "POST",
-            "path": "/api/v1/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
-            "request_url": "http://localhost/api/v1/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson"
+            "path": f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
+            "request_url": f"http://localhost{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson"
         },
         "datetime": "2017-09-04 19:41:42.622865",
         "http_code": 200,
@@ -145,7 +146,7 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
         "timestamp": 1504546902.622857,
         "urls": {
             "resources": [],
-            "status": "http://localhost/api/v1/status/admin/resource_id-6ee74d8c-1ef6-4b01-a098-2bc04bcb75c8"
+            "status": f"http://localhost{URL_PREFIX}/status/admin/resource_id-6ee74d8c-1ef6-4b01-a098-2bc04bcb75c8"
         },
         "user_id": "admin"
     }

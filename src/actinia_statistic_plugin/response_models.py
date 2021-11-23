@@ -2,6 +2,7 @@
 from flask_restful_swagger_2 import Schema
 from copy import deepcopy
 from actinia_core.models.response_models import ProcessingResponseModel
+from actinia_core.core.common.app import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
@@ -133,8 +134,8 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
         'accept_timestamp': 1525464162.5039973,
         'api_info': {'endpoint': 'syncephemeralrasterareastatsresource',
                      'method': 'POST',
-                     'path': '/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync',
-                     'request_url': 'http://localhost/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync'},
+                     'path': f'{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync',
+                     'request_url': f'http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync'},
         'datetime': '2018-05-04 22:02:43.014544',
         'http_code': 200,
         'message': 'Processing successfully finished',
@@ -290,7 +291,7 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
         'time_delta': 0.5105781555175781,
         'timestamp': 1525464163.0145323,
         'urls': {'resources': [],
-                 'status': 'http://localhost/api/v1/resources/admin/resource_id-9757d66b-4986-4bc7-9b7d-7f985900fb20'},
+                 'status': f'http://localhost{URL_PREFIX}/resources/admin/resource_id-9757d66b-4986-4bc7-9b7d-7f985900fb20'},
         'user_id': 'admin'
     }
 
@@ -385,8 +386,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         'accept_timestamp': 1525464434.1089664,
         'api_info': {'endpoint': 'syncephemeralrasterareastatsunivarresource',
                      'method': 'POST',
-                     'path': '/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync',
-                     'request_url': 'http://localhost/api/v1/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync'},
+                     'path': f'{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync',
+                     'request_url': f'http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync'},
         'datetime': '2018-05-04 22:07:15.793146',
         'http_code': 200,
         'message': 'Processing successfully finished',
@@ -471,6 +472,6 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         'time_delta': 1.6842188835144043,
         'timestamp': 1525464435.7931283,
         'urls': {'resources': [],
-                 'status': 'http://localhost/api/v1/resources/admin/resource_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590'},
+                 'status': f'http://localhost{URL_PREFIX}/resources/admin/resource_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590'},
         'user_id': 'admin'
     }
