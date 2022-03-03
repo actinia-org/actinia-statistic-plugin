@@ -203,7 +203,7 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
 
         output_list = []
         for line in result:
-            output_list.append(line.strip().split("|"))
+            output_list.append(line.replace("@" + self.mapset_name, "").strip().split("|"))
 
         self.module_results = output_list
 
