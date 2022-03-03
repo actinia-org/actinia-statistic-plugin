@@ -588,3 +588,135 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         },
         "user_id": "admin",
     }
+
+
+
+class RasterSamplingResponseModel(ProcessingResponseModel):
+    """Response schema for a raster map sampling result.
+
+    This schema is a derivative of the ProcessingResponseModel that defines a different
+    *process_results* schema.
+    """
+    type = 'object'
+    properties = deepcopy(ProcessingResponseModel.properties)
+    properties["process_results"] = {}
+    properties["process_results"]["type"] = "array"
+    properties["process_results"]["items"] = {'type': 'array',
+                                              'items': {'type': 'string',
+                                                        'minItems': 3}}
+    required = deepcopy(ProcessingResponseModel.required)
+    example = {
+        "accept_datetime": "2022-02-11 10:09:47.237997",
+        "accept_timestamp": 1494490187.237996,
+        "api_info": {
+            "endpoint": "syncephemeralrastersamplingresource",
+            "method": "POST",
+            "path": "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "request_url": "http://localhost/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync"
+        },
+        "datetime": "2022-02-11 10:09:48.376521",
+        "http_code": 200,
+        "message": "Processing successfully finished",
+        "process_log": [
+            {
+                "executable": "v.in.ascii",
+                "parameter": [
+                    "column=id text, x double precision, y double precision",
+                    "input=/tmp/tmpOlouNV",
+                    "y=3",
+                    "x=2",
+                    "format=point",
+                    "output=input_points"
+                ],
+                "return_code": 0,
+                "stderr": [
+                    "Scanning input for column types...",
+                    "Number of columns: 3",
+                    "Number of rows: 3",
+                    "Importing points...",
+                    "0..33..66..100",
+                    "Populating table...",
+                    "Building topology for vector map <input_points@mapset_ffb3520846104a42878271a83117a93f>...",
+                    "Registering primitives...",
+                    "",
+                    "3 primitives registered",
+                    "3 vertices registered",
+                    "Building areas...",
+                    "0..33..66..100",
+                    "0 areas built",
+                    "0 isles built",
+                    "Attaching islands...",
+                    "Attaching centroids...",
+                    "33..66..100",
+                    "Number of nodes: 0",
+                    "Number of primitives: 3",
+                    "Number of points: 3",
+                    "Number of lines: 0",
+                    "Number of boundaries: 0",
+                    "Number of centroids: 0",
+                    "Number of areas: 0",
+                    "Number of isles: 0",
+                    ""
+                ],
+                "stdout": ""
+            },
+            {
+                "executable": "r.what",
+                "parameter": [
+                    "map=id",
+                    "coordinates=input_points",
+                    "raster=landuse96_28m@PERMANENT",
+                    "output=/tmp/tmpgU9ITw",
+                    "-nrf",
+                    "--o",
+                    "--v"
+                ],
+                "return_code": 0,
+                "stderr": [
+                    "easting|northing|site_name|landuse96_28m|landuse96_28m_label|landuse96_28m_color",
+                    "638684.0|220210.0||4|Managed Herbaceous Cover|229:229:204",
+                    "635676.0|226371.0||1|High Intensity Developed|255:000:000",
+                    ""
+                ],
+                "stdout": ""
+            }
+        ],
+        "process_results": [
+            [
+                "easting",
+                "northing",
+                "site_name",
+                "landuse96_28m",
+                "landuse96_28m_label",
+                "landuse96_28m_color"
+            ],
+            [
+                "638684.0",
+                "220210.0",
+                "",
+                "4",
+                "Managed Herbaceous Cover",
+                "229:229:204"
+            ],
+            [
+                "635676.0",
+                "226371.0",
+                "",
+                "1",
+                "High Intensity Developed",
+                "255:000:000"
+            ]
+        ],
+        "progress": {
+            "num_of_steps": 2,
+            "step": 2
+        },
+        "resource_id": "resource_id-96554e63-3dad-4a16-8652-e7c6be734057",
+        "status": "finished",
+        "timestamp": 1494490188.376519,
+        "urls": {
+            "resources": [],
+            "status": "http://localhost/status/admin/resource_id-96554e63-3dad-4a16-8652-e7c6be734057"
+        },
+        "user_id": "admin"
+    }

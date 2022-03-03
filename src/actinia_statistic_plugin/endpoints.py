@@ -27,12 +27,18 @@ from .strds_sampling_geojson import (
     AsyncEphemeralSTRDSSamplingGeoJSONResource,
     SyncEphemeralSTRDSSamplingGeoJSONResource,
 )
+from .raster_sampling import (
+    AsyncEphemeralRasterSamplingResource,
+    SyncEphemeralRasterSamplingResource,
+)
+
+# from .raster_sampling_geojson import AsyncEphemeralRasterSamplingGeoJSONResource, \
+#    SyncEphemeralRasterSamplingGeoJSONResource
+
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
-__maintainer__ = "Sören Gebbert"
-__email__ = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert, Markus Neteler"
+__copyright__ = "Copyright 2016-present, Sören Gebbert and mundialis GmbH & Co. KG"
 
 
 def create_endpoints(flask_api):
@@ -89,6 +95,7 @@ def create_endpoints(flask_api):
         "<string:raster_name>"
         "/area_stats_univar_sync",
     )
+
     flask_api.add_resource(
         AsyncEphemeralSTRDSSamplingResource,
         "/locations/<string:location_name>/mapsets/"
@@ -113,3 +120,24 @@ def create_endpoints(flask_api):
         "<string:mapset_name>/strds/<string:strds_name>"
         "/sampling_sync_geojson",
     )
+
+    flask_api.add_resource(
+        AsyncEphemeralRasterSamplingResource,
+        "/locations/<string:location_name>/mapsets/"
+        "<string:mapset_name>/raster_layers/<string:raster_name>"
+        "/sampling_async",
+    )
+    flask_api.add_resource(
+        SyncEphemeralRasterSamplingResource,
+        "/locations/<string:location_name>/mapsets/"
+        "<string:mapset_name>/raster_layers/<string:raster_name>"
+        "/sampling_sync",
+    )
+
+
+#    flask_api.add_resource(AsyncEphemeralRasterSamplingGeoJSONResource, '/locations/<string:location_name>/mapsets/'
+#                                                                       '<string:mapset_name>/raster_layers/<string:raster_name>'
+#                                                                       '/sampling_async_geojson')
+#    flask_api.add_resource(SyncEphemeralRasterSamplingGeoJSONResource, '/locations/<string:location_name>/mapsets/'
+#                                                                      '<string:mapset_name>/raster_layers/<string:raster_name>'
+#                                                                      '/sampling_sync_geojson')
