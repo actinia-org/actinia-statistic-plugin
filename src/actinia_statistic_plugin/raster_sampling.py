@@ -183,17 +183,16 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                               "y": 3},
                    "outputs": {"output": {"name": "input_points"}}}
         pc["2"]= {"module": "g.region",
-                  "inputs": {"vector":"input_points",
-                            "align": raster_name + "@" + self.mapset_name},
-                  "flags": "p"}
+                  "inputs": {"points": "input_points",
+                             "align": "%s@%s" % (raster_name, self.mapset_name)},
+                  "flags": "p"},
         pc["3"]= {"module": "r.what",
-                  "inputs": {"map": raster_name + "@" + self.mapset_name,
-                            "separator": "|"},
-                  "coordinates": "input_points",
-                  "outputs": {"output":{"name":result_file.name}},
+                  "inputs": {"map": "%s@%s" % (raster_name, self.mapset_name),
+                             "points": "input_points"},
+                  "outputs": {"output": {"name":result_file.name}},
                   "flags": "nrf",
                   "overwrite": True,
-                  "superquiet":True}
+                  "superquiet": True}
 
         self.request_data = pc
 
