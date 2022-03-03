@@ -606,117 +606,146 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                                                         'minItems': 3}}
     required = deepcopy(ProcessingResponseModel.required)
     example = {
-        "accept_datetime": "2022-02-11 10:09:47.237997",
-        "accept_timestamp": 1494490187.237996,
-        "api_info": {
+          "accept_datetime": "2022-03-03 13:42:24.523616",
+          "accept_timestamp": 1646314944.5236135,
+          "api_info": {
             "endpoint": "syncephemeralrastersamplingresource",
             "method": "POST",
-            "path": "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
-            "request_url": "http://localhost/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync"
-        },
-        "datetime": "2022-02-11 10:09:48.376521",
-        "http_code": 200,
-        "message": "Processing successfully finished",
-        "process_log": [
+            "path": "/api/v3/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "request_url": "http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync"
+          },
+          "datetime": "2022-03-03 13:42:24.915991",
+          "http_code": 200,
+          "message": "Processing successfully finished",
+          "process_chain_list": [
             {
-                "executable": "v.in.ascii",
-                "parameter": [
-                    "column=id text, x double precision, y double precision",
-                    "input=/tmp/tmpOlouNV",
-                    "y=3",
-                    "x=2",
-                    "format=point",
-                    "output=input_points"
-                ],
-                "return_code": 0,
-                "stderr": [
-                    "Scanning input for column types...",
-                    "Number of columns: 3",
-                    "Number of rows: 3",
-                    "Importing points...",
-                    "0..33..66..100",
-                    "Populating table...",
-                    "Building topology for vector map <input_points@mapset_ffb3520846104a42878271a83117a93f>...",
-                    "Registering primitives...",
-                    "",
-                    "3 primitives registered",
-                    "3 vertices registered",
-                    "Building areas...",
-                    "0..33..66..100",
-                    "0 areas built",
-                    "0 isles built",
-                    "Attaching islands...",
-                    "Attaching centroids...",
-                    "33..66..100",
-                    "Number of nodes: 0",
-                    "Number of primitives: 3",
-                    "Number of points: 3",
-                    "Number of lines: 0",
-                    "Number of boundaries: 0",
-                    "Number of centroids: 0",
-                    "Number of areas: 0",
-                    "Number of isles: 0",
-                    ""
-                ],
-                "stdout": ""
+              "1": {
+                "inputs": {
+                  "column": "id text, x double precision, y double precision",
+                  "format": "point",
+                  "input": "/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpydbf8997",
+                  "x": 2,
+                  "y": 3
+                },
+                "module": "v.in.ascii",
+                "outputs": {
+                  "output": {
+                    "name": "input_points"
+                  }
+                }
+              },
+              "2": [
+                {
+                  "flags": "p",
+                  "inputs": {
+                    "align": "landuse96_28m@PERMANENT",
+                    "points": "input_points"
+                  },
+                  "module": "g.region"
+                }
+              ],
+              "3": {
+                "flags": "nrf",
+                "inputs": {
+                  "map": "landuse96_28m@PERMANENT",
+                  "points": "input_points"
+                },
+                "module": "r.what",
+                "outputs": {
+                  "output": {
+                    "name": "/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpj94xrmp4"
+                  }
+                },
+                "overwrite": true,
+                "superquiet": false
+              }
+            }
+          ],
+          "process_log": [
+            {
+              "executable": "v.in.ascii",
+              "id": "1",
+              "mapset_size": 15753,
+              "parameter": [
+                "input=/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpydbf8997",
+                "format=point",
+                "column=id text, x double precision, y double precision",
+                "x=2",
+                "y=3",
+                "output=input_points"
+              ],
+              "return_code": 0,
+              "run_time": 0.1004476547241211,
+              "stderr": [
+                "Scanning input for column types...",
+                "Number of columns: 3",
+                "Number of data rows: 2",
+                "Importing points...",
+                "0..50..100",
+                "Populating table...",
+                "Building topology for vector map <input_points@mapset_5ccfe1f0ed2142f2a7945d411cbaff84>...",
+                "Registering primitives...",
+                "",
+                ""
+              ],
+              "stdout": ""
             },
             {
-                "executable": "r.what",
-                "parameter": [
-                    "map=id",
-                    "coordinates=input_points",
-                    "raster=landuse96_28m@PERMANENT",
-                    "output=/tmp/tmpgU9ITw",
-                    "-nrf",
-                    "--o",
-                    "--v"
-                ],
-                "return_code": 0,
-                "stderr": [
-                    "easting|northing|site_name|landuse96_28m|landuse96_28m_label|landuse96_28m_color",
-                    "638684.0|220210.0||4|Managed Herbaceous Cover|229:229:204",
-                    "635676.0|226371.0||1|High Intensity Developed|255:000:000",
-                    ""
-                ],
-                "stdout": ""
+              "executable": "r.what",
+              "id": "3",
+              "mapset_size": 15753,
+              "parameter": [
+                "map=landuse96_28m@PERMANENT",
+                "points=input_points",
+                "output=/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpj94xrmp4",
+                "-nrf",
+                "--o"
+              ],
+              "return_code": 0,
+              "run_time": 0.1006019115447998,
+              "stderr": [
+                ""
+              ],
+              "stdout": ""
             }
-        ],
-        "process_results": [
+          ],
+          "process_results": [
             [
-                "easting",
-                "northing",
-                "site_name",
-                "landuse96_28m",
-                "landuse96_28m_label",
-                "landuse96_28m_color"
+              "easting",
+              "northing",
+              "site_name",
+              "landuse96_28m@PERMANENT",
+              "landuse96_28m@PERMANENT_label",
+              "landuse96_28m@PERMANENT_color"
             ],
             [
-                "638684.0",
-                "220210.0",
-                "",
-                "4",
-                "Managed Herbaceous Cover",
-                "229:229:204"
+              "638684",
+              "220210",
+              "",
+              "4",
+              "Managed Herbaceous Cover",
+              "229:229:204"
             ],
             [
-                "635676.0",
-                "226371.0",
-                "",
-                "1",
-                "High Intensity Developed",
-                "255:000:000"
+              "635676",
+              "226371",
+              "",
+              "2",
+              "Low Intensity Developed",
+              "255:051:076"
             ]
-        ],
-        "progress": {
+          ],
+          "progress": {
             "num_of_steps": 2,
             "step": 2
-        },
-        "resource_id": "resource_id-96554e63-3dad-4a16-8652-e7c6be734057",
-        "status": "finished",
-        "timestamp": 1494490188.376519,
-        "urls": {
+          },
+          "resource_id": "resource_id-6fadfc6f-9a3b-46cb-bcab-d08e42616298",
+          "status": "finished",
+          "time_delta": 0.3923962116241455,
+          "timestamp": 1646314944.915972,
+          "urls": {
             "resources": [],
-            "status": "http://localhost/status/admin/resource_id-96554e63-3dad-4a16-8652-e7c6be734057"
-        },
-        "user_id": "admin"
-    }
+            "status": "http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-6fadfc6f-9a3b-46cb-bcab-d08e42616298"
+          },
+          "user_id": "actinia-gdi"
+        }
