@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Perform raster map sampling on a raster map layer based on an input polygon.
+Perform raster map sampling on a raster map layer based on input points.
 """
 
 import pickle
@@ -74,7 +74,7 @@ SCHEMA_DOC = {
         },
         {
             'name': 'points',
-            'description': 'The sampling point array [[id, x, y],[id, x, y]] and an optional where statement. '
+            'description': 'The sampling point array [[id, x, y],[id, x, y]]. '
                            'The coordinates of the sampling points must be the same as of the location '
                            'that contains the raster dataset.',
             'required': True,
@@ -96,7 +96,7 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralRasterSamplingResource(ResourceBase):
-    """Perform raster map sampling on a raster map layer based on an input polygon, asynchronous call
+    """Perform raster map sampling on a raster map layer based on input points, asynchronous call
     """
     decorators = [log_api_call, auth.login_required]
 
@@ -113,7 +113,7 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Perform raster map sampling on a raster map layer based on an input polygon asynchronously
+        """Perform raster map sampling on a raster map layer based on input points asynchronously
         """
         self._execute(location_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
@@ -121,13 +121,13 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
 
 
 class SyncEphemeralRasterSamplingResource(AsyncEphemeralRasterSamplingResource):
-    """Perform raster map sampling on a raster map layer based on an input polygon, synchronous call
+    """Perform raster map sampling on a raster map layer based on input points, synchronous call
     """
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Perform raster map sampling on a raster map layer based on an input polygon synchronously
+        """Perform raster map sampling on a raster map layer based on input points synchronously
         """
         check = self._execute(location_name, mapset_name, raster_name)
         if check is not None:
@@ -154,7 +154,7 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
 
         self._setup()
 
-        # Points and where statement are stored in self.request_data
+        # Points are stored in self.request_data
         raster_name = self.map_name
         points = self.request_data["points"]
 
