@@ -202,8 +202,27 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         result = open(result_file.name, "r").readlines()
 
         output_list = []
-        for line in result:
-            output_list.append(line.replace("@" + self.mapset_name, "").strip().split("|"))
+        raster_name_qualified = "%s@%s" % (raster_name, self.mapset_name)
+        # remove map name from columns
+        colum_name = [
+            col
+            if raster_name_qualified not in col
+            else col.replace(f"{raster_name_qualified}_", "").replace(
+                raster_name_qualified, "value"
+            )
+            for col in result[0].strip().split("|")
+        ]
+        for line, point in zip(result[1:], points):
+            entry = dict()
+            entry[point[0]] = {
+                key: value for key, value in zip(colum_name, line.strip().split("|"))
+            }
+            # remove site_name (always empty)
+            del entry[point[0]]["site_name"]
+            # add "map_name": raster_name
+            entry[point[0]]["map_name"] = raster_name
+
+            output_list.append(entry)
 
         self.module_results = output_list
 

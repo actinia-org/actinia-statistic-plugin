@@ -607,15 +607,15 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
     }
     required = deepcopy(ProcessingResponseModel.required)
     example = {
-        "accept_datetime": "2022-03-03 13:42:24.523616",
-        "accept_timestamp": 1646314944.5236135,
+        "accept_datetime": "2022-03-08 14:44:04.264502",
+        "accept_timestamp": 1646750644.2644997,
         "api_info": {
             "endpoint": "syncephemeralrastersamplingresource",
             "method": "POST",
             "path": "/api/v3/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
-            "request_url": "http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "request_url": "{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
         },
-        "datetime": "2022-03-03 13:42:24.915991",
+        "datetime": "2022-03-08 14:44:04.656022",
         "http_code": 200,
         "message": "Processing successfully finished",
         "process_chain_list": [
@@ -624,7 +624,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "inputs": {
                         "column": "id text, x double precision, y double precision",
                         "format": "point",
-                        "input": "/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpydbf8997",
+                        "input": "/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmprcp71dve",
                         "x": 2,
                         "y": 3,
                     },
@@ -650,11 +650,11 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "module": "r.what",
                     "outputs": {
                         "output": {
-                            "name": "/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpj94xrmp4"
+                            "name": "/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmpv67ttd68"
                         }
                     },
-                    "overwrite": True,
-                    "superquiet": True,
+                    "overwrite": true,
+                    "superquiet": true,
                 },
             }
         ],
@@ -664,7 +664,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "id": "1",
                 "mapset_size": 15753,
                 "parameter": [
-                    "input=/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpydbf8997",
+                    "input=/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmprcp71dve",
                     "format=point",
                     "column=id text, x double precision, y double precision",
                     "x=2",
@@ -672,7 +672,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "output=input_points",
                 ],
                 "return_code": 0,
-                "run_time": 0.1004476547241211,
+                "run_time": 0.10030889511108398,
                 "stderr": [
                     "Scanning input for column types...",
                     "Number of columns: 3",
@@ -680,7 +680,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "Importing points...",
                     "0..50..100",
                     "Populating table...",
-                    "Building topology for vector map <input_points@mapset_5ccfe1f0ed2142f2a7945d411cbaff84>...",
+                    "Building topology for vector map <input_points@mapset_67060ec7ca8d4aa2b216ddb720966913>...",
                     "Registering primitives...",
                     "",
                     "",
@@ -694,36 +694,47 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "parameter": [
                     "map=landuse96_28m@PERMANENT",
                     "points=input_points",
-                    "output=/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpj94xrmp4",
+                    "output=/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmpv67ttd68",
                     "-nrf",
                     "--o",
+                    "--qq",
                 ],
                 "return_code": 0,
-                "run_time": 0.1006019115447998,
+                "run_time": 0.10037732124328613,
                 "stderr": [""],
                 "stdout": "",
             },
         ],
         "process_results": [
-            [
-                "easting",
-                "northing",
-                "site_name",
-                "landuse96_28m",
-                "landuse96_28m_label",
-                "landuse96_28m_color",
-            ],
-            ["638684", "220210", "", "4", "Managed Herbaceous Cover", "229:229:204"],
-            ["635676", "226371", "", "2", "Low Intensity Developed", "255:051:076"],
+            {
+                "p1": {
+                    "color": "229:229:204",
+                    "easting": "638684",
+                    "label": "Managed Herbaceous Cover",
+                    "map_name": "landuse96_28m",
+                    "northing": "220210",
+                    "value": "4",
+                }
+            },
+            {
+                "p2": {
+                    "color": "255:051:076",
+                    "easting": "635676",
+                    "label": "Low Intensity Developed",
+                    "map_name": "landuse96_28m",
+                    "northing": "226371",
+                    "value": "2",
+                }
+            },
         ],
         "progress": {"num_of_steps": 2, "step": 2},
-        "resource_id": "resource_id-6fadfc6f-9a3b-46cb-bcab-d08e42616298",
+        "resource_id": "resource_id-19e7c763-7d03-4ac8-a6bb-610480be88dc",
         "status": "finished",
-        "time_delta": 0.3923962116241455,
-        "timestamp": 1646314944.915972,
+        "time_delta": 0.3915419578552246,
+        "timestamp": 1646750644.656005,
         "urls": {
             "resources": [],
-            "status": "http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-6fadfc6f-9a3b-46cb-bcab-d08e42616298",
+            "status": "{URL_PREFIX}/resources/actinia-gdi/resource_id-19e7c763-7d03-4ac8-a6bb-610480be88dc",
         },
         "user_id": "actinia-gdi",
     }
