@@ -763,3 +763,140 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
         },
         "user_id": "actinia-gdi",
     }
+
+
+class VectorSamplingResponseModel(ProcessingResponseModel):
+    """Response schema for a vector map sampling result.
+    This schema is a derivative of the ProcessingResponseModel that defines a different
+    *process_results* schema.
+    """
+
+    type = "object"
+    properties = deepcopy(ProcessingResponseModel.properties)
+    properties["process_results"] = {}
+    properties["process_results"]["type"] = "array"
+    properties["process_results"]["items"] = {
+        "type": "array",
+        "items": {"type": "string", "minItems": 3},
+    }
+    required = deepcopy(ProcessingResponseModel.required)
+    example = {
+        "accept_datetime": "2022-03-03 13:42:24.523616",
+        "accept_timestamp": 1646314944.5236135,
+        "api_info": {
+            "endpoint": "syncephemeralvectorsamplingresource",
+            "method": "POST",
+            "path": "/api/v3/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
+            "request_url": "http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
+        },
+        "datetime": "2022-03-03 13:42:24.915991",
+        "http_code": 200,
+        "message": "Processing successfully finished",
+        "process_chain_list": [
+            {
+                "1": {
+                    "inputs": {
+                        "column": "id text, x double precision, y double precision",
+                        "format": "point",
+                        "input": "/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpydbf8997",
+                        "x": 2,
+                        "y": 3,
+                    },
+                    "module": "v.in.ascii",
+                    "outputs": {"output": {"name": "input_points"}},
+                },
+                "2": [
+                    {
+                        "flags": "p",
+                        "inputs": {
+                            "align": "zipcodes_wake@PERMANENT",
+                            "points": "input_points",
+                        },
+                        "module": "g.region",
+                    }
+                ],
+                "3": {
+                    "flags": "nrf",
+                    "inputs": {
+                        "map": "zipcodes_wake@PERMANENT",
+                        "points": "input_points",
+                    },
+                    "module": "v.what",
+                    "outputs": {
+                        "output": {
+                            "name": "/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpj94xrmp4"
+                        }
+                    },
+                    "overwrite": True,
+                    "superquiet": True,
+                },
+            }
+        ],
+        "process_log": [
+            {
+                "executable": "v.in.ascii",
+                "id": "1",
+                "mapset_size": 15753,
+                "parameter": [
+                    "input=/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpydbf8997",
+                    "format=point",
+                    "column=id text, x double precision, y double precision",
+                    "x=2",
+                    "y=3",
+                    "output=input_points",
+                ],
+                "return_code": 0,
+                "run_time": 0.1004476547241211,
+                "stderr": [
+                    "Scanning input for column types...",
+                    "Number of columns: 3",
+                    "Number of data rows: 2",
+                    "Importing points...",
+                    "0..50..100",
+                    "Populating table...",
+                    "Building topology for vector map <input_points@mapset_5ccfe1f0ed2142f2a7945d411cbaff84>...",
+                    "Registering primitives...",
+                    "",
+                    "",
+                ],
+                "stdout": "",
+            },
+            {
+                "executable": "v.what",
+                "id": "3",
+                "mapset_size": 15753,
+                "parameter": [
+                    "map=zipcodes_wake@PERMANENT",
+                    "points=input_points",
+                    "output=/actinia_core/workspace/temp_db/gisdbase_5ccfe1f0ed2142f2a7945d411cbaff84/.tmp/tmpj94xrmp4",
+                    "-nrf",
+                    "--o",
+                ],
+                "return_code": 0,
+                "run_time": 0.1006019115447998,
+                "stderr": [""],
+                "stdout": "",
+            },
+        ],
+        "process_results": [
+            [
+                "easting",
+                "northing",
+                "value",
+                "label",
+                "color",
+            ],
+            ["638684", "220210", "", "4", "Raleigh", "229:229:204"],
+            ["635676", "226371", "", "2", "Raleigh", "255:051:076"],
+        ],
+        "progress": {"num_of_steps": 2, "step": 2},
+        "resource_id": "resource_id-6fadfc6f-9a3b-46cb-bcab-d08e42616298",
+        "status": "finished",
+        "time_delta": 0.3923962116241455,
+        "timestamp": 1646314944.915972,
+        "urls": {
+            "resources": [],
+            "status": "http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-6fadfc6f-9a3b-46cb-bcab-d08e42616298",
+        },
+        "user_id": "actinia-gdi",
+    }
