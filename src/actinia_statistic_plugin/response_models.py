@@ -613,7 +613,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
             "endpoint": "syncephemeralrastersamplingresource",
             "method": "POST",
             "path": "/api/v3/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
-            "request_url": "{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "request_url": "http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
         },
         "datetime": "2022-03-08 14:44:04.656022",
         "http_code": 200,
@@ -653,8 +653,8 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                             "name": "/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmpv67ttd68"
                         }
                     },
-                    "overwrite": true,
-                    "superquiet": true,
+                    "overwrite": True,
+                    "superquiet": True,
                 },
             }
         ],
@@ -734,7 +734,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
         "timestamp": 1646750644.656005,
         "urls": {
             "resources": [],
-            "status": "{URL_PREFIX}/resources/actinia-gdi/resource_id-19e7c763-7d03-4ac8-a6bb-610480be88dc",
+            "status": "http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-19e7c763-7d03-4ac8-a6bb-610480be88dc",
         },
         "user_id": "actinia-gdi",
     }
