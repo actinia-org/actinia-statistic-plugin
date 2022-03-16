@@ -5,10 +5,8 @@ from actinia_core.models.response_models import ProcessingResponseModel
 from actinia_core.core.common.app import URL_PREFIX
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
-__maintainer__ = "Sören Gebbert"
-__email__ = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert, Markus Neteler"
+__copyright__ = "Copyright 2016-present, Sören Gebbert, Markus Neteler and mundialis GmbH & Co. KG"
 
 
 class UnivarResultModel(Schema):
