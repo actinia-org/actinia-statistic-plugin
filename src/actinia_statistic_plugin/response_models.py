@@ -6,7 +6,9 @@ from actinia_core.core.common.app import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
-__copyright__ = "Copyright 2016-present, Sören Gebbert, Markus Neteler and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2016-present, Sören Gebbert, Markus Neteler and mundialis GmbH & Co. KG"
+)
 
 
 class UnivarResultModel(Schema):
@@ -605,64 +607,75 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
     }
     required = deepcopy(ProcessingResponseModel.required)
     example = {
-        "accept_datetime": "2022-03-08 14:44:04.264502",
-        "accept_timestamp": 1646750644.2644997,
+        "accept_datetime": "2022-03-17 12:29:27.718749",
+        "accept_timestamp": 1647520167.718739,
         "api_info": {
             "endpoint": "syncephemeralrastersamplingresource",
             "method": "POST",
-            "path": "/api/v3/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
-            "request_url": "http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
         },
-        "datetime": "2022-03-08 14:44:04.656022",
+        "datetime": "2022-03-17 12:29:28.431388",
         "http_code": 200,
         "message": "Processing successfully finished",
         "process_chain_list": [
             {
-                "1": {
-                    "inputs": {
-                        "column": "id text, x double precision, y double precision",
-                        "format": "point",
-                        "input": "/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmprcp71dve",
-                        "x": 2,
-                        "y": 3,
+                "list": [
+                    {
+                        "id": "v_in_ascii",
+                        "inputs": [
+                            {
+                                "param": "input",
+                                "value": "/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmpnk7lt8rx",
+                            },
+                            {"param": "format", "value": "point"},
+                            {
+                                "param": "column",
+                                "value": "id text, x double precision, y double precision",
+                            },
+                            {"param": "x", "value": "2"},
+                            {"param": "y", "value": "3"},
+                        ],
+                        "module": "v.in.ascii",
+                        "outputs": [{"param": "output", "value": "input_points"}],
                     },
-                    "module": "v.in.ascii",
-                    "outputs": {"output": {"name": "input_points"}},
-                },
-                "2": [
                     {
                         "flags": "p",
-                        "inputs": {
-                            "align": "landuse96_28m@PERMANENT",
-                            "points": "input_points",
-                        },
+                        "id": "g_region",
+                        "inputs": [
+                            {"param": "vector", "value": "input_points"},
+                            {"param": "align", "value": "landuse96_28m@PERMANENT"},
+                        ],
                         "module": "g.region",
-                    }
+                    },
+                    {
+                        "flags": "nrf",
+                        "id": "r_what",
+                        "inputs": [
+                            {"param": "map", "value": "landuse96_28m@PERMANENT"},
+                            {"param": "points", "value": "input_points"},
+                        ],
+                        "module": "r.what",
+                        "outputs": [
+                            {
+                                "param": "output",
+                                "value": "/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmp0ktsyzl6",
+                            }
+                        ],
+                        "overwrite": True,
+                        "superquiet": True,
+                    },
                 ],
-                "3": {
-                    "flags": "nrf",
-                    "inputs": {
-                        "map": "landuse96_28m@PERMANENT",
-                        "points": "input_points",
-                    },
-                    "module": "r.what",
-                    "outputs": {
-                        "output": {
-                            "name": "/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmpv67ttd68"
-                        }
-                    },
-                    "overwrite": True,
-                    "superquiet": True,
-                },
+                "version": "1",
             }
         ],
         "process_log": [
             {
                 "executable": "v.in.ascii",
-                "id": "1",
+                "id": "v_in_ascii",
                 "mapset_size": 15753,
                 "parameter": [
-                    "input=/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmprcp71dve",
+                    "input=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmpnk7lt8rx",
                     "format=point",
                     "column=id text, x double precision, y double precision",
                     "x=2",
@@ -670,7 +683,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "output=input_points",
                 ],
                 "return_code": 0,
-                "run_time": 0.10030889511108398,
+                "run_time": 0.10030794143676758,
                 "stderr": [
                     "Scanning input for column types...",
                     "Number of columns: 3",
@@ -678,7 +691,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "Importing points...",
                     "0..50..100",
                     "Populating table...",
-                    "Building topology for vector map <input_points@mapset_67060ec7ca8d4aa2b216ddb720966913>...",
+                    "Building topology for vector map <input_points@mapset_3ef25f3f447844f2aaea07b4a34a2107>...",
                     "Registering primitives...",
                     "",
                     "",
@@ -686,19 +699,33 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "stdout": "",
             },
             {
+                "executable": "g.region",
+                "id": "g_region",
+                "mapset_size": 15761,
+                "parameter": [
+                    "vector=input_points",
+                    "align=landuse96_28m@PERMANENT",
+                    "-p",
+                ],
+                "return_code": 0,
+                "run_time": 0.10032916069030762,
+                "stderr": [""],
+                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:       0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694380022900787\nnorth:      226389.75\nsouth:      220205.25\nwest:       635651.5\neast:       638701\nnsres:      28.5\newres:      28.5\nrows:       217\ncols:       107\ncells:      23219\n",
+            },
+            {
                 "executable": "r.what",
-                "id": "3",
-                "mapset_size": 15753,
+                "id": "r_what",
+                "mapset_size": 15761,
                 "parameter": [
                     "map=landuse96_28m@PERMANENT",
                     "points=input_points",
-                    "output=/actinia_core/workspace/temp_db/gisdbase_67060ec7ca8d4aa2b216ddb720966913/.tmp/tmpv67ttd68",
+                    "output=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmp0ktsyzl6",
                     "-nrf",
                     "--o",
                     "--qq",
                 ],
                 "return_code": 0,
-                "run_time": 0.10037732124328613,
+                "run_time": 0.1003561019897461,
                 "stderr": [""],
                 "stdout": "",
             },
@@ -716,23 +743,23 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
             },
             {
                 "p2": {
-                    "color": "255:051:076",
+                    "color": "255:000:000",
                     "easting": "635676",
-                    "label": "Low Intensity Developed",
+                    "label": "High Intensity Developed",
                     "map_name": "landuse96_28m",
                     "northing": "226371",
-                    "value": "2",
+                    "value": "1",
                 }
             },
         ],
-        "progress": {"num_of_steps": 2, "step": 2},
-        "resource_id": "resource_id-19e7c763-7d03-4ac8-a6bb-610480be88dc",
+        "progress": {"num_of_steps": 3, "step": 3},
+        "resource_id": "resource_id-14d1b433-f875-4ffd-a42a-27449d76341a",
         "status": "finished",
-        "time_delta": 0.3915419578552246,
-        "timestamp": 1646750644.656005,
+        "time_delta": 0.7126758098602295,
+        "timestamp": 1647520168.431363,
         "urls": {
             "resources": [],
-            "status": "http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-19e7c763-7d03-4ac8-a6bb-610480be88dc",
+            "status": f"http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-14d1b433-f875-4ffd-a42a-27449d76341a",
         },
         "user_id": "actinia-gdi",
     }
