@@ -179,7 +179,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                     "inputs": [
                         {
                             "param": "vector",
-                            "value": "%s@%s" % (vector_name, self.mapset_name),
+                            "value": "%s@%s" % (vector_name, self.mapset_name)
                         }
                     ],
                     "flags": "p",
@@ -190,11 +190,19 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                     "inputs": [
                         {
                             "param": "map",
-                            "value": "%s@%s" % (vector_name, self.mapset_name),
+                            "value": "%s@%s" % (vector_name, self.mapset_name)
                         },
-                        {"param": "coordinates", "value": coordinates_string[:-1]},
+                        {
+                            "param": "coordinates",
+                            "value": coordinates_string[:-1]
+                        }
                     ],
-                    "stdout": {"id": "info", "format": "list", "delimiter": "|"},
+                    "stdout":
+                        {
+                            "id": "info",
+                            "format": "list",
+                            "delimiter": "|"
+                        },
                     "flags": "aj",
                 },
             ],
