@@ -5,6 +5,7 @@ Perform vector map sampling on a vector map layer based on input points.
 
 import pickle
 import tempfile
+import json
 from flask import jsonify, make_response
 from copy import deepcopy
 from flask_restful_swagger_2 import swagger
@@ -203,7 +204,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                             "format": "list",
                             "delimiter": "|"
                         },
-                    "flags": "aj",
+                    "flags": "ag",
                 },
             ],
             "version": "1",
@@ -211,149 +212,22 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
 
         self.request_data = pc
 
-        # {'info': [
-        # 'East=638684'
-        # 'North=220210'
-        # ''
-        # 'Map=zipcodes_wake'
-        # 'Mapset=PERMANENT'
-        # 'Type=Area'
-        # 'Sq_Meters=130875884.223'
-        # 'Hectares=13087.588'
-        # 'Acres=32340.135'
-        # 'Sq_Miles=50.5315'
-        # ...
-
-        # GRASS nc_spm_08_grass7/user1:~ > v.what map=zipcodes_wake coordinates=638684.0,220210.0,635676.0,226371.0  -ja | jq
-        # {
-        # "Coordinates": {
-        # "East": "638684",
-        # "North": "220210"
-        # },
-        # "Maps": [
-        # {
-        # "Map": "zipcodes_wake",
-        # "Mapset": "PERMANENT",
-        # "Type": "Area",
-        # "Sq_Meters": 130875884.223,
-        # "Hectares": 13087.588,
-        # "Acres": 32340.135,
-        # "Sq_Miles": 50.5315,
-        # "Categories": [
-        # {
-        # "Layer": 1,
-        # "Category": 40,
-        # "Driver": "sqlite",
-        # "Database": "/home/mneteler/grassdata/nc_spm_08_grass7/PERMANENT/sqlite/sqlite.db",
-        # "Table": "zipcodes_wake",
-        # "Key_column": "cat",
-        # "Attributes": {
-        # "cat": "40",
-        # "OBJECTID": "286",
-        # "WAKE_ZIPCO": "1285870010.66",
-        # "PERIMETER": "282815.79339",
-        # "ZIPCODE_": "37",
-        # "ZIPCODE_ID": "66",
-        # "ZIPNAME": "RALEIGH",
-        # "ZIPNUM": "27603",
-        # "ZIPCODE": "RALEIGH 27603",
-        # "NAME": "RALEIGH",
-        # "SHAPE_Leng": "285693.495599",
-        # "SHAPE_Area": "1408742751.36"
-        # }
-        # }
-        # ]
-        # }
-        # ]
-        # }
-        # {
-        # "Coordinates": {
-        # "East": "635676",
-        # "North": "226371"
-        # },
-        # "Maps": [
-        # {
-        # "Map": "zipcodes_wake",
-        # "Mapset": "PERMANENT",
-        # "Type": "Area",
-        # "Sq_Meters": 63169356.527,
-        # "Hectares": 6316.936,
-        # "Acres": 15609.488,
-        # "Sq_Miles": 24.3898,
-        # "Categories": [
-        # {
-        # "Layer": 1,
-        # "Category": 42,
-        # "Driver": "sqlite",
-        # "Database": "/home/mneteler/grassdata/nc_spm_08_grass7/PERMANENT/sqlite/sqlite.db",
-        # "Table": "zipcodes_wake",
-        # "Key_column": "cat",
-        # "Attributes": {
-        # "cat": "42",
-        # "OBJECTID": "298",
-        # "WAKE_ZIPCO": "829874917.625",
-        # "PERIMETER": "230773.26059",
-        # "ZIPCODE_": "39",
-        # "ZIPCODE_ID": "2",
-        # "ZIPNAME": "RALEIGH",
-        # "ZIPNUM": "27606",
-        # "ZIPCODE": "RALEIGH 27606",
-        # "NAME": "RALEIGH",
-        # "SHAPE_Leng": "212707.32257",
-        # "SHAPE_Area": "679989401.948"
-        # }
-        # }
-        # ]
-        # }
-        # ]
-        # }
-
-        # curl --no-progress-meter ${AUTH} -X POST -H "content-type: application/json" "${actinia}/api/v3/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync" -d @test_raster_sample_data.json | jq .process_results
-        # {
-        # "info": [
-        # "{\"Coordinates\": {\"East\": \"638684\", \"North\": \"220210\"},",
-        # "\"Maps\": [",
-        # "{\"Map\": \"zipcodes_wake\",",
-        # "\"Mapset\": \"PERMANENT\",",
-        # "\"Type\": \"Area\",",
-        # ...
-        # "\"WAKE_ZIPCO\": \"1285870010.66\",",
-        # "\"PERIMETER\": \"282815.79339\",",
-        # "\"ZIPCODE_\": \"37\",",
-        # ...
-        # "\"SHAPE_Area\": \"1408742751.36\"}}]}]}",
-        # "{\"Coordinates\": {\"East\": \"635676\", \"North\": \"226371\"},",
-        # "\"Maps\": [",
-        # "{\"Map\": \"zipcodes_wake\",",
-        # ...
-
-        # [
-        # {
-        # "p1": {
-        # "color": "229:229:204",
-        # "easting": "638684",
-        # "label": "Managed Herbaceous Cover",
-        # "map_name": "landuse96_28m",
-        # "northing": "220210",
-        # "value": "4"
-        # }
-        # },
-        # {
-        # "p2": {
-        # "color": "255:051:076",
-        # "easting": "635676",
-        # "label": "Low Intensity Developed",
-        # "map_name": "landuse96_28m",
-        # "northing": "226371",
-        # "value": "2"
-        # }
-        # }
-        # ]
-
         # Run the process chain
         EphemeralProcessing._execute(self, skip_permission_check=True)
-        print("")
-        print(self.module_results)
-        print("")
 
-        # self.module_results = output_list
+        count = -1
+        output_list = []
+        for entry in self.module_results["info"]:
+            if "=" in entry:
+                key,val = entry.split("=")
+                if key == "East":
+                    count += 1
+                    if "point" in locals():
+                        output_list.append(point)
+                    point = {points[count][0]:{key:val}}
+                else:
+                    point[points[count][0]][key] = val
+
+        output_list.append(point)
+
+        self.module_results = output_list

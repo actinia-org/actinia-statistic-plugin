@@ -76,8 +76,8 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
         rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/'
                               'sampling_sync',
                               headers=self.user_auth_header,
-                              data=json_dump({"points":[["a", "638684.0", "220210.0"],
-                                                         ["b", "635676.0", "226371.0"]]}),
+                              data=json_dump({"points":[["p1", "638684.0", "220210.0"],
+                                                         ["p2", "635676.0", "226371.0"]]}),
                               content_type="application/json")
 
         pprint(json_load(rv.data))
@@ -86,12 +86,10 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
 
         value_list = json_load(rv.data)["process_results"]
 
-        self.assertEqual(value_list[0][0], "easting")
-        self.assertEqual(value_list[0][1], "northing")
-        self.assertEqual(value_list[0][2], "site_name")
-        self.assertEqual(value_list[0][3], "zipcodes_wake")
-        self.assertEqual(value_list[0][4], "zipcodes_wake_label")
-        self.assertEqual(value_list[0][5], "zipcodes_wake_color")
+        self.assertIn("East", value_list["p1"])
+        self.assertIn("North", value_list["p2"])
+        self.assertIn("ZIPCODE", value_list["p2"])
+        self.assertEqual(value_list["p2"]["ZIPCODE"], "RALEIGH_27606")
 
         time.sleep(1)
 
