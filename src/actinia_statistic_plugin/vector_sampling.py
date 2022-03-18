@@ -171,7 +171,6 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
             id, x, y = tuple
             coordinates_string += "%s,%s," % (x, y)
 
-        # g.region probably not needed
         pc = {
             "list": [
                 {
