@@ -15,23 +15,6 @@ __license__ = "GPLv3"
 __author__ = "Markus Neteler"
 __copyright__ = "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co. KG"
 
-JSON = {
-    "type": "FeatureCollection",
-    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
-    "features": [
-        {
-            "type": "Feature",
-            "properties": {"cat": 1},
-            "geometry": {"type": "Point", "coordinates": [638684.0, 220210.0]},
-        },
-        {
-            "type": "Feature",
-            "properties": {"cat": 2},
-            "geometry": {"type": "Point", "coordinates": [635676.0, 226371.0]},
-        },
-    ],
-}
-
 
 class RasterTestCase(ActiniaResourceTestCaseBase):
 
