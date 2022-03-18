@@ -82,7 +82,7 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
 
         pprint(json_load(rv.data))
         self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
-        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
+        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
         value_list = json_load(rv.data)["process_results"]
 
