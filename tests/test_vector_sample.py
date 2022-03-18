@@ -12,8 +12,8 @@ except:
 
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert, Markus Neteler"
-__copyright__ = "Copyright 2016-present, Sören Gebbert and mundialis GmbH & Co. KG"
+__author__ = "Markus Neteler"
+__copyright__ = "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co. KG"
 
 JSON = {
     "type": "FeatureCollection",
@@ -129,28 +129,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(value_list["p2"]["ZIPCODE"], "RALEIGH_27606")
 
         time.sleep(1)
-
-
-#    def test_sync_sampling_geojson(self):
-#
-#        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/'
-#                              'sampling_sync_geojson',
-#                              headers=self.user_auth_header,
-#                              data=json_dump(JSON),
-#                              content_type="application/json")
-#
-#        pprint(json_load(rv.data))
-#        self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
-#        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
-#
-#        value_list = json_load(rv.data)["process_results"]
-#
-#        self.assertEqual(value_list[0][0], "easting")
-#        self.assertEqual(value_list[0][1], "northing")
-#        self.assertEqual(value_list[0][2], "site_name")
-#        self.assertEqual(value_list[0][3], "zipcodes_wake")
-#        self.assertEqual(value_list[0][4], "zipcodes_wake_label")
-#        self.assertEqual(value_list[0][5], "zipcodes_wake_color")
 
 
 if __name__ == "__main__":
