@@ -180,7 +180,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                     "inputs": [
                         {
                             "param": "vector",
-                            "value": "%s@%s" % (vector_name, self.mapset_name)
+                            "value": "%s@%s" % (vector_name, self.mapset_name),
                         }
                     ],
                     "flags": "p",
@@ -191,19 +191,11 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                     "inputs": [
                         {
                             "param": "map",
-                            "value": "%s@%s" % (vector_name, self.mapset_name)
+                            "value": "%s@%s" % (vector_name, self.mapset_name),
                         },
-                        {
-                            "param": "coordinates",
-                            "value": coordinates_string[:-1]
-                        }
+                        {"param": "coordinates", "value": coordinates_string[:-1]},
                     ],
-                    "stdout":
-                        {
-                            "id": "info",
-                            "format": "list",
-                            "delimiter": "|"
-                        },
+                    "stdout": {"id": "info", "format": "list", "delimiter": "|"},
                     "flags": "ag",
                 },
             ],
@@ -219,12 +211,12 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
         output_list = []
         for entry in self.module_results["info"]:
             if "=" in entry:
-                key,val = entry.split("=")
+                key, val = entry.split("=")
                 if key == "East":
                     count += 1
                     if "point" in locals():
                         output_list.append(point)
-                    point = {points[count][0]:{key:val}}
+                    point = {points[count][0]: {key: val}}
                 else:
                     point[points[count][0]][key] = val
 
