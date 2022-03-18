@@ -32,16 +32,11 @@ from .raster_sampling import (
     SyncEphemeralRasterSamplingResource,
 )
 
-# from .raster_sampling_geojson import AsyncEphemeralRasterSamplingGeoJSONResource, \
-#    SyncEphemeralRasterSamplingGeoJSONResource
 
 from .vector_sampling import (
     AsyncEphemeralVectorSamplingResource,
     SyncEphemeralVectorSamplingResource,
 )
-
-# from .vector_sampling_geojson import AsyncEphemeralVectorSamplingGeoJSONResource, \
-#    SyncEphemeralVectorSamplingGeoJSONResource
 
 
 __license__ = "GPLv3"
@@ -138,7 +133,7 @@ def create_endpoints(flask_api):
     flask_api.add_resource(
         SyncEphemeralRasterSamplingResource,
         "/locations/<string:location_name>/mapsets/"
-        "<string:mapset_name>/raster_layers/<string:raster_name>"
+        "<string:mapset_name>/raster_layers/<string:raster_name>",
     )
     flask_api.add_resource(
         AsyncEphemeralVectorSamplingResource,
@@ -152,16 +147,3 @@ def create_endpoints(flask_api):
         "<string:mapset_name>/vector_layers/<string:vector_name>"
         "/sampling_sync",
     )
-
-
-#    flask_api.add_resource(AsyncEphemeralRasterSamplingGeoJSONResource, '/locations/<string:location_name>/mapsets/'
-#                                                                       '<string:mapset_name>/raster_layers/<string:raster_name>'
-#                                                                       '/sampling_async_geojson')
-#    flask_api.add_resource(SyncEphemeralRasterSamplingGeoJSONResource, '/locations/<string:location_name>/mapsets/'
-#                                                                      '<string:mapset_name>/raster_layers/<string:raster_name>'
-#    flask_api.add_resource(AsyncEphemeralVectorSamplingGeoJSONResource, '/locations/<string:location_name>/mapsets/'
-#                                                                       '<string:mapset_name>/vector_layers/<string:vector_name>'
-#                                                                       '/sampling_async_geojson')
-#    flask_api.add_resource(SyncEphemeralVectorSamplingGeoJSONResource, '/locations/<string:location_name>/mapsets/'
-#                                                                      '<string:mapset_name>/vector_layers/<string:vector_name>'
-#                                                                      '/sampling_sync_geojson')
