@@ -208,6 +208,8 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
 
         count = -1
         output_list = []
+        # Convert the result of v.what into actinia response format (list of points
+        # with point ID, coordinate pair and vector map attributes)
         for entry in self.module_results["info"]:
             if "=" in entry:
                 key, val = entry.split("=")
