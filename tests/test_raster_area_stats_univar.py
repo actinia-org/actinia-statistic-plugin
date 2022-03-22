@@ -79,9 +79,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
     #################### ERRORS ###############################################
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
-        import pdb; pdb.set_trace()
 
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=" This is no data",
@@ -92,8 +91,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
 
     def test_sync_raster_area_stats_module_error(self):
-        import pdb; pdb.set_trace()
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=json_dump({}),
@@ -104,8 +102,7 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
 
     def test_sync_raster_area_stats_nodata_error(self):
-        import pdb; pdb.set_trace()
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
                               'area_stats_univar_sync',
                               headers=self.admin_auth_header,
                               data=None,
