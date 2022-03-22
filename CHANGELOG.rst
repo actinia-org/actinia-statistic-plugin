@@ -14,7 +14,7 @@ Version 0.0.5
 Version 0.0.4
 =============
 
-- #6 from mundialis/version2
+- #6 from mundialis/version2: Use URL_PREFIX from actinia_core app
 
 Version 0.0.3
 =============
