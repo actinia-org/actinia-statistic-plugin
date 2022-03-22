@@ -2,7 +2,7 @@
 from flask_restful_swagger_2 import Schema
 from copy import deepcopy
 from actinia_core.models.response_models import ProcessingResponseModel
-from actinia_core.core.common.app import URL_PREFIX
+from actinia_api import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
