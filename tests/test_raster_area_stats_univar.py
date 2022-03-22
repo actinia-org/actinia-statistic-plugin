@@ -43,38 +43,38 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
     #     self.assertEqual(value_list[0]["cat"], "1")
     #     self.assertEqual(value_list[0]["raster_number"], 2025000)
 
-    def test_sync_raster_area_stats_1(self):
-
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/'
-                              'area_stats_univar_sync',
-                              headers=self.admin_auth_header,
-                              data=json_dump(JSON),
-                              content_type="application/json")
-
-        pprint(json_load(rv.data))
-        self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
-        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
-
-        value_list = json_load(rv.data)["process_results"]
-        self.assertEqual(value_list[0]["cat"], "1")
-        self.assertEqual(value_list[0]["raster_number"], 2025000)
-
-    def test_sync_raster_area_stats_2(self):
-
-        import pdb; pdb.set_trace()
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
-                              'area_stats_univar_sync',
-                              headers=self.admin_auth_header,
-                              data=json_dump(JSON),
-                              content_type="application/json")
-
-        pprint(json_load(rv.data))
-        self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
-        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
-
-        value_list = json_load(rv.data)["process_results"]
-        self.assertEqual(value_list[0]["cat"], "1")
-        self.assertEqual(value_list[0]["raster_number"], 2025000)
+    # def test_sync_raster_area_stats_1(self):
+    #
+    #     rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/'
+    #                           'area_stats_univar_sync',
+    #                           headers=self.admin_auth_header,
+    #                           data=json_dump(JSON),
+    #                           content_type="application/json")
+    #
+    #     pprint(json_load(rv.data))
+    #     self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
+    #     self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
+    #
+    #     value_list = json_load(rv.data)["process_results"]
+    #     self.assertEqual(value_list[0]["cat"], "1")
+    #     self.assertEqual(value_list[0]["raster_number"], 2025000)
+    #
+    # def test_sync_raster_area_stats_2(self):
+    #
+    #     import pdb; pdb.set_trace()
+    #     rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+    #                           'area_stats_univar_sync',
+    #                           headers=self.admin_auth_header,
+    #                           data=json_dump(JSON),
+    #                           content_type="application/json")
+    #
+    #     pprint(json_load(rv.data))
+    #     self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
+    #     self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
+    #
+    #     value_list = json_load(rv.data)["process_results"]
+    #     self.assertEqual(value_list[0]["cat"], "1")
+    #     self.assertEqual(value_list[0]["raster_number"], 2025000)
 
     #################### ERRORS ###############################################
 
