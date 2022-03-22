@@ -2,9 +2,31 @@
 Changelog
 =========
 
-Version 0.1
-===========
+Version 0.0.5
+=============
 
-- Feature A added
-- FIX: nasty bug #1729 fixed
-- add your changes here!
+(yet unreleased)
+
+- some files formatted with `black`
+- New raster layer sampling endpoint "sampling_sync" (#7)
+- New vector layer sampling endpoint "sampling_sync" (#8)
+
+Version 0.0.4
+=============
+
+- #6 from mundialis/version2: Use URL_PREFIX from actinia_core app
+
+Version 0.0.3
+=============
+
+- Move actinia_core imports #5
+
+Version 0.0.2
+=============
+
+- internal release
+
+Version 0.0.1
+=============
+
+- Initial upload

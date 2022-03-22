@@ -56,7 +56,6 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
         while True:
             rv = self.server.get(URL_PREFIX + "/resources/%s/%s" % (rv_user_id, rv_resource_id),
                                  headers=self.user_auth_header)
-            print(rv.data)
             resp = json_load(rv.data)
             if resp["status"] == "finished" or resp["status"] == "error":
                 break
