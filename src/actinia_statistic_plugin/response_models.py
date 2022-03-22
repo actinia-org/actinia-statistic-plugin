@@ -763,3 +763,161 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
         },
         "user_id": "actinia-gdi",
     }
+
+
+class VectorSamplingResponseModel(ProcessingResponseModel):
+    """Response schema for a vector map sampling result.
+    This schema is a derivative of the ProcessingResponseModel that defines a different
+    *process_results* schema.
+    """
+
+    type = "object"
+    properties = deepcopy(ProcessingResponseModel.properties)
+    properties["process_results"] = {}
+    properties["process_results"]["type"] = "array"
+    properties["process_results"]["items"] = {
+        "type": "array",
+        "items": {"type": "string", "minItems": 3},
+    }
+    required = deepcopy(ProcessingResponseModel.required)
+    example = {
+        "accept_datetime": "2022-03-17 13:41:43.981103",
+        "accept_timestamp": 1647524503.9810963,
+        "api_info": {
+            "endpoint": "syncephemeralvectorsamplingresource",
+            "method": "POST",
+            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
+            "request_url": f"http://localhost{URL_PREFIX}//locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
+        },
+        "datetime": "2022-03-17 13:41:44.467395",
+        "http_code": 200,
+        "message": "Processing successfully finished",
+        "process_chain_list": [
+            {
+                "list": [
+                    {
+                        "flags": "p",
+                        "id": "g_region",
+                        "inputs": [
+                            {"param": "vector", "value": "zipcodes_wake@PERMANENT"}
+                        ],
+                        "module": "g.region",
+                    },
+                    {
+                        "flags": "ag",
+                        "id": "v_what",
+                        "inputs": [
+                            {"param": "map", "value": "zipcodes_wake@PERMANENT"},
+                            {
+                                "param": "coordinates",
+                                "value": "638684.0,220210.0,635676.0,226371.0",
+                            },
+                        ],
+                        "module": "v.what",
+                        "stdout": {"delimiter": "|", "format": "list", "id": "info"},
+                    },
+                ],
+                "version": "1",
+            }
+        ],
+        "process_log": [
+            {
+                "executable": "g.region",
+                "id": "g_region",
+                "mapset_size": 485,
+                "parameter": ["vector=zipcodes_wake@PERMANENT", "-p"],
+                "return_code": 0,
+                "run_time": 0.10039043426513672,
+                "stderr": [""],
+                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:       0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694380022900787\nnorth:      258102.57214598\nsouth:      196327.52090104\nwest:       610047.86645109\neast:       677060.680666\nnsres:      498.18589714\newres:      500.09562847\nrows:       124\ncols:       134\ncells:      16616\n",
+            },
+            {
+                "executable": "v.what",
+                "id": "v_what",
+                "mapset_size": 485,
+                "parameter": [
+                    "map=zipcodes_wake@PERMANENT",
+                    "coordinates=638684.0,220210.0,635676.0,226371.0",
+                    "-ag",
+                ],
+                "return_code": 0,
+                "run_time": 0.10032153129577637,
+                "stderr": [""],
+                "stdout": "East=638684\nNorth=220210\n\nMap=zipcodes_wake\nMapset=PERMANENT\nType=Area\nSq_Meters=130875884.223\nHectares=13087.588\nAcres=32340.135\nSq_Miles=50.5315\nLayer=1\nCategory=40\nDriver=sqlite\nDatabase=/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db\nTable=zipcodes_wake\nKey_column=cat\ncat=40\nOBJECTID=286\nWAKE_ZIPCO=1285870010.66\nPERIMETER=282815.79339\nZIPCODE_=37\nZIPCODE_ID=66\nZIPNAME=RALEIGH\nZIPNUM=27603\nZIPCODE=RALEIGH_27603\nNAME=RALEIGH\nSHAPE_Leng=285693.495599\nSHAPE_Area=1408742751.36\nEast=635676\nNorth=226371\n\nMap=zipcodes_wake\nMapset=PERMANENT\nType=Area\nSq_Meters=63169356.527\nHectares=6316.936\nAcres=15609.488\nSq_Miles=24.3898\nLayer=1\nCategory=42\nDriver=sqlite\nDatabase=/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db\nTable=zipcodes_wake\nKey_column=cat\ncat=42\nOBJECTID=298\nWAKE_ZIPCO=829874917.625\nPERIMETER=230773.26059\nZIPCODE_=39\nZIPCODE_ID=2\nZIPNAME=RALEIGH\nZIPNUM=27606\nZIPCODE=RALEIGH_27606\nNAME=RALEIGH\nSHAPE_Leng=212707.32257\nSHAPE_Area=679989401.948\n",
+            },
+        ],
+        "process_results": [
+            {
+                "p1": {
+                    "Acres": "32340.135",
+                    "Category": "40",
+                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db",
+                    "Driver": "sqlite",
+                    "East": "638684",
+                    "Hectares": "13087.588",
+                    "Key_column": "cat",
+                    "Layer": "1",
+                    "Map": "zipcodes_wake",
+                    "Mapset": "PERMANENT",
+                    "NAME": "RALEIGH",
+                    "North": "220210",
+                    "OBJECTID": "286",
+                    "PERIMETER": "282815.79339",
+                    "SHAPE_Area": "1408742751.36",
+                    "SHAPE_Leng": "285693.495599",
+                    "Sq_Meters": "130875884.223",
+                    "Sq_Miles": "50.5315",
+                    "Table": "zipcodes_wake",
+                    "Type": "Area",
+                    "WAKE_ZIPCO": "1285870010.66",
+                    "ZIPCODE": "RALEIGH_27603",
+                    "ZIPCODE_": "37",
+                    "ZIPCODE_ID": "66",
+                    "ZIPNAME": "RALEIGH",
+                    "ZIPNUM": "27603",
+                    "cat": "40",
+                }
+            },
+            {
+                "p2": {
+                    "Acres": "15609.488",
+                    "Category": "42",
+                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db",
+                    "Driver": "sqlite",
+                    "East": "635676",
+                    "Hectares": "6316.936",
+                    "Key_column": "cat",
+                    "Layer": "1",
+                    "Map": "zipcodes_wake",
+                    "Mapset": "PERMANENT",
+                    "NAME": "RALEIGH",
+                    "North": "226371",
+                    "OBJECTID": "298",
+                    "PERIMETER": "230773.26059",
+                    "SHAPE_Area": "679989401.948",
+                    "SHAPE_Leng": "212707.32257",
+                    "Sq_Meters": "63169356.527",
+                    "Sq_Miles": "24.3898",
+                    "Table": "zipcodes_wake",
+                    "Type": "Area",
+                    "WAKE_ZIPCO": "829874917.625",
+                    "ZIPCODE": "RALEIGH_27606",
+                    "ZIPCODE_": "39",
+                    "ZIPCODE_ID": "2",
+                    "ZIPNAME": "RALEIGH",
+                    "ZIPNUM": "27606",
+                    "cat": "42",
+                }
+            },
+        ],
+        "progress": {"num_of_steps": 2, "step": 2},
+        "resource_id": "resource_id-6527a077-a74d-4195-a44c-90a75692bd22",
+        "status": "finished",
+        "time_delta": 0.4863121509552002,
+        "timestamp": 1647524504.4673853,
+        "urls": {
+            "resources": [],
+            "status": f"http://localhost{URL_PREFIX}//resources/actinia-gdi/resource_id-6527a077-a74d-4195-a44c-90a75692bd22",
+        },
+        "user_id": "actinia-gdi",
+    }
