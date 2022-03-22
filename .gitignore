@@ -3,6 +3,7 @@
 *.py[cod]
 *.so
 *.cfg
+!docker/actinia-plugin-tests/actinia-test.cfg
 !setup.cfg
 *.orig
 *.log
