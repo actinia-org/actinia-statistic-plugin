@@ -76,8 +76,8 @@ SCHEMA_DOC = {
         {
             "name": "points",
             "description": "The sampling point array [[id, x, y],[id, x, y]]. "
-            "The coordinates of the sampling points must be the same as of the location "
-            "that contains the raster dataset.",
+            "The coordinates of the sampling points must be in the same coordinate reference system as the location "
+            "that contains the vector dataset.",
             "required": True,
             "in": "body",
             "schema": PointListModel,
