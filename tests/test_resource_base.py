@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+
+"""
+Tests: Actinia statistic plugin resource test case base
+"""
 import atexit
 import os
 import signal
@@ -11,15 +15,15 @@ from actinia_statistic_plugin.endpoints import create_endpoints
 from actinia_core.endpoints import create_endpoints as create_actinia_endpoints
 
 __license__ = "GPLv3"
-__author__     = "Sören Gebbert"
-__copyright__  = "Copyright 2016-2019, Sören Gebbert"
-__maintainer__ = "Sören Gebbert"
-__email__      = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert"
+__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co. KG"
+__maintainer__ = "mundialis GmbH & Co. KG"
 
 redis_pid = None
 server_test = False
 custom_actinia_cfg = False
 
+# Create endpoints
 create_actinia_endpoints()
 create_endpoints(flask_api)
 
@@ -37,14 +41,15 @@ def setup_environment():
     # Set the port to the test redis server
     global_config.REDIS_SERVER_SERVER = "localhost"
     global_config.REDIS_SERVER_PORT = 7000
+    # Set the path to redis WORKER_LOGFILE
+    # global_config.WORKER_LOGFILE = "/var/log/redis/redis"
 
     # home = os.getenv("HOME")
 
-    # GRASS
-
+    # GRASS GIS
     # Setup the test environment
-    global_config.GRASS_GIS_BASE="/usr/local/grass79/"
-    global_config.GRASS_GIS_START_SCRIPT="/usr/local/bin/grass79"
+    global_config.GRASS_GIS_BASE = "/usr/local/grass78/"
+    global_config.GRASS_GIS_START_SCRIPT = "/usr/local/bin/grass78"
     # global_config.GRASS_DATABASE= "/usr/local/grass_test_db"
     # global_config.GRASS_DATABASE = "%s/actinia/grass_test_db" % home
     global_config.GRASS_TMP_DATABASE = "/tmp"
@@ -66,6 +71,7 @@ def stop_redis():
         # Kill th redis server
         if redis_pid is not None:
             os.kill(redis_pid, signal.SIGTERM)
+
 
 # Register the redis stop function
 atexit.register(stop_redis)
