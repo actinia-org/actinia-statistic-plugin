@@ -57,7 +57,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(len(value_list), 16)
 
     def test_sync_raster_area_stats_2(self):
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
                               'area_stats_sync',
                               headers=self.admin_auth_header,
                               data=json_dump(JSON),
@@ -68,12 +69,12 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
         value_list = json_load(rv.data)["process_results"]
-        self.assertEqual(len(value_list), 6)
+        self.assertEqual(len(value_list), 16)
 
         #################### ERRORS ###############################################
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/'
+        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
                               'area_stats_sync',
                               headers=self.admin_auth_header,
                               data="{}",

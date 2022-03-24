@@ -13,7 +13,7 @@ from actinia_core.models.response_models import ProcessingResponseModel, Process
 from actinia_core.rest.ephemeral_processing import EphemeralProcessing
 from actinia_core.rest.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
-from actinia_core.core.common.app import URL_PREFIX
+from actinia_api import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
