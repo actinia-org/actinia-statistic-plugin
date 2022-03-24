@@ -18,9 +18,9 @@ __copyright__ = "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co.
 # TODO zipcodes_wake not in test GRASS GIS DB
 
 
-# class RasterTestCase(ActiniaResourceTestCaseBase):
+# class VectorTestCase(ActiniaResourceTestCaseBase):
 #
-#     # ################### Raster SAMPLING ###################################
+#     # ################### Vector SAMPLING ###################################
 #
 #     def test_async_sampling(self):
 #
