@@ -4,8 +4,8 @@ Compute areal categorical statistics on a raster map layer based on an input pol
 """
 
 from flask import jsonify, make_response
-from actinia_core.rest.ephemeral_processing import EphemeralProcessing
-from actinia_core.rest.resource_base import ResourceBase
+from actinia_core.processing.actinia_processing.ephemeral_processing import EphemeralProcessing
+from actinia_core.rest.base.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
 from flask.json import dumps
 import pickle
