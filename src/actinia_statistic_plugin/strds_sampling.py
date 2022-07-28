@@ -219,7 +219,7 @@ SCHEMA_DOC = {
         {
             "name": "strds_name",
             "description": "The name of the space-time raster dataset that "
-            "should be sampledS",
+            "should be sampled",
             "required": True,
             "in": "path",
             "type": "string",
