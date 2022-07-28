@@ -1,7 +1,7 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
 """
-Actinia satellite plugin endpoint definitions
+Actinia statistic plugin endpoint definitions
 """
 from .ephemeral_strds_area_stats_univar import (
     AsyncEphemeralSTRDSAreaStatsUnivarResource,
@@ -39,7 +39,9 @@ from .vector_sampling import (
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
-__copyright__ = "Copyright 2016-present, Sören Gebbert and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2016-present, Sören Gebbert and mundialis GmbH & Co. KG"
+)
 
 
 def create_endpoints(flask_api):

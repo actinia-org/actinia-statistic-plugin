@@ -8,8 +8,13 @@ import tempfile
 from flask import jsonify, make_response
 from copy import deepcopy
 from flask_restful_swagger_2 import swagger, Schema
-from actinia_core.models.response_models import ProcessingResponseModel, ProcessingErrorResponseModel
-from actinia_core.processing.actinia_processing.ephemeral_processing import EphemeralProcessing
+from actinia_core.models.response_models import (
+    ProcessingResponseModel,
+    ProcessingErrorResponseModel,
+)
+from actinia_core.processing.actinia_processing.ephemeral_processing import (
+    EphemeralProcessing,
+)
 from actinia_core.rest.base.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
 from actinia_core.core.common.exceptions import AsyncProcessError
@@ -24,16 +29,18 @@ __email__ = "soerengebbert@googlemail.com"
 class STRDSSampleResponseModel(ProcessingResponseModel):
     """Response schema for a STRDS sampling result.
 
-    This schema is a derivative of the ProcessingResponseModel that defines a different
-    *process_results* schema.
+    This schema is a derivative of the ProcessingResponseModel that defines
+    a different *process_results* schema.
     """
-    type = 'object'
+
+    type = "object"
     properties = deepcopy(ProcessingResponseModel.properties)
     properties["process_results"] = {}
     properties["process_results"]["type"] = "array"
-    properties["process_results"]["items"] = {'type': 'array',
-                                              'items': {'type': 'string',
-                                                        'minItems': 3}}
+    properties["process_results"]["items"] = {
+        "type": "array",
+        "items": {"type": "string", "minItems": 3},
+    }
     required = deepcopy(ProcessingResponseModel.required)
     example = {
         "accept_datetime": "2017-05-11 10:09:47.237997",
@@ -41,8 +48,10 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplingresource",
             "method": "POST",
-            "path": "/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync",
-            "request_url": "http://localhost/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync"
+            "path": "/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_"
+            "1950_2013_yearly_celsius/sampling_sync",
+            "request_url": "http://localhost/locations/ECAD/mapsets/PERMANENT/"
+            "strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync",
         },
         "datetime": "2017-05-11 10:09:48.376521",
         "http_code": 200,
@@ -56,7 +65,7 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                     "y=3",
                     "x=2",
                     "format=point",
-                    "output=input_points"
+                    "output=input_points",
                 ],
                 "return_code": 0,
                 "stderr": [
@@ -66,7 +75,8 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                     "Importing points...",
                     "0..33..66..100",
                     "Populating table...",
-                    "Building topology for vector map <input_points@mapset_ffb3520846104a42878271a83117a93f>...",
+                    "Building topology for vector map <input_points@mapset_"
+                    "ffb3520846104a42878271a83117a93f>...",
                     "Registering primitives...",
                     "",
                     "3 primitives registered",
@@ -86,9 +96,9 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                     "Number of centroids: 0",
                     "Number of areas: 0",
                     "Number of isles: 0",
-                    ""
+                    "",
                 ],
-                "stdout": ""
+                "stdout": "",
             },
             {
                 "executable": "t.rast.sample",
@@ -96,154 +106,162 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                     "column=id",
                     "points=input_points",
                     "where=start_time >'2010-01-01'",
-                    "strds=temperature_mean_1950_2013_yearly_celsius@PERMANENT",
+                    "strds=temperature_mean_1950_2013_yearly_celsius@"
+                    "PERMANENT",
                     "output=/tmp/tmpgU9ITw",
                     "-rn",
                     "--o",
-                    "--v"
+                    "--v",
                 ],
                 "return_code": 0,
                 "stderr": [
-                    "Sample map <temperature_mean_yearly_celsius_60> number  1 out of 3",
-                    "Sample map <temperature_mean_yearly_celsius_61> number  2 out of 3",
-                    "Sample map <temperature_mean_yearly_celsius_62> number  3 out of 3",
-                    ""
+                    "Sample map <temperature_mean_yearly_celsius_60> number  "
+                    "1 out of 3",
+                    "Sample map <temperature_mean_yearly_celsius_61> number "
+                    " 2 out of 3",
+                    "Sample map <temperature_mean_yearly_celsius_62> number "
+                    " 3 out of 3",
+                    "",
                 ],
-                "stdout": ""
-            }
+                "stdout": "",
+            },
         ],
         "process_results": [
-            [
-                "start_time",
-                "end_time",
-                "a",
-                "b",
-                "c"
-            ],
+            ["start_time", "end_time", "a", "b", "c"],
             [
                 "2010-01-01 00:00:00",
                 "2011-01-01 00:00:00",
                 "16.5293979135",
                 "7.50153213006",
-                "7.67950249616"
+                "7.67950249616",
             ],
             [
                 "2011-01-01 00:00:00",
                 "2012-01-01 00:00:00",
                 "17.3258000667",
                 "9.35620500512",
-                "8.37665885817"
+                "8.37665885817",
             ],
             [
                 "2012-01-01 00:00:00",
                 "2013-01-01 00:00:00",
                 "16.5512179273",
                 "8.8377879125",
-                "7.87268863552"
-            ]
+                "7.87268863552",
+            ],
         ],
-        "progress": {
-            "num_of_steps": 2,
-            "step": 2
-        },
+        "progress": {"num_of_steps": 2, "step": 2},
         "resource_id": "resource_id-96554e63-3dad-4a16-8652-e7c6be734057",
         "status": "finished",
         "timestamp": 1494490188.376519,
         "urls": {
             "resources": [],
-            "status": "http://localhost/status/admin/resource_id-96554e63-3dad-4a16-8652-e7c6be734057"
+            "status": "http://localhost/status/admin/resource_id-96554e63-"
+            "3dad-4a16-8652-e7c6be734057",
         },
-        "user_id": "admin"
+        "user_id": "admin",
     }
 
 
 class PointListModel(Schema):
-    """This schema defines the JSON input of the strds sampling resource
-    """
-    type = 'object'
+    """This schema defines the JSON input of the strds sampling resource"""
+
+    type = "object"
     properties = {
-        'points': {
-            'type': 'array',
-            'items': {'type': 'array', 'items': {'type': 'string', 'maxItems': 3, 'minItems': 3}},
-            'description': 'A list of coordinate points with unique ids [(id, x, y), (id, x, y), (id, x, y)]'
+        "points": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {"type": "string", "maxItems": 3, "minItems": 3},
+            },
+            "description": "A list of coordinate points with unique ids "
+            "[(id, x, y), (id, x, y), (id, x, y)]",
         },
-        'where': {
-            'type': 'string',
-            'description': 'The where statement to select specific subsets of the strds, '
-                           'for example: start_time > \'2001-01-01\'',
-        }
+        "where": {
+            "type": "string",
+            "description": "The where statement to select specific subsets "
+            "of the strds, for example: start_time > '2001-01-01'",
+        },
     }
-    example = {"where": "start_time > '2001-01-01'",
-               "points": [["a", "1", "1"],
-                          ["b", "2", "2"],
-                          ["c", "3", "3"]]}
-    required = ['points']
+    example = {
+        "where": "start_time > '2001-01-01'",
+        "points": [["a", "1", "1"], ["b", "2", "2"], ["c", "3", "3"]],
+    }
+    required = ["points"]
 
 
 SCHEMA_DOC = {
-    'tags': ['STRDS Sampling'],
-    'description': 'Spatial sampling of a space-time raster dataset with vector points. The vector points must '
-                   'be in the same coordinate reference system as the location that contains the '
-                   'space-time raster dataset. The result of the sampling is located in the resource response'
-                   'JSON docuement after the processing was finished, '
-                   'as a list of timestamped values for each vector point. '
-                   'Minimum required user role: user.',
-    'consumes': ['application/json'],
-    'parameters': [
+    "tags": ["STRDS Sampling"],
+    "description": "Spatial sampling of a space-time raster dataset with "
+    "vector points. The vector points must be in the same coordinate reference"
+    " system as the location that contains the space-time raster dataset. "
+    "The result of the sampling is located in the resource response"
+    "JSON docuement after the processing was finished, "
+    "as a list of timestamped values for each vector point. "
+    "Minimum required user role: user.",
+    "consumes": ["application/json"],
+    "parameters": [
         {
-            'name': 'location_name',
-            'description': 'The location name',
-            'required': True,
-            'in': 'path',
-            'type': 'string'
+            "name": "location_name",
+            "description": "The location name",
+            "required": True,
+            "in": "path",
+            "type": "string",
         },
         {
-            'name': 'mapset_name',
-            'description': 'The name of the mapset that contains the required raster map layer',
-            'required': True,
-            'in': 'path',
-            'type': 'string'
+            "name": "mapset_name",
+            "description": "The name of the mapset that contains the required "
+            "raster map layer",
+            "required": True,
+            "in": "path",
+            "type": "string",
         },
         {
-            'name': 'strds_name',
-            'description': 'The name of the space-time raster dataset that should be sampledS',
-            'required': True,
-            'in': 'path',
-            'type': 'string'
+            "name": "strds_name",
+            "description": "The name of the space-time raster dataset that "
+            "should be sampled",
+            "required": True,
+            "in": "path",
+            "type": "string",
         },
         {
-            'name': 'points',
-            'description': 'The sampling point array [[id, x, y],[id, x, y]] and an optional where statement. '
-                           'The coordinates of the sampling points must be the same as of the location '
-                           'that contains the space-time raster dataset.',
-            'required': True,
-            'in': 'body',
-            'schema': PointListModel
-        }
+            "name": "points",
+            "description": "The sampling point array [[id, x, y],[id, x, y]] "
+            "and an optional where statement. "
+            "The coordinates of the sampling points must be the same as of "
+            "the location "
+            "that contains the space-time raster dataset.",
+            "required": True,
+            "in": "body",
+            "schema": PointListModel,
+        },
     ],
-    'responses': {
-        '200': {
-            'description': 'The result of the strds sampling',
-            'schema': STRDSSampleResponseModel
+    "responses": {
+        "200": {
+            "description": "The result of the strds sampling",
+            "schema": STRDSSampleResponseModel,
         },
-        '400': {
-            'description': 'The error message and a detailed log why strds sampling did not succeeded',
-            'schema': ProcessingErrorResponseModel
-        }
-    }
+        "400": {
+            "description": "The error message and a detailed log why strds "
+            "sampling did not succeeded",
+            "schema": ProcessingErrorResponseModel,
+        },
+    },
 }
 
 
 class AsyncEphemeralSTRDSSamplingResource(ResourceBase):
-    """Sample a STRDS at vector point locations, asynchronous call
-    """
+    """Sample a STRDS at vector point locations, asynchronous call"""
 
     def _execute(self, location_name, mapset_name, strds_name):
 
-        rdc = self.preprocess(has_json=True, has_xml=False,
-                              location_name=location_name,
-                              mapset_name=mapset_name,
-                              map_name=strds_name)
+        rdc = self.preprocess(
+            has_json=True,
+            has_xml=False,
+            location_name=location_name,
+            mapset_name=mapset_name,
+            map_name=strds_name,
+        )
         if rdc:
             enqueue_job(self.job_timeout, start_job, rdc)
 
@@ -251,21 +269,18 @@ class AsyncEphemeralSTRDSSamplingResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, strds_name):
-        """Sample a strds by point coordinates, asynchronous call
-        """
+        """Sample a strds by point coordinates, asynchronous call"""
         self._execute(location_name, mapset_name, strds_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
 
 class SyncEphemeralSTRDSSamplingResource(AsyncEphemeralSTRDSSamplingResource):
-    """Sample a STRDS at vector point locations, synchronous call
-    """
+    """Sample a STRDS at vector point locations, synchronous call"""
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, strds_name):
-        """Sample a strds by point coordinates, synchronous call
-        """
+        """Sample a strds by point coordinates, synchronous call"""
         check = self._execute(location_name, mapset_name, strds_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
@@ -280,8 +295,7 @@ def start_job(*args):
 
 
 class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
-    """Sample a STRDS at vector points
-    """
+    """Sample a STRDS at vector points"""
 
     def __init__(self, *args):
         EphemeralProcessing.__init__(self, *args)
@@ -301,8 +315,12 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
         if not points or len(points) == 0:
             raise AsyncProcessError("Empty coordinate list")
 
-        point_file = tempfile.NamedTemporaryFile(dir=self.temp_file_path, delete=True)
-        result_file = tempfile.NamedTemporaryFile(dir=self.temp_file_path, delete=True)
+        point_file = tempfile.NamedTemporaryFile(
+            dir=self.temp_file_path, delete=True
+        )
+        result_file = tempfile.NamedTemporaryFile(
+            dir=self.temp_file_path, delete=True
+        )
 
         for tuple in points:
             if len(tuple) != 3:
@@ -315,22 +333,30 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
         point_file.flush()
 
         pc = dict()
-        pc["1"] = {"module": "v.in.ascii",
-                   "inputs": {"input": point_file.name,
-                              "format": "point",
-                              "column": "id text, x double precision, y double precision",
-                              "x": 2,
-                              "y": 3},
-                   "outputs": {"output": {"name": "input_points"}}}
+        pc["1"] = {
+            "module": "v.in.ascii",
+            "inputs": {
+                "input": point_file.name,
+                "format": "point",
+                "column": "id text, x double precision, y double precision",
+                "x": 2,
+                "y": 3,
+            },
+            "outputs": {"output": {"name": "input_points"}},
+        }
 
-        pc["2"] = {"module": "t.rast.sample",
-                   "inputs": {"strds": "%s@%s" % (strds_name, self.mapset_name),
-                              "points": "input_points",
-                              "column": "id"},
-                   "outputs": {"output": {"name": result_file.name}},
-                   "flags": "rn",
-                   "overwrite": True,
-                   "verbose": True}
+        pc["2"] = {
+            "module": "t.rast.sample",
+            "inputs": {
+                "strds": "%s@%s" % (strds_name, self.mapset_name),
+                "points": "input_points",
+                "column": "id",
+            },
+            "outputs": {"output": {"name": result_file.name}},
+            "flags": "rn",
+            "overwrite": True,
+            "verbose": True,
+        }
 
         if where is not None:
             pc["2"]["inputs"]["where"] = where

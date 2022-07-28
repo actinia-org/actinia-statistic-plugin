@@ -10,10 +10,12 @@ from copy import deepcopy
 from flask_restful_swagger_2 import swagger
 from flask_restful_swagger_2 import Schema
 from actinia_core.models.response_models import ProcessingErrorResponseModel
-from actinia_core.processing.actinia_processing.ephemeral_processing import EphemeralProcessing
+from actinia_core.processing.actinia_processing.ephemeral_processing import (
+    EphemeralProcessing,
+)
+from actinia_core.core.common.exceptions import AsyncProcessError
 from actinia_core.rest.base.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
-from flask.json import dumps
 from actinia_core.core.common.app import auth
 from actinia_core.core.common.api_logger import log_api_call
 from .response_models import RasterSamplingResponseModel
@@ -21,7 +23,9 @@ from .response_models import RasterSamplingResponseModel
 
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
-__copyright__ = "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+)
 
 
 class PointListModel(Schema):
@@ -35,7 +39,8 @@ class PointListModel(Schema):
                 "type": "array",
                 "items": {"type": "string", "maxItems": 3, "minItems": 3},
             },
-            "description": "A list of coordinate points with unique ids [(id, x, y), (id, x, y), (id, x, y)]",
+            "description": "A list of coordinate points with unique ids "
+            "[(id, x, y), (id, x, y), (id, x, y)]",
         }
     }
     example = {"points": [["a", "1", "1"], ["b", "2", "2"], ["c", "3", "3"]]}
@@ -44,9 +49,10 @@ class PointListModel(Schema):
 
 SCHEMA_DOC = {
     "tags": ["Raster Sampling"],
-    "description": "Spatial sampling of a raster dataset with vector points. The vector points must "
-    "be in the same coordinate reference system as the location that contains the "
-    "raster dataset. The result of the sampling is located in the resource response"
+    "description": "Spatial sampling of a raster dataset with vector points. "
+    "The vector points must be in the same coordinate reference system as the "
+    "location that contains the raster dataset. The result of the sampling "
+    "is located in the resource response"
     "JSON document after the processing was finished, "
     "as a list of values for each vector point. "
     "Minimum required user role: user.",
@@ -61,14 +67,16 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required raster map layer",
+            "description": "The name of the mapset that contains the required "
+            "raster map layer",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "raster_name",
-            "description": "The name of the raster map layer to perform the raster map sampling from",
+            "description": "The name of the raster map layer to perform the "
+            "raster map sampling from",
             "required": True,
             "in": "path",
             "type": "string",
@@ -76,7 +84,8 @@ SCHEMA_DOC = {
         {
             "name": "points",
             "description": "The sampling point array [[id, x, y],[id, x, y]]. "
-            "The coordinates of the sampling points must be in the same coordinate reference system as the location "
+            "The coordinates of the sampling points must be in the same "
+            "coordinate reference system as the location "
             "that contains the vector dataset.",
             "required": True,
             "in": "body",
@@ -89,7 +98,8 @@ SCHEMA_DOC = {
             "schema": RasterSamplingResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why raster sampling did not succeed",
+            "description": "The error message and a detailed log why raster "
+            "sampling did not succeed",
             "schema": ProcessingErrorResponseModel,
         },
     },
@@ -97,7 +107,10 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralRasterSamplingResource(ResourceBase):
-    """Perform raster map sampling on a raster map layer based on input points, asynchronous call"""
+    """
+    Perform raster map sampling on a raster map layer based on input points,
+    asynchronous call
+    """
 
     decorators = [log_api_call, auth.login_required]
 
@@ -117,20 +130,31 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Perform raster map sampling on a raster map layer based on input points asynchronously"""
+        """
+        Perform raster map sampling on a raster map layer based on input
+        points asynchronously
+        """
         self._execute(location_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
 
-class SyncEphemeralRasterSamplingResource(AsyncEphemeralRasterSamplingResource):
-    """Perform raster map sampling on a raster map layer based on input points, synchronous call"""
+class SyncEphemeralRasterSamplingResource(
+    AsyncEphemeralRasterSamplingResource
+):
+    """
+    Perform raster map sampling on a raster map layer based on input points,
+    synchronous call
+    """
 
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Perform raster map sampling on a raster map layer based on input points synchronously"""
+        """
+        Perform raster map sampling on a raster map layer based on input
+        points synchronously
+        """
         check = self._execute(location_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
@@ -162,8 +186,12 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         if not points or len(points) == 0:
             raise AsyncProcessError("Empty coordinate list")
 
-        point_file = tempfile.NamedTemporaryFile(dir=self.temp_file_path, delete=True)
-        result_file = tempfile.NamedTemporaryFile(dir=self.temp_file_path, delete=True)
+        point_file = tempfile.NamedTemporaryFile(
+            dir=self.temp_file_path, delete=True
+        )
+        result_file = tempfile.NamedTemporaryFile(
+            dir=self.temp_file_path, delete=True
+        )
 
         for tuple in points:
             if len(tuple) != 3:
@@ -185,7 +213,8 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         {"param": "format", "value": "point"},
                         {
                             "param": "column",
-                            "value": "id text, x double precision, y double precision",
+                            "value": "id text, x double precision, y double "
+                                     "precision",
                         },
                         {"param": "x", "value": "2"},
                         {"param": "y", "value": "3"},
@@ -214,7 +243,9 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         },
                         {"param": "points", "value": "input_points"},
                     ],
-                    "outputs": [{"param": "output", "value": result_file.name}],
+                    "outputs": [
+                        {"param": "output", "value": result_file.name}
+                    ],
                     "flags": "nrf",
                     "overwrite": True,
                     "superquiet": True,
@@ -244,7 +275,8 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         for line, point in zip(result[1:], points):
             entry = dict()
             entry[point[0]] = {
-                key: value for key, value in zip(colum_name, line.strip().split("|"))
+                key: value
+                for key, value in zip(colum_name, line.strip().split("|"))
             }
             # remove site_name (always empty)
             del entry[point[0]]["site_name"]

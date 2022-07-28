@@ -6,20 +6,24 @@ from actinia_api import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
-__copyright__ = (
-    "Copyright 2016-present, Sören Gebbert, Markus Neteler and mundialis GmbH & Co. KG"
-)
+__copyright__ = "Copyright 2016-present, Sören Gebbert, Markus Neteler and "
+"mundialis GmbH & Co. KG"
 
 
 class UnivarResultModel(Schema):
-    """Response schema for the result of univariate computations of raster layers.
+    """
+    Response schema for the result of univariate computations of raster layers.
 
-    It is used as schema to define the *process_result* in a ProcessingResponseModel derivative.
+    It is used as schema to define the *process_result* in a
+    ProcessingResponseModel derivative.
     """
 
     type = "object"
     properties = {
-        "name": {"type": "string", "description": "The name of the raster resource"},
+        "name": {
+            "type": "string",
+            "description": "The name of the raster resource",
+        },
         "cells": {
             "type": "number",
             "format": "double",
@@ -69,22 +73,28 @@ class UnivarResultModel(Schema):
             "format": "double",
         },
     }
-    # If a map is empty, r.univar will return nothing, hence no required variables
+    # If a map is empty, r.univar will return nothing, hence no required
+    # variables
     # required = ['name', 'cells', 'coeff_var', 'max', 'mean', 'mean_of_abs',
-    #            'min', 'n', 'null_cells', 'range', 'stddev', 'sum', 'variance']
+    #           'min', 'n', 'null_cells', 'range', 'stddev', 'sum', 'variance']
 
 
 class CategoricalStatisticsResultModel(Schema):
-    """Response schema for the result of r.stats computations of raster layers.
+    """
+    Response schema for the result of r.stats computations of raster layers.
 
-    It is used as schema to define the *process_result* in a ProcessingResponseModel derivative.
+    It is used as schema to define the *process_result* in a
+    ProcessingResponseModel derivative.
     """
 
     type = "object"
     required = ["cat", "name", "area", "cell_count", "percent"]
     properties = {
         "cat": {"type": "string", "description": "The raster category"},
-        "name": {"type": "string", "description": "The name of raster category"},
+        "name": {
+            "type": "string",
+            "description": "The name of raster category",
+        },
         "area": {
             "type": "number",
             "format": "double",
@@ -113,8 +123,8 @@ class CategoricalStatisticsResultModel(Schema):
 class RasterAreaStatsResponseModel(ProcessingResponseModel):
     """Response schema for a list of categorical statistics.
 
-    This schema is a derivative of the ProcessingResponseModel that defines a different
-    *process_results* schema.
+    This schema is a derivative of the ProcessingResponseModel that defines a
+    different *process_results* schema.
     """
 
     type = "object"
@@ -129,8 +139,10 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralrasterareastatsresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync",
+            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+                    "raster_layers/landuse96_28m/area_stats_sync",
+            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/"
+            "mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync",
         },
         "datetime": "2018-05-04 22:02:43.014544",
         "http_code": 200,
@@ -139,7 +151,8 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
             {
                 "1": {
                     "inputs": {
-                        "input": "/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/.tmp/tmpfgs_4jur"
+                        "input": "/tmp/gisdbase_c9071ae8c7844743a40fc2f8649"
+                        "11a69/.tmp/tmpfgs_4jur"
                     },
                     "module": "v.import",
                     "outputs": {"output": {"name": "polygon"}},
@@ -149,7 +162,10 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
             {
                 "2": {
                     "flags": "p",
-                    "inputs": {"align": "landuse96_28m@PERMANENT", "vector": "polygon"},
+                    "inputs": {
+                        "align": "landuse96_28m@PERMANENT",
+                        "vector": "polygon",
+                    },
                     "module": "g.region",
                 },
                 "3": {
@@ -159,11 +175,15 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
                 },
                 "4": {
                     "flags": "acpl",
-                    "inputs": {"input": "landuse96_28m@PERMANENT", "separator": "|"},
+                    "inputs": {
+                        "input": "landuse96_28m@PERMANENT",
+                        "separator": "|",
+                    },
                     "module": "r.stats",
                     "outputs": {
                         "output": {
-                            "name": "/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/.tmp/tmp00trsfwh"
+                            "name": "/tmp/gisdbase_c9071ae8c7844743a40fc2f86"
+                            "4911a69/.tmp/tmp00trsfwh"
                         }
                     },
                     "superquiet": True,
@@ -174,7 +194,8 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
             {
                 "executable": "v.import",
                 "parameter": [
-                    "input=/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/.tmp/tmpfgs_4jur",
+                    "input=/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/"
+                    ".tmp/tmpfgs_4jur",
                     "output=polygon",
                     "--qq",
                 ],
@@ -190,7 +211,11 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
             },
             {
                 "executable": "g.region",
-                "parameter": ["vector=polygon", "align=landuse96_28m@PERMANENT", "-p"],
+                "parameter": [
+                    "vector=polygon",
+                    "align=landuse96_28m@PERMANENT",
+                    "-p",
+                ],
                 "return_code": 0,
                 "run_time": 0.050189971923828125,
                 "stderr": [""],
@@ -221,7 +246,8 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
                 "parameter": [
                     "separator=|",
                     "input=landuse96_28m@PERMANENT",
-                    "output=/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/.tmp/tmp00trsfwh",
+                    "output=/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/"
+                    ".tmp/tmp00trsfwh",
                     "-acpl",
                     "--qq",
                 ],
@@ -352,28 +378,33 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
         "timestamp": 1525464163.0145323,
         "urls": {
             "resources": [],
-            "status": f"http://localhost{URL_PREFIX}/resources/admin/resource_id-9757d66b-4986-4bc7-9b7d-7f985900fb20",
+            "status": f"http://localhost{URL_PREFIX}/resources/admin/resource"
+            "_id-9757d66b-4986-4bc7-9b7d-7f985900fb20",
         },
         "user_id": "admin",
     }
 
 
 class AreaUnivarResultModel(Schema):
-    """Response schema for the result of univariate computations of raster layers
+    """
+    Response schema for the result of univariate computations of raster layers
     based on a vector area.
 
-    It is used as schema to define the *process_result* in a ProcessingResponseModel derivative.
+    It is used as schema to define the *process_result* in a
+    ProcessingResponseModel derivative.
     """
 
     type = "object"
     properties = {
         "fid": {
             "type": "string",
-            "description": "Field id from the polygon of the vector map layer used for area stats computation",
+            "description": "Field id from the polygon of the vector map layer"
+            " used for area stats computation",
         },
         "cat": {
             "type": "string",
-            "description": "The category id from the polygon of the vector map layer used for area stats computation",
+            "description": "The category id from the polygon of the vector"
+            " map layer used for area stats computation",
         },
         "raster_number": {
             "type": "number",
@@ -433,11 +464,12 @@ class AreaUnivarResultModel(Schema):
 
 
 class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
-    """Response schema for resources that generate area univariate result lists
+    """
+    Response schema for resources that generate area univariate result lists
      as processing results.
 
-    This schema is a derivative of the ProcessingResponseModel that defines a different
-    *process_results* schema.
+    This schema is a derivative of the ProcessingResponseModel that defines a
+    different *process_results* schema.
     """
 
     type = "object"
@@ -453,8 +485,10 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralrasterareastatsunivarresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync",
+            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+            "raster_layers/towns/area_stats_univar_sync",
+            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/"
+            "mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync",
         },
         "datetime": "2018-05-04 22:07:15.793146",
         "http_code": 200,
@@ -463,7 +497,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
             {
                 "1": {
                     "inputs": {
-                        "input": "/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/.tmp/tmpdqtuzub4"
+                        "input": "/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adc"
+                        "f527/.tmp/tmpdqtuzub4"
                     },
                     "module": "v.import",
                     "outputs": {"output": {"name": "polygon"}},
@@ -480,7 +515,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
                     "inputs": {
                         "column_prefix": "raster",
                         "map": "polygon",
-                        "method": "number,minimum,maximum,range,average,median,stddev,sum,variance,coeff_var",
+                        "method": "number,minimum,maximum,range,average,"
+                        "median,stddev,sum,variance,coeff_var",
                         "raster": "towns@PERMANENT",
                     },
                     "module": "v.rast.stats",
@@ -491,7 +527,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
                     "module": "v.db.select",
                     "outputs": {
                         "file": {
-                            "name": "/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/.tmp/tmpztw47z19"
+                            "name": "/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5"
+                            "adcf527/.tmp/tmpztw47z19"
                         }
                     },
                 },
@@ -501,7 +538,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
             {
                 "executable": "v.import",
                 "parameter": [
-                    "input=/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/.tmp/tmpdqtuzub4",
+                    "input=/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/"
+                    ".tmp/tmpdqtuzub4",
                     "output=polygon",
                     "--qq",
                 ],
@@ -541,7 +579,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
                     "raster=towns@PERMANENT",
                     "map=polygon",
                     "column_prefix=raster",
-                    "method=number,minimum,maximum,range,average,median,stddev,sum,variance,coeff_var",
+                    "method=number,minimum,maximum,range,average,median,stddev"
+                    ",sum,variance,coeff_var",
                     "--qq",
                 ],
                 "return_code": 0,
@@ -553,7 +592,8 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
                 "executable": "v.db.select",
                 "parameter": [
                     "map=polygon",
-                    "file=/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/.tmp/tmpztw47z19",
+                    "file=/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/"
+                    ".tmp/tmpztw47z19",
                 ],
                 "return_code": 0,
                 "run_time": 0.05019712448120117,
@@ -584,17 +624,19 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
         "timestamp": 1525464435.7931283,
         "urls": {
             "resources": [],
-            "status": f"http://localhost{URL_PREFIX}/resources/admin/resource_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590",
+            "status": f"http://localhost{URL_PREFIX}/resources/admin/resource"
+            "_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590",
         },
         "user_id": "admin",
     }
 
 
 class RasterSamplingResponseModel(ProcessingResponseModel):
-    """Response schema for a raster map sampling result.
+    """
+    Response schema for a raster map sampling result.
 
-    This schema is a derivative of the ProcessingResponseModel that defines a different
-    *process_results* schema.
+    This schema is a derivative of the ProcessingResponseModel that defines a
+     different *process_results* schema.
     """
 
     type = "object"
@@ -612,8 +654,10 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralrastersamplingresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
+            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+            "raster_layers/landuse96_28m/sampling_sync",
+            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08"
+            "/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
         },
         "datetime": "2022-03-17 12:29:28.431388",
         "http_code": 200,
@@ -626,25 +670,33 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                         "inputs": [
                             {
                                 "param": "input",
-                                "value": "/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmpnk7lt8rx",
+                                "value": "/actinia_core/workspace/temp_db/"
+                                "gisdbase_3ef25f3f447844f2aaea07b4a34a2107/"
+                                ".tmp/tmpnk7lt8rx",
                             },
                             {"param": "format", "value": "point"},
                             {
                                 "param": "column",
-                                "value": "id text, x double precision, y double precision",
+                                "value": "id text, x double precision, y"
+                                " double precision",
                             },
                             {"param": "x", "value": "2"},
                             {"param": "y", "value": "3"},
                         ],
                         "module": "v.in.ascii",
-                        "outputs": [{"param": "output", "value": "input_points"}],
+                        "outputs": [
+                            {"param": "output", "value": "input_points"}
+                        ],
                     },
                     {
                         "flags": "p",
                         "id": "g_region",
                         "inputs": [
                             {"param": "vector", "value": "input_points"},
-                            {"param": "align", "value": "landuse96_28m@PERMANENT"},
+                            {
+                                "param": "align",
+                                "value": "landuse96_28m@PERMANENT",
+                            },
                         ],
                         "module": "g.region",
                     },
@@ -652,14 +704,19 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                         "flags": "nrf",
                         "id": "r_what",
                         "inputs": [
-                            {"param": "map", "value": "landuse96_28m@PERMANENT"},
+                            {
+                                "param": "map",
+                                "value": "landuse96_28m@PERMANENT",
+                            },
                             {"param": "points", "value": "input_points"},
                         ],
                         "module": "r.what",
                         "outputs": [
                             {
                                 "param": "output",
-                                "value": "/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmp0ktsyzl6",
+                                "value": "/actinia_core/workspace/temp_db/"
+                                "gisdbase_3ef25f3f447844f2aaea07b4a34a2107/"
+                                ".tmp/tmp0ktsyzl6",
                             }
                         ],
                         "overwrite": True,
@@ -675,7 +732,8 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "id": "v_in_ascii",
                 "mapset_size": 15753,
                 "parameter": [
-                    "input=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmpnk7lt8rx",
+                    "input=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f4"
+                    "47844f2aaea07b4a34a2107/.tmp/tmpnk7lt8rx",
                     "format=point",
                     "column=id text, x double precision, y double precision",
                     "x=2",
@@ -691,7 +749,8 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                     "Importing points...",
                     "0..50..100",
                     "Populating table...",
-                    "Building topology for vector map <input_points@mapset_3ef25f3f447844f2aaea07b4a34a2107>...",
+                    "Building topology for vector map <input_points@mapset_3e"
+                    "f25f3f447844f2aaea07b4a34a2107>...",
                     "Registering primitives...",
                     "",
                     "",
@@ -710,7 +769,12 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "return_code": 0,
                 "run_time": 0.10032916069030762,
                 "stderr": [""],
-                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:       0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694380022900787\nnorth:      226389.75\nsouth:      220205.25\nwest:       635651.5\neast:       638701\nnsres:      28.5\newres:      28.5\nrows:       217\ncols:       107\ncells:      23219\n",
+                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:  "
+                "     0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694"
+                "380022900787\nnorth:      226389.75\nsouth:      220205.25\n"
+                "west:       635651.5\neast:       638701\nnsres:      28.5\n"
+                "ewres:      28.5\nrows:       217\ncols:       107\ncells:   "
+                "   23219\n",
             },
             {
                 "executable": "r.what",
@@ -719,7 +783,8 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "parameter": [
                     "map=landuse96_28m@PERMANENT",
                     "points=input_points",
-                    "output=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f447844f2aaea07b4a34a2107/.tmp/tmp0ktsyzl6",
+                    "output=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f4"
+                    "47844f2aaea07b4a34a2107/.tmp/tmp0ktsyzl6",
                     "-nrf",
                     "--o",
                     "--qq",
@@ -759,16 +824,19 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
         "timestamp": 1647520168.431363,
         "urls": {
             "resources": [],
-            "status": f"http://localhost{URL_PREFIX}/resources/actinia-gdi/resource_id-14d1b433-f875-4ffd-a42a-27449d76341a",
+            "status": f"http://localhost{URL_PREFIX}/resources/actinia-gdi/"
+            "resource_id-14d1b433-f875-4ffd-a42a-27449d76341a",
         },
         "user_id": "actinia-gdi",
     }
 
 
 class VectorSamplingResponseModel(ProcessingResponseModel):
-    """Response schema for a vector map sampling result.
-    This schema is a derivative of the ProcessingResponseModel that defines a different
-    *process_results* schema.
+    """
+    Response schema for a vector map sampling result.
+
+    This schema is a derivative of the ProcessingResponseModel that defines a
+    different *process_results* schema.
     """
 
     type = "object"
@@ -786,8 +854,10 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralvectorsamplingresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
-            "request_url": f"http://localhost{URL_PREFIX}//locations/nc_spm_08/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
+            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+            "vector_layers/zipcodes_wake/sampling_sync",
+            "request_url": f"http://localhost{URL_PREFIX}//locations/nc_spm_08"
+            "/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
         },
         "datetime": "2022-03-17 13:41:44.467395",
         "http_code": 200,
@@ -799,7 +869,10 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                         "flags": "p",
                         "id": "g_region",
                         "inputs": [
-                            {"param": "vector", "value": "zipcodes_wake@PERMANENT"}
+                            {
+                                "param": "vector",
+                                "value": "zipcodes_wake@PERMANENT",
+                            }
                         ],
                         "module": "g.region",
                     },
@@ -807,14 +880,21 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                         "flags": "ag",
                         "id": "v_what",
                         "inputs": [
-                            {"param": "map", "value": "zipcodes_wake@PERMANENT"},
+                            {
+                                "param": "map",
+                                "value": "zipcodes_wake@PERMANENT",
+                            },
                             {
                                 "param": "coordinates",
                                 "value": "638684.0,220210.0,635676.0,226371.0",
                             },
                         ],
                         "module": "v.what",
-                        "stdout": {"delimiter": "|", "format": "list", "id": "info"},
+                        "stdout": {
+                            "delimiter": "|",
+                            "format": "list",
+                            "id": "info",
+                        },
                     },
                 ],
                 "version": "1",
@@ -829,7 +909,13 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                 "return_code": 0,
                 "run_time": 0.10039043426513672,
                 "stderr": [""],
-                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:       0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694380022900787\nnorth:      258102.57214598\nsouth:      196327.52090104\nwest:       610047.86645109\neast:       677060.680666\nnsres:      498.18589714\newres:      500.09562847\nrows:       124\ncols:       134\ncells:      16616\n",
+                "stdout": "projection: 99 (Lambert Conformal Conic)\nzone:  "
+                "     0\ndatum:      nad83\nellipsoid:  a=6378137 es=0.006694"
+                "380022900787\nnorth:      258102.57214598\nsouth:      "
+                "196327.52090104\nwest:       610047.86645109\neast:       "
+                "677060.680666\nnsres:      498.18589714\newres:      "
+                "500.09562847\nrows:       124\ncols:       134\ncells:    "
+                "  16616\n",
             },
             {
                 "executable": "v.what",
@@ -843,7 +929,26 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                 "return_code": 0,
                 "run_time": 0.10032153129577637,
                 "stderr": [""],
-                "stdout": "East=638684\nNorth=220210\n\nMap=zipcodes_wake\nMapset=PERMANENT\nType=Area\nSq_Meters=130875884.223\nHectares=13087.588\nAcres=32340.135\nSq_Miles=50.5315\nLayer=1\nCategory=40\nDriver=sqlite\nDatabase=/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db\nTable=zipcodes_wake\nKey_column=cat\ncat=40\nOBJECTID=286\nWAKE_ZIPCO=1285870010.66\nPERIMETER=282815.79339\nZIPCODE_=37\nZIPCODE_ID=66\nZIPNAME=RALEIGH\nZIPNUM=27603\nZIPCODE=RALEIGH_27603\nNAME=RALEIGH\nSHAPE_Leng=285693.495599\nSHAPE_Area=1408742751.36\nEast=635676\nNorth=226371\n\nMap=zipcodes_wake\nMapset=PERMANENT\nType=Area\nSq_Meters=63169356.527\nHectares=6316.936\nAcres=15609.488\nSq_Miles=24.3898\nLayer=1\nCategory=42\nDriver=sqlite\nDatabase=/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db\nTable=zipcodes_wake\nKey_column=cat\ncat=42\nOBJECTID=298\nWAKE_ZIPCO=829874917.625\nPERIMETER=230773.26059\nZIPCODE_=39\nZIPCODE_ID=2\nZIPNAME=RALEIGH\nZIPNUM=27606\nZIPCODE=RALEIGH_27606\nNAME=RALEIGH\nSHAPE_Leng=212707.32257\nSHAPE_Area=679989401.948\n",
+                "stdout": "East=638684\nNorth=220210\n\nMap=zipcodes_wake\n"
+                "Mapset=PERMANENT\nType=Area\nSq_Meters=130875884.223\n"
+                "Hectares=13087.588\nAcres=32340.135\nSq_Miles=50.5315\n"
+                "Layer=1\nCategory=40\nDriver=sqlite\nDatabase=/actinia_core/"
+                "workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/"
+                "nc_spm_08/PERMANENT/sqlite/sqlite.db\nTable=zipcodes_wake\n"
+                "Key_column=cat\ncat=40\nOBJECTID=286\nWAKE_ZIPCO=12858700"
+                "10.66\nPERIMETER=282815.79339\nZIPCODE_=37\nZIPCODE_ID=66\n"
+                "ZIPNAME=RALEIGH\nZIPNUM=27603\nZIPCODE=RALEIGH_27603\nNAME="
+                "RALEIGH\nSHAPE_Leng=285693.495599\nSHAPE_Area=1408742751.36"
+                "\nEast=635676\nNorth=226371\n\nMap=zipcodes_wake\nMapset="
+                "PERMANENT\nType=Area\nSq_Meters=63169356.527\nHectares="
+                "6316.936\nAcres=15609.488\nSq_Miles=24.3898\nLayer=1\n"
+                "Category=42\nDriver=sqlite\nDatabase=/actinia_core/workspace"
+                "/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08"
+                "/PERMANENT/sqlite/sqlite.db\nTable=zipcodes_wake\nKey_column"
+                "=cat\ncat=42\nOBJECTID=298\nWAKE_ZIPCO=829874917.625\n"
+                "PERIMETER=230773.26059\nZIPCODE_=39\nZIPCODE_ID=2\nZIPNAME="
+                "RALEIGH\nZIPNUM=27606\nZIPCODE=RALEIGH_27606\nNAME=RALEIGH\n"
+                "SHAPE_Leng=212707.32257\nSHAPE_Area=679989401.948\n",
             },
         ],
         "process_results": [
@@ -851,7 +956,9 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                 "p1": {
                     "Acres": "32340.135",
                     "Category": "40",
-                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db",
+                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5ce"
+                    "6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite"
+                    "/sqlite.db",
                     "Driver": "sqlite",
                     "East": "638684",
                     "Hectares": "13087.588",
@@ -882,7 +989,9 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                 "p2": {
                     "Acres": "15609.488",
                     "Category": "42",
-                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5ce6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite/sqlite.db",
+                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5c"
+                    "e6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite"
+                    "/sqlite.db",
                     "Driver": "sqlite",
                     "East": "635676",
                     "Hectares": "6316.936",
@@ -917,7 +1026,8 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
         "timestamp": 1647524504.4673853,
         "urls": {
             "resources": [],
-            "status": f"http://localhost{URL_PREFIX}//resources/actinia-gdi/resource_id-6527a077-a74d-4195-a44c-90a75692bd22",
+            "status": f"http://localhost{URL_PREFIX}//resources/actinia-gdi/"
+            "resource_id-6527a077-a74d-4195-a44c-90a75692bd22",
         },
         "user_id": "actinia-gdi",
     }

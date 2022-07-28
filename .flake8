@@ -1,0 +1,10 @@
+[flake8]
+
+# F401 'module' imported but unused
+# F821 undefined name 'point'
+
+exclude = .git,.pycache,build,.eggs
+
+per-file-ignores =
+    ./tests/test_resource_base.py: F401
+    ./src/actinia_statistic_plugin/vector_sampling.py: F821
