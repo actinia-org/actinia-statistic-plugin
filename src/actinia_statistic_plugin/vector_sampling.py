@@ -11,7 +11,9 @@ from copy import deepcopy
 from flask_restful_swagger_2 import swagger
 from flask_restful_swagger_2 import Schema
 from actinia_core.models.response_models import ProcessingErrorResponseModel
-from actinia_core.processing.actinia_processing.ephemeral_processing import EphemeralProcessing
+from actinia_core.processing.actinia_processing.ephemeral_processing import (
+    EphemeralProcessing,
+)
 from actinia_core.rest.base.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
 from flask.json import dumps
@@ -22,7 +24,9 @@ from .response_models import VectorSamplingResponseModel
 
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
-__copyright__ = "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+)
 
 
 class PointListModel(Schema):
@@ -124,7 +128,9 @@ class AsyncEphemeralVectorSamplingResource(ResourceBase):
         return make_response(jsonify(response_model), html_code)
 
 
-class SyncEphemeralVectorSamplingResource(AsyncEphemeralVectorSamplingResource):
+class SyncEphemeralVectorSamplingResource(
+    AsyncEphemeralVectorSamplingResource
+):
     """Perform vector map sampling on a vector map layer based on input points, synchronous call"""
 
     decorators = [log_api_call, auth.login_required]
@@ -192,9 +198,16 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                             "param": "map",
                             "value": "%s@%s" % (vector_name, self.mapset_name),
                         },
-                        {"param": "coordinates", "value": coordinates_string[:-1]},
+                        {
+                            "param": "coordinates",
+                            "value": coordinates_string[:-1],
+                        },
                     ],
-                    "stdout": {"id": "info", "format": "list", "delimiter": "|"},
+                    "stdout": {
+                        "id": "info",
+                        "format": "list",
+                        "delimiter": "|",
+                    },
                     "flags": "ag",
                 },
             ],

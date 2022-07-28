@@ -13,7 +13,9 @@ except:
 
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
-__copyright__ = "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co. KG"
+)
 
 # TODO zipcodes_wake not in test GRASS GIS DB
 

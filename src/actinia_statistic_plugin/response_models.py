@@ -6,9 +6,7 @@ from actinia_api import URL_PREFIX
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
-__copyright__ = (
-    "Copyright 2016-present, Sören Gebbert, Markus Neteler and mundialis GmbH & Co. KG"
-)
+__copyright__ = "Copyright 2016-present, Sören Gebbert, Markus Neteler and mundialis GmbH & Co. KG"
 
 
 class UnivarResultModel(Schema):
@@ -19,7 +17,10 @@ class UnivarResultModel(Schema):
 
     type = "object"
     properties = {
-        "name": {"type": "string", "description": "The name of the raster resource"},
+        "name": {
+            "type": "string",
+            "description": "The name of the raster resource",
+        },
         "cells": {
             "type": "number",
             "format": "double",
@@ -84,7 +85,10 @@ class CategoricalStatisticsResultModel(Schema):
     required = ["cat", "name", "area", "cell_count", "percent"]
     properties = {
         "cat": {"type": "string", "description": "The raster category"},
-        "name": {"type": "string", "description": "The name of raster category"},
+        "name": {
+            "type": "string",
+            "description": "The name of raster category",
+        },
         "area": {
             "type": "number",
             "format": "double",
@@ -149,7 +153,10 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
             {
                 "2": {
                     "flags": "p",
-                    "inputs": {"align": "landuse96_28m@PERMANENT", "vector": "polygon"},
+                    "inputs": {
+                        "align": "landuse96_28m@PERMANENT",
+                        "vector": "polygon",
+                    },
                     "module": "g.region",
                 },
                 "3": {
@@ -159,7 +166,10 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
                 },
                 "4": {
                     "flags": "acpl",
-                    "inputs": {"input": "landuse96_28m@PERMANENT", "separator": "|"},
+                    "inputs": {
+                        "input": "landuse96_28m@PERMANENT",
+                        "separator": "|",
+                    },
                     "module": "r.stats",
                     "outputs": {
                         "output": {
@@ -190,7 +200,11 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
             },
             {
                 "executable": "g.region",
-                "parameter": ["vector=polygon", "align=landuse96_28m@PERMANENT", "-p"],
+                "parameter": [
+                    "vector=polygon",
+                    "align=landuse96_28m@PERMANENT",
+                    "-p",
+                ],
                 "return_code": 0,
                 "run_time": 0.050189971923828125,
                 "stderr": [""],
@@ -637,14 +651,19 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                             {"param": "y", "value": "3"},
                         ],
                         "module": "v.in.ascii",
-                        "outputs": [{"param": "output", "value": "input_points"}],
+                        "outputs": [
+                            {"param": "output", "value": "input_points"}
+                        ],
                     },
                     {
                         "flags": "p",
                         "id": "g_region",
                         "inputs": [
                             {"param": "vector", "value": "input_points"},
-                            {"param": "align", "value": "landuse96_28m@PERMANENT"},
+                            {
+                                "param": "align",
+                                "value": "landuse96_28m@PERMANENT",
+                            },
                         ],
                         "module": "g.region",
                     },
@@ -652,7 +671,10 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                         "flags": "nrf",
                         "id": "r_what",
                         "inputs": [
-                            {"param": "map", "value": "landuse96_28m@PERMANENT"},
+                            {
+                                "param": "map",
+                                "value": "landuse96_28m@PERMANENT",
+                            },
                             {"param": "points", "value": "input_points"},
                         ],
                         "module": "r.what",
@@ -799,7 +821,10 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                         "flags": "p",
                         "id": "g_region",
                         "inputs": [
-                            {"param": "vector", "value": "zipcodes_wake@PERMANENT"}
+                            {
+                                "param": "vector",
+                                "value": "zipcodes_wake@PERMANENT",
+                            }
                         ],
                         "module": "g.region",
                     },
@@ -807,14 +832,21 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                         "flags": "ag",
                         "id": "v_what",
                         "inputs": [
-                            {"param": "map", "value": "zipcodes_wake@PERMANENT"},
+                            {
+                                "param": "map",
+                                "value": "zipcodes_wake@PERMANENT",
+                            },
                             {
                                 "param": "coordinates",
                                 "value": "638684.0,220210.0,635676.0,226371.0",
                             },
                         ],
                         "module": "v.what",
-                        "stdout": {"delimiter": "|", "format": "list", "id": "info"},
+                        "stdout": {
+                            "delimiter": "|",
+                            "format": "list",
+                            "id": "info",
+                        },
                     },
                 ],
                 "version": "1",

@@ -16,7 +16,9 @@ from actinia_core.endpoints import create_endpoints as create_actinia_endpoints
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co. KG"
+)
 __maintainer__ = "mundialis GmbH & Co. KG"
 
 redis_pid = None
@@ -56,9 +58,12 @@ def setup_environment():
 
     if server_test is False and custom_actinia_cfg is False:
         # Start the redis server for user and logging management
-        redis_pid = os.spawnl(os.P_NOWAIT, "/usr/bin/redis-server",
-                              "common/redis.conf",
-                              "--port %i" % global_config.REDIS_SERVER_PORT)
+        redis_pid = os.spawnl(
+            os.P_NOWAIT,
+            "/usr/bin/redis-server",
+            "common/redis.conf",
+            "--port %i" % global_config.REDIS_SERVER_PORT,
+        )
         time.sleep(1)
 
     if server_test is False and custom_actinia_cfg is not False:

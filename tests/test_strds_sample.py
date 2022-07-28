@@ -4,6 +4,7 @@ import time
 from pprint import pprint
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
+
 try:
     from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except:
@@ -11,10 +12,10 @@ except:
 
 
 __license__ = "GPLv3"
-__author__     = "Sören Gebbert"
-__copyright__  = "Copyright 2016, Sören Gebbert"
+__author__ = "Sören Gebbert"
+__copyright__ = "Copyright 2016, Sören Gebbert"
 __maintainer__ = "Soeren Gebbert"
-__email__      = "soerengebbert@googlemail.com"
+__email__ = "soerengebbert@googlemail.com"
 
 # TODO use modis data
 LOCATION = "nc_spm_08"
@@ -24,15 +25,36 @@ STRDS = "LST_Day_monthly"
 # TODO change coordinates
 JSON = {
     "type": "FeatureCollection",
-    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+    "crs": {
+        "type": "name",
+        "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"},
+    },
     "features": [
-        {"type": "Feature", "properties": {"cat": 1},
-         "geometry": {"type": "Point", "coordinates": [-5.095406, 38.840583]}},
-        {"type": "Feature", "properties": {"cat": 2},
-         "geometry": {"type": "Point", "coordinates": [9.9681980, 51.666166]}},
-        {"type": "Feature", "properties": {"cat": 3},
-         "geometry": {"type": "Point", "coordinates": [24.859647, 52.699099]}}
-    ]
+        {
+            "type": "Feature",
+            "properties": {"cat": 1},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-5.095406, 38.840583],
+            },
+        },
+        {
+            "type": "Feature",
+            "properties": {"cat": 2},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [9.9681980, 51.666166],
+            },
+        },
+        {
+            "type": "Feature",
+            "properties": {"cat": 3},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [24.859647, 52.699099],
+            },
+        },
+    ],
 }
 
 
@@ -148,5 +170,5 @@ JSON = {
 #         self.assertEqual(value_list[0][4], "c")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

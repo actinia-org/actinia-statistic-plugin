@@ -10,7 +10,9 @@ from copy import deepcopy
 from flask_restful_swagger_2 import swagger
 from flask_restful_swagger_2 import Schema
 from actinia_core.models.response_models import ProcessingErrorResponseModel
-from actinia_core.processing.actinia_processing.ephemeral_processing import EphemeralProcessing
+from actinia_core.processing.actinia_processing.ephemeral_processing import (
+    EphemeralProcessing,
+)
 from actinia_core.rest.base.resource_base import ResourceBase
 from actinia_core.core.common.redis_interface import enqueue_job
 from flask.json import dumps
@@ -21,7 +23,9 @@ from .response_models import RasterSamplingResponseModel
 
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
-__copyright__ = "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+__copyright__ = (
+    "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+)
 
 
 class PointListModel(Schema):
@@ -123,7 +127,9 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
         return make_response(jsonify(response_model), html_code)
 
 
-class SyncEphemeralRasterSamplingResource(AsyncEphemeralRasterSamplingResource):
+class SyncEphemeralRasterSamplingResource(
+    AsyncEphemeralRasterSamplingResource
+):
     """Perform raster map sampling on a raster map layer based on input points, synchronous call"""
 
     decorators = [log_api_call, auth.login_required]
@@ -162,8 +168,12 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         if not points or len(points) == 0:
             raise AsyncProcessError("Empty coordinate list")
 
-        point_file = tempfile.NamedTemporaryFile(dir=self.temp_file_path, delete=True)
-        result_file = tempfile.NamedTemporaryFile(dir=self.temp_file_path, delete=True)
+        point_file = tempfile.NamedTemporaryFile(
+            dir=self.temp_file_path, delete=True
+        )
+        result_file = tempfile.NamedTemporaryFile(
+            dir=self.temp_file_path, delete=True
+        )
 
         for tuple in points:
             if len(tuple) != 3:
@@ -214,7 +224,9 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         },
                         {"param": "points", "value": "input_points"},
                     ],
-                    "outputs": [{"param": "output", "value": result_file.name}],
+                    "outputs": [
+                        {"param": "output", "value": result_file.name}
+                    ],
                     "flags": "nrf",
                     "overwrite": True,
                     "superquiet": True,
@@ -244,7 +256,8 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         for line, point in zip(result[1:], points):
             entry = dict()
             entry[point[0]] = {
-                key: value for key, value in zip(colum_name, line.strip().split("|"))
+                key: value
+                for key, value in zip(colum_name, line.strip().split("|"))
             }
             # remove site_name (always empty)
             del entry[point[0]]["site_name"]

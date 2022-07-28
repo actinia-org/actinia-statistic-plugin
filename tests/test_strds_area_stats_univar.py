@@ -24,13 +24,28 @@ STRDS = "LST_Day_monthly"
 # TODO change coordinates
 JSON = {
     "type": "FeatureCollection",
-    "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+    "crs": {
+        "type": "name",
+        "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"},
+    },
     "features": [
-        {"type": "Feature", "properties": {"fid": "ecad_area.0"}, "geometry": {"type": "Polygon", "coordinates": [
-            [[7.756, 52.298157894736846], [11.986947368421044, 51.657105263157924],
-             [9.550947368421047, 48.580052631578958], [6.345684210526304, 48.836473684210539],
-             [7.756, 52.298157894736846]]]}}
-    ]
+        {
+            "type": "Feature",
+            "properties": {"fid": "ecad_area.0"},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [7.756, 52.298157894736846],
+                        [11.986947368421044, 51.657105263157924],
+                        [9.550947368421047, 48.580052631578958],
+                        [6.345684210526304, 48.836473684210539],
+                        [7.756, 52.298157894736846],
+                    ]
+                ],
+            },
+        }
+    ],
 }
 
 
@@ -142,5 +157,5 @@ JSON = {
 #         self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

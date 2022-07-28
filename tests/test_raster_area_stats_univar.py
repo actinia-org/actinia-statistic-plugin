@@ -4,6 +4,7 @@ import time
 from pprint import pprint
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
+
 try:
     from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except:
@@ -11,18 +12,36 @@ except:
 
 
 __license__ = "GPLv3"
-__author__     = "Sören Gebbert"
-__copyright__  = "Copyright 2016, Sören Gebbert"
+__author__ = "Sören Gebbert"
+__copyright__ = "Copyright 2016, Sören Gebbert"
 __maintainer__ = "Soeren Gebbert"
-__email__      = "soerengebbert@googlemail.com"
+__email__ = "soerengebbert@googlemail.com"
 
 
 JSON = {
-"type": "FeatureCollection",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3358" } },
-"features": [
-{ "type": "Feature", "properties": { "fid": "swwake_10m.0" }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 630000.0, 215000.0 ], [ 630000.0, 228500.0 ], [ 645000.0, 228500.0 ], [ 645000.0, 215000.0 ], [ 630000.0, 215000.0 ] ] ] } }
-]
+    "type": "FeatureCollection",
+    "crs": {
+        "type": "name",
+        "properties": {"name": "urn:ogc:def:crs:EPSG::3358"},
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {"fid": "swwake_10m.0"},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [630000.0, 215000.0],
+                        [630000.0, 228500.0],
+                        [645000.0, 228500.0],
+                        [645000.0, 215000.0],
+                        [630000.0, 215000.0],
+                    ]
+                ],
+            },
+        }
+    ],
 }
 
 
@@ -80,38 +99,65 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
 
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
-                              'area_stats_univar_sync',
-                              headers=self.admin_auth_header,
-                              data=" This is no data",
-                              content_type="application/XML")
+        rv = self.server.post(
+            URL_PREFIX
+            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/"
+            "area_stats_univar_sync",
+            headers=self.admin_auth_header,
+            data=" This is no data",
+            content_type="application/XML",
+        )
 
         pprint(json_load(rv.data))
-        self.assertEqual(rv.status_code, 400, "HTML status code is wrong %i"%rv.status_code)
-        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
+        self.assertEqual(
+            rv.status_code,
+            400,
+            "HTML status code is wrong %i" % rv.status_code,
+        )
+        self.assertEqual(
+            rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype
+        )
 
     def test_sync_raster_area_stats_module_error(self):
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
-                              'area_stats_univar_sync',
-                              headers=self.admin_auth_header,
-                              data=json_dump({}),
-                              content_type="application/json")
+        rv = self.server.post(
+            URL_PREFIX
+            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/"
+            "area_stats_univar_sync",
+            headers=self.admin_auth_header,
+            data=json_dump({}),
+            content_type="application/json",
+        )
 
         pprint(json_load(rv.data))
-        self.assertEqual(rv.status_code, 400, "HTML status code is wrong %i"%rv.status_code)
-        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
+        self.assertEqual(
+            rv.status_code,
+            400,
+            "HTML status code is wrong %i" % rv.status_code,
+        )
+        self.assertEqual(
+            rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype
+        )
 
     def test_sync_raster_area_stats_nodata_error(self):
-        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/'
-                              'area_stats_univar_sync',
-                              headers=self.admin_auth_header,
-                              data=None,
-                              content_type="application/json")
+        rv = self.server.post(
+            URL_PREFIX
+            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/"
+            "area_stats_univar_sync",
+            headers=self.admin_auth_header,
+            data=None,
+            content_type="application/json",
+        )
 
         pprint(json_load(rv.data))
-        self.assertEqual(rv.status_code, 400, "HTML status code is wrong %i"%rv.status_code)
-        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
+        self.assertEqual(
+            rv.status_code,
+            400,
+            "HTML status code is wrong %i" % rv.status_code,
+        )
+        self.assertEqual(
+            rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
