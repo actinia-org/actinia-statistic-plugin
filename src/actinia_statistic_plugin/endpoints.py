@@ -1,7 +1,7 @@
 #!flask/bin/python
 # -*- coding: utf-8 -*-
 """
-Actinia satellite plugin endpoint definitions
+Actinia statistic plugin endpoint definitions
 """
 from .ephemeral_strds_area_stats_univar import (
     AsyncEphemeralSTRDSAreaStatsUnivarResource,
