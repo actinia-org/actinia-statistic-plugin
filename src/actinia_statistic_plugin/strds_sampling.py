@@ -29,8 +29,8 @@ __email__ = "soerengebbert@googlemail.com"
 class STRDSSampleResponseModel(ProcessingResponseModel):
     """Response schema for a STRDS sampling result.
 
-    This schema is a derivative of the ProcessingResponseModel that defines a different
-    *process_results* schema.
+    This schema is a derivative of the ProcessingResponseModel that defines "
+    "a different *process_results* schema.
     """
 
     type = "object"
@@ -48,8 +48,10 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplingresource",
             "method": "POST",
-            "path": "/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync",
-            "request_url": "http://localhost/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync",
+            "path": "/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_"
+            "1950_2013_yearly_celsius/sampling_sync",
+            "request_url": "http://localhost/locations/ECAD/mapsets/PERMANENT/"
+            "strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync",
         },
         "datetime": "2017-05-11 10:09:48.376521",
         "http_code": 200,
@@ -73,7 +75,8 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                     "Importing points...",
                     "0..33..66..100",
                     "Populating table...",
-                    "Building topology for vector map <input_points@mapset_ffb3520846104a42878271a83117a93f>...",
+                    "Building topology for vector map <input_points@mapset_"
+                    "ffb3520846104a42878271a83117a93f>...",
                     "Registering primitives...",
                     "",
                     "3 primitives registered",
@@ -103,7 +106,8 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                     "column=id",
                     "points=input_points",
                     "where=start_time >'2010-01-01'",
-                    "strds=temperature_mean_1950_2013_yearly_celsius@PERMANENT",
+                    "strds=temperature_mean_1950_2013_yearly_celsius@"
+                    "PERMANENT",
                     "output=/tmp/tmpgU9ITw",
                     "-rn",
                     "--o",
@@ -111,9 +115,12 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
                 ],
                 "return_code": 0,
                 "stderr": [
-                    "Sample map <temperature_mean_yearly_celsius_60> number  1 out of 3",
-                    "Sample map <temperature_mean_yearly_celsius_61> number  2 out of 3",
-                    "Sample map <temperature_mean_yearly_celsius_62> number  3 out of 3",
+                    "Sample map <temperature_mean_yearly_celsius_60> number  "
+                    "1 out of 3",
+                    "Sample map <temperature_mean_yearly_celsius_61> number "
+                    " 2 out of 3",
+                    "Sample map <temperature_mean_yearly_celsius_62> number "
+                    " 3 out of 3",
                     "",
                 ],
                 "stdout": "",
@@ -149,7 +156,8 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
         "timestamp": 1494490188.376519,
         "urls": {
             "resources": [],
-            "status": "http://localhost/status/admin/resource_id-96554e63-3dad-4a16-8652-e7c6be734057",
+            "status": "http://localhost/status/admin/resource_id-96554e63-"
+            "3dad-4a16-8652-e7c6be734057",
         },
         "user_id": "admin",
     }
@@ -166,12 +174,13 @@ class PointListModel(Schema):
                 "type": "array",
                 "items": {"type": "string", "maxItems": 3, "minItems": 3},
             },
-            "description": "A list of coordinate points with unique ids [(id, x, y), (id, x, y), (id, x, y)]",
+            "description": "A list of coordinate points with unique ids "
+            "[(id, x, y), (id, x, y), (id, x, y)]",
         },
         "where": {
             "type": "string",
-            "description": "The where statement to select specific subsets of the strds, "
-            "for example: start_time > '2001-01-01'",
+            "description": "The where statement to select specific subsets "
+            "of the strds, for example: start_time > '2001-01-01'",
         },
     }
     example = {
@@ -183,9 +192,10 @@ class PointListModel(Schema):
 
 SCHEMA_DOC = {
     "tags": ["STRDS Sampling"],
-    "description": "Spatial sampling of a space-time raster dataset with vector points. The vector points must "
-    "be in the same coordinate reference system as the location that contains the "
-    "space-time raster dataset. The result of the sampling is located in the resource response"
+    "description": "Spatial sampling of a space-time raster dataset with "
+    "vector points. The vector points must be in the same coordinate reference"
+    " system as the location that contains the space-time raster dataset. "
+    "The result of the sampling is located in the resource response"
     "JSON docuement after the processing was finished, "
     "as a list of timestamped values for each vector point. "
     "Minimum required user role: user.",
@@ -200,22 +210,26 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required raster map layer",
+            "description": "The name of the mapset that contains the required "
+            "raster map layer",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "strds_name",
-            "description": "The name of the space-time raster dataset that should be sampledS",
+            "description": "The name of the space-time raster dataset that "
+            "should be sampledS",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "points",
-            "description": "The sampling point array [[id, x, y],[id, x, y]] and an optional where statement. "
-            "The coordinates of the sampling points must be the same as of the location "
+            "description": "The sampling point array [[id, x, y],[id, x, y]] "
+            "and an optional where statement. "
+            "The coordinates of the sampling points must be the same as of "
+            "the location "
             "that contains the space-time raster dataset.",
             "required": True,
             "in": "body",
@@ -228,7 +242,8 @@ SCHEMA_DOC = {
             "schema": STRDSSampleResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why strds sampling did not succeeded",
+            "description": "The error message and a detailed log why strds "
+            "sampling did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },

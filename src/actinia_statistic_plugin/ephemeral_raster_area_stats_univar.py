@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Compute areal univariate statistics on a raster map layer based on an input polygon.
+Compute areal univariate statistics on a raster map layer based on an input
+polygon.
 """
 
 from flask.json import dumps
@@ -31,10 +32,10 @@ __email__ = "soerengebbert@googlemail.com"
 
 SCHEMA_DOC = {
     "tags": ["Raster Statistics"],
-    "description": "Compute areal univariate statistics on a raster map layer based on an input polygon. "
-    "The input polygon must be provided as GeoJSON content in the request body. A correct "
-    "coordinate reference system must be present in the GeoJSON definition. "
-    "Minimum required user role: user.",
+    "description": "Compute areal univariate statistics on a raster map layer "
+    "based on an input polygon. The input polygon must be provided as GeoJSON "
+    "content in the request body. A correct coordinate reference system must "
+    "be present in the GeoJSON definition. Minimum required user role: user.",
     "consumes": ["application/json"],
     "parameters": [
         {
@@ -46,21 +47,24 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required raster map layer",
+            "description": "The name of the mapset that contains the required "
+                           "raster map layer",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "raster_name",
-            "description": "The name of the raster map layer to compute the statistics from",
+            "description": "The name of the raster map layer to compute the "
+                           "statistics from",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "shape",
-            "description": "GeoJSON definition of the polygon to compute the statistics for.",
+            "description": "GeoJSON definition of the polygon to compute the "
+                           "statistics for.",
             "required": True,
             "in": "body",
             "schema": {"type": "string"},
@@ -68,11 +72,13 @@ SCHEMA_DOC = {
     ],
     "responses": {
         "200": {
-            "description": "The result of the areal raster statistical computation",
+            "description": "The result of the areal raster statistical "
+                           "computation",
             "schema": RasterAreaUnivarStatsResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why raster statistic did not succeeded",
+            "description": "The error message and a detailed log why raster"
+                           " statistic did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },
@@ -100,7 +106,10 @@ class AsyncEphemeralRasterAreaStatsUnivarResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Compute areal univariate statistics on a raster map layer based on an input polygon asynchronously."""
+        """
+        Compute areal univariate statistics on a raster map layer based on an
+        input polygon asynchronously.
+        """
         self._execute(location_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
@@ -115,7 +124,10 @@ class SyncEphemeralRasterAreaStatsUnivarResource(
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Compute areal univariate statistics on a raster map layer based on an input polygon synchronously."""
+        """
+        Compute areal univariate statistics on a raster map layer based on an
+        input polygon synchronously.
+        """
         check = self._execute(location_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
@@ -183,7 +195,8 @@ class AsyncEphemeralRasterAreaStatsUnivar(EphemeralProcessing):
             "module": "v.rast.stats",
             "inputs": {
                 "map": "polygon",
-                "method": "number,minimum,maximum,range,average,median,stddev,sum,variance,coeff_var",
+                "method": "number,minimum,maximum,range,average,median,stddev,"
+                          "sum,variance,coeff_var",
                 "raster": raster_name + "@" + self.mapset_name,
                 "column_prefix": "raster",
             },
@@ -205,8 +218,11 @@ class AsyncEphemeralRasterAreaStatsUnivar(EphemeralProcessing):
 
         result = open(result_file.name, "r").readlines()
 
-        # cat|fid|raster_number|raster_minimum|raster_maximum|raster_range|raster_average|raster_median|raster_stddev|raster_sum|raster_variance|raster_coeff_var
-        # 1|swwake_10m.0|2025000|1|6|5|4.27381481481481|5|1.54778017556735|8654475|2.39562347187929|36.2154244540989
+        # cat|fid|raster_number|raster_minimum|raster_maximum|raster_range|
+        # raster_average|raster_median|raster_stddev|raster_sum|raster_variance
+        # |raster_coeff_var
+        # 1|swwake_10m.0|2025000|1|6|5|4.27381481481481|5|1.54778017556735|
+        # 8654475|2.39562347187929|36.2154244540989
 
         output_list = []
         first = False

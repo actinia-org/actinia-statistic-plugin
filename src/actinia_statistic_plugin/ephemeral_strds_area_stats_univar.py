@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Compute areal univariate statistics on a space-time raster dataset based on an input polygon.
+Compute areal univariate statistics on a space-time raster dataset based on
+an input polygon.
 """
 
 import pickle
@@ -34,11 +35,11 @@ __email__ = "soerengebbert@googlemail.com"
 
 SCHEMA_DOC = {
     "tags": ["STRDS Statistics"],
-    "description": "Compute areal univariate statistics on a raster map layer contained in a "
-    "space-time raster dataset based on an input polygon. "
-    "The input polygon must be provided as GeoJSON content in the request body. A correct "
-    "coordinate reference system must be present in the GeoJSON definition. "
-    "Minimum required user role: user.",
+    "description": "Compute areal univariate statistics on a raster map layer "
+    "contained in a space-time raster dataset based on an input polygon. "
+    "The input polygon must be provided as GeoJSON content in the request body"
+    ". A correct coordinate reference system must be present in the GeoJSON "
+    "definition. Minimum required user role: user.",
     "consumes": ["application/json"],
     "parameters": [
         {
@@ -50,22 +51,26 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required space-time raster dataset",
+            "description": "The name of the mapset that contains the required "
+                           "space-time raster dataset",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "strds_name",
-            "description": "The name of the space-time raster dataset to select the raster map layer from",
+            "description": "The name of the space-time raster dataset to "
+                           "select the raster map layer from",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "timestamp",
-            "description": "The time stamp that should be used for raster map layer selection. "
-            "Required format is: YYYY-MM-DDTHH:MM:SS for example 2001-03-16T12:30:15.",
+            "description": "The time stamp that should be used for raster map "
+            "layer selection. "
+            "Required format is: YYYY-MM-DDTHH:MM:SS for example "
+            "2001-03-16T12:30:15.",
             "required": True,
             "in": "path",
             "type": "string",
@@ -73,7 +78,8 @@ SCHEMA_DOC = {
         },
         {
             "name": "shape",
-            "description": "GeoJSON definition of the polygon to compute the statistics for.",
+            "description": "GeoJSON definition of the polygon to compute the "
+            "statistics for.",
             "required": True,
             "in": "body",
             "schema": {"type": "string"},
@@ -81,11 +87,13 @@ SCHEMA_DOC = {
     ],
     "responses": {
         "200": {
-            "description": "The result of the areal univar raster statistical computation",
+            "description": "The result of the areal univar raster statistical "
+            "computation",
             "schema": RasterAreaUnivarStatsResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why univar raster statistic did not succeeded",
+            "description": "The error message and a detailed log why univar "
+            "raster statistic did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },
@@ -93,7 +101,10 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
-    """Compute area statistics based on a vector map for a single raster layer that is temporally sampled from a STRDS by a timestamp."""
+    """
+    Compute area statistics based on a vector map for a single raster layer
+    that is temporally sampled from a STRDS by a timestamp.
+    """
 
     decorators = [log_api_call, auth.login_required]
 
@@ -101,13 +112,14 @@ class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
         """Prepare and enqueue the raster area statistics
 
         Raises:
-            InvalidUsage: In case the timestamp is wrong or the XML content is missing
+            InvalidUsage: In case the timestamp is wrong or the XML content
+                          is missing
 
         """
         # Check the time stamp
         try:
             datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
-        except ValueError as e:
+        except ValueError:
             msg = (
                 "Wrong timestamp format. Required format is: "
                 "YYYY-MM-DDTHH:MM:SS for example 2001-03-16T12:30:15"
@@ -131,7 +143,10 @@ class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, strds_name, timestamp):
-        """Compute areal univariate statistics on a raster map layer contained in a space-time raster dataset based on an input polygon."""
+        """
+        Compute areal univariate statistics on a raster map layer contained in
+        a space-time raster dataset based on an input polygon.
+        """
         self._execute(location_name, mapset_name, strds_name, timestamp)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
@@ -148,7 +163,10 @@ class SyncEphemeralSTRDSAreaStatsUnivarResource(
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, strds_name, timestamp):
-        """Compute areal univariate statistics on a raster map layer contained in a space-time raster dataset based on an input polygon."""
+        """
+        Compute areal univariate statistics on a raster map layer contained in
+        a space-time raster dataset based on an input polygon.
+        """
         check = self._execute(
             location_name, mapset_name, strds_name, timestamp
         )
@@ -165,7 +183,8 @@ def start_job(*args):
 
 
 class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
-    """Compute area statistics based on a vector map for a single raster layer
+    """
+    Compute area statistics based on a vector map for a single raster layer
     that is temporally sampled from a STRDS by a timestamp.
     """
 
@@ -238,7 +257,8 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
             "superquiet": False,
         }
 
-        # Setup the grass environment, check the process chain and run the modules
+        # Setup the grass environment, check the process chain and run the
+        # modules
         self.skip_region_check = True
         process_list = (
             self._create_temporary_grass_environment_and_process_list(
@@ -258,7 +278,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
             # Select the first raster name from a list of names
             if "," in raster_name:
                 raster_name = raster_name.split(",")[0]
-        except:
+        except Exception:
             raise AsyncProcessError(
                 "No raster maps found for timestamp: " + timestamp
             )
@@ -280,7 +300,8 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
             "module": "v.rast.stats",
             "inputs": {
                 "map": "polygon",
-                "method": "number,minimum,maximum,range,average,median,stddev,sum,variance,coeff_var",
+                "method": "number,minimum,maximum,range,average,median,stddev,"
+                          "sum,variance,coeff_var",
                 "raster": raster_name,
                 "column_prefix": "raster",
             },
@@ -302,11 +323,16 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
 
         result = open(result_file.name, "r").readlines()
 
-        # cat|fid|raster_number|raster_minimum|raster_maximum|raster_range|raster_average|raster_median|raster_stddev|raster_sum|raster_variance|raster_coeff_var
-        # 1|swwake_10m.0|2025000|1|6|5|4.27381481481481|5|1.54778017556735|8654475|2.39562347187929|36.2154244540989
+        # cat|fid|raster_number|raster_minimum|raster_maximum|raster_range|
+        # raster_average|raster_median|raster_stddev|raster_sum|
+        # raster_variance|raster_coeff_var
+        # 1|swwake_10m.0|2025000|1|6|5|4.27381481481481|5|1.54778017556735|
+        # 8654475|2.39562347187929|36.2154244540989
 
         # Empty looks like:
-        # cat|fid|raster_number|raster_minimum|raster_maximum|raster_range|raster_average|raster_median|raster_stddev|raster_sum|raster_variance|raster_coeff_var
+        # cat|fid|raster_number|raster_minimum|raster_maximum|raster_range|
+        # raster_average|raster_median|raster_stddev|raster_sum|
+        # raster_variance|raster_coeff_var
         # 1|tile||||||||||
         output_list = []
         first = False

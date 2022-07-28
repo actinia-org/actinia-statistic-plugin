@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Compute areal categorical statistics on a raster map layer based on an input polygon.
+Compute areal categorical statistics on a raster map layer based on an input
+polygon.
 """
 
 from flask import jsonify, make_response
@@ -31,13 +32,13 @@ __email__ = "soerengebbert@googlemail.com"
 
 SCHEMA_DOC = {
     "tags": ["Raster Statistics"],
-    "description": "Compute areal categorical statistics on a raster map layer based on an input polygon. "
-    "The input polygon must be provided as GeoJSON content in the request body. A correct "
-    "coordinate reference system must be present in the GeoJSON definition. "
-    "For each category the "
-    "size of the occupied area, the number of pixel of the area and the percentage of the area size "
-    "in relation to all other categories inclusive NULL data are computed. "
-    "Minimum required user role: user.",
+    "description": "Compute areal categorical statistics on a raster map layer"
+    " based on an input polygon. The input polygon must be provided as GeoJSON"
+    " content in the request body. A correct coordinate reference system must "
+    "be present in the GeoJSON definition. For each category the size of the "
+    "occupied area, the number of pixel of the area and the percentage of the "
+    "area size in relation to all other categories inclusive NULL data are "
+    "computed. Minimum required user role: user.",
     "consumes": ["application/json"],
     "parameters": [
         {
@@ -49,21 +50,24 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required raster map layer",
+            "description": "The name of the mapset that contains the required "
+                           "raster map layer",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "raster_name",
-            "description": "The name of the raster map layer to compute the statistics from",
+            "description": "The name of the raster map layer to compute the "
+                           "statistics from",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "shape",
-            "description": "GeoJSON definition of the polygon to compute the statistics for.",
+            "description": "GeoJSON definition of the polygon to compute the "
+                           "statistics for.",
             "required": True,
             "in": "body",
             "schema": {"type": "string"},
@@ -71,11 +75,13 @@ SCHEMA_DOC = {
     ],
     "responses": {
         "200": {
-            "description": "The result of the areal raster statistical computation",
+            "description": "The result of the areal raster statistical "
+                           "computation",
             "schema": RasterAreaStatsResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why raster statistic did not succeeded",
+            "description": "The error message and a detailed log why raster"
+                           " statistic did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },
@@ -83,7 +89,10 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralRasterAreaStatsResource(ResourceBase):
-    """Compute areal categorical statistics on a raster map layer based on an input polygon, asynchronous call"""
+    """
+    Compute areal categorical statistics on a raster map layer based on an
+    input polygon, asynchronous call
+    """
 
     decorators = [log_api_call, auth.login_required]
 
@@ -103,7 +112,10 @@ class AsyncEphemeralRasterAreaStatsResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Compute areal categorical statistics on a raster map layer based on an input polygon asynchronously"""
+        """
+        Compute areal categorical statistics on a raster map layer based on
+        an input polygon asynchronously
+        """
         self._execute(location_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
@@ -112,13 +124,19 @@ class AsyncEphemeralRasterAreaStatsResource(ResourceBase):
 class SyncEphemeralRasterAreaStatsResource(
     AsyncEphemeralRasterAreaStatsResource
 ):
-    """Compute areal categorical statistics on a raster map layer based on an input polygon, synchronous call"""
+    """
+    Compute areal categorical statistics on a raster map layer based on an
+    input polygon, synchronous call
+    """
 
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, raster_name):
-        """Compute areal categorical statistics on a raster map layer based on an input polygon synchronously"""
+        """
+        Compute areal categorical statistics on a raster map layer based on an
+        input polygon synchronously
+        """
         check = self._execute(location_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()

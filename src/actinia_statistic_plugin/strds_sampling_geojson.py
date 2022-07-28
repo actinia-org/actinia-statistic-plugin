@@ -45,8 +45,11 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplinggeojsonresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
+            "path": f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/"
+            "temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
+            "request_url": f"http://localhost{URL_PREFIX}/locations/ECAD"
+            "/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_"
+            "celsius/sampling_sync_geojson",
         },
         "datetime": "2017-09-04 19:41:42.622865",
         "http_code": 200,
@@ -55,7 +58,8 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
             {
                 "executable": "v.import",
                 "parameter": [
-                    "input=/tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/.tmp/tmpk6Le10",
+                    "input=/tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/"
+                    ".tmp/tmpk6Le10",
                     "output=input_points",
                 ],
                 "return_code": 0,
@@ -67,7 +71,8 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
                     "Importing 3 features (OGR layer <OGRGeoJSON>)...",
                     "0..33..66..100",
                     "-----------------------------------------------------",
-                    "Building topology for vector map <input_points@mapset_3e090bec1a744be78743668a573cbf5b>...",
+                    "Building topology for vector map <input_points@mapset_"
+                    "3e090bec1a744be78743668a573cbf5b>...",
                     "Registering primitives...",
                     "",
                     "3 primitives registered",
@@ -87,7 +92,9 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
                     "Number of centroids: 0",
                     "Number of areas: 0",
                     "Number of isles: 0",
-                    "Input </tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/.tmp/tmpk6Le10> successfully imported without reprojection",
+                    "Input </tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/"
+                    ".tmp/tmpk6Le10> successfully imported without "
+                    "reprojection",
                     "",
                 ],
                 "stdout": "",
@@ -96,8 +103,10 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
                 "executable": "t.rast.sample",
                 "parameter": [
                     "points=input_points",
-                    "strds=temperature_mean_1950_2013_yearly_celsius@PERMANENT",
-                    "output=/tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/.tmp/tmp3ilr28",
+                    "strds=temperature_mean_1950_2013_yearly_celsius@"
+                    "PERMANENT",
+                    "output=/tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/"
+                    ".tmp/tmp3ilr28",
                     "-rn",
                     "--o",
                     "--v",
@@ -107,13 +116,19 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
                 "stderr": [
                     "Default TGIS driver / database set to:",
                     "driver: sqlite",
-                    "database: $GISDBASE/$LOCATION_NAME/$MAPSET/tgis/sqlite.db",
+                    "database: $GISDBASE/$LOCATION_NAME/$MAPSET/tgis/sqlite."
+                    "db",
                     "WARNING: Temporal database connection defined as:",
-                    "/tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/ECAD/mapset_3e090bec1a744be78743668a573cbf5b/tgis/sqlite.db",
+                    "/tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/ECAD"
+                    "/mapset_3e090bec1a744be78743668a573cbf5b/tgis/sqlite.db",
                     "But database file does not exist.",
-                    "Creating temporal database: /tmp/gisdbase_3e090bec1a744be78743668a573cbf5b/ECAD/mapset_3e090bec1a744be78743668a573cbf5b/tgis/sqlite.db",
-                    "Sample map <temperature_mean_yearly_celsius_0> number  1 out of 63",
-                    "Sample map <temperature_mean_yearly_celsius_62> number  63 out of 63",
+                    "Creating temporal database: /tmp/gisdbase_3e090bec1a744b"
+                    "e78743668a573cbf5b/ECAD/mapset_3e090bec1a744be78743668a57"
+                    "3cbf5b/tgis/sqlite.db",
+                    "Sample map <temperature_mean_yearly_celsius_0> number  "
+                    "1 out of 63",
+                    "Sample map <temperature_mean_yearly_celsius_62> number "
+                    " 63 out of 63",
                     "",
                 ],
                 "stdout": "",
@@ -143,7 +158,8 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
         "timestamp": 1504546902.622857,
         "urls": {
             "resources": [],
-            "status": f"http://localhost{URL_PREFIX}/status/admin/resource_id-6ee74d8c-1ef6-4b01-a098-2bc04bcb75c8",
+            "status": f"http://localhost{URL_PREFIX}/status/admin/resource_id"
+            "-6ee74d8c-1ef6-4b01-a098-2bc04bcb75c8",
         },
         "user_id": "admin",
     }
@@ -151,9 +167,10 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
 
 SCHEMA_DOC = {
     "tags": ["STRDS Sampling"],
-    "description": "Spatial sampling of a space-time raster dataset (STRDS) with vector points. The vector points must "
-    "be provided as GeoJSON vector point format that includes correct coordinate system "
-    "specification. The result of the sampling is located in the resource response"
+    "description": "Spatial sampling of a space-time raster dataset (STRDS) "
+    "with vector points. The vector points must be provided as GeoJSON vector"
+    " point format that includes correct coordinate system specification. "
+    "The result of the sampling is located in the resource response"
     "JSON document after the processing was finished, "
     "as a list of timestamped values for each vector point. "
     "Minimum required user role: user.",
@@ -169,7 +186,8 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required raster map layer",
+            "description": "The name of the mapset that contains the required "
+            "raster map layer",
             "required": True,
             "in": "path",
             "type": "string",
@@ -177,7 +195,8 @@ SCHEMA_DOC = {
         },
         {
             "name": "strds_name",
-            "description": "The name of the space-time raster dataset that should be sampled",
+            "description": "The name of the space-time raster dataset that"
+            " should be sampled",
             "required": True,
             "in": "path",
             "type": "string",
@@ -185,14 +204,16 @@ SCHEMA_DOC = {
         },
         {
             "name": "points",
-            "description": "GeoJSON vector input that contains the vector points for sampling",
+            "description": "GeoJSON vector input that contains the vector "
+            "points for sampling",
             "required": True,
             "in": "body",
             "schema": "string",
             "default": """
 {
 "type": "FeatureCollection",
-"crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+"crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:"
+"CRS84"}},
 "features": [
     {"type": "Feature", "properties": {"cat": 1},
      "geometry": {"type": "Point", "coordinates": [-5.095406, 38.840583]}},
@@ -211,7 +232,8 @@ SCHEMA_DOC = {
             "schema": STRDSSampleGeoJSONResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why strds sampling did not succeeded",
+            "description": "The error message and a detailed log why strds "
+            "sampling did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },

@@ -7,7 +7,7 @@ from flask.json import dumps as json_dump
 
 try:
     from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
-except:
+except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 
@@ -40,14 +40,11 @@ JSON = {
 
 class RasterTestCase(ActiniaResourceTestCaseBase):
 
-    # ################### Raster SAMPLING ###################################
-
     def test_async_sampling(self):
 
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/"
-            "sampling_async",
+            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
+            "/landuse96_28m/sampling_async",
             headers=self.user_auth_header,
             data=json_dump(
                 {
@@ -106,55 +103,64 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
 
         time.sleep(1)
 
-    # def test_sync_sampling(self):
-    #     # PROBLEM: Not yet returned!
-    #
-    #     rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/'
-    #                           'sampling_sync',
-    #                           headers=self.user_auth_header,
-    #                           data=json_dump({"points":[["p1", "638684.0", "220210.0"],
-    #                                                      ["p2", "635676.0", "226371.0"]]}),
-    #                           content_type="application/json")
-    #
-    #     pprint(json_load(rv.data))
-    #     self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
-    #     self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
-    #
-    #     value_list = json_load(rv.data)["process_results"]
-    #
-    #     self.assertIn("p1", value_list[0], "'p1' not in process_results")
-    #     self.assertIn("p2", value_list[1], "'p2' not in process_results")
-    #     self.assertIn("easting", value_list[0]["p1"])
-    #     self.assertIn("northing", value_list[0]["p1"])
-    #     self.assertIn("map_name", value_list[0]["p1"])
-    #     self.assertIn("label", value_list[0]["p1"])
-    #     self.assertIn("value", value_list[0]["p1"])
-    #     self.assertIn("color", value_list[0]["p1"])
-    #     self.assertEqual(value_list[0]["p1"]["map_name"], "landuse96_28m")
-    #
-    #     time.sleep(1)
+    """
+    def test_sync_sampling(self):
+        # PROBLEM: Not yet returned!
 
+        rv = self.server.post(
+            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
+            "/landuse96_28m/sampling_sync",
+            headers=self.user_auth_header,
+            data=json_dump({"points": [["p1", "638684.0", "220210.0"],
+                                       ["p2", "635676.0", "226371.0"]]}),
+            content_type="application/json")
 
-#    def test_sync_sampling_geojson(self):
-#
-#        rv = self.server.post(URL_PREFIX + '/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/'
-#                              'sampling_sync_geojson',
-#                              headers=self.user_auth_header,
-#                              data=json_dump(JSON),
-#                              content_type="application/json")
-#
-#        pprint(json_load(rv.data))
-#        self.assertEqual(rv.status_code, 200, "HTML status code is wrong %i"%rv.status_code)
-#        self.assertEqual(rv.mimetype, "application/json", "Wrong mimetype %s"%rv.mimetype)
-#
-#        value_list = json_load(rv.data)["process_results"]
-#
-#        self.assertEqual(value_list[0][0], "easting")
-#        self.assertEqual(value_list[0][1], "northing")
-#        self.assertEqual(value_list[0][2], "site_name")
-#        self.assertEqual(value_list[0][3], "landuse96_28m")
-#        self.assertEqual(value_list[0][4], "landuse96_28m_label")
-#        self.assertEqual(value_list[0][5], "landuse96_28m_color")
+        pprint(json_load(rv.data))
+        self.assertEqual(
+            rv.status_code, 200, "HTML status code is wrong %i"
+            % rv.status_code)
+        self.assertEqual(
+            rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
+
+        value_list = json_load(rv.data)["process_results"]
+
+        self.assertIn("p1", value_list[0], "'p1' not in process_results")
+        self.assertIn("p2", value_list[1], "'p2' not in process_results")
+        self.assertIn("easting", value_list[0]["p1"])
+        self.assertIn("northing", value_list[0]["p1"])
+        self.assertIn("map_name", value_list[0]["p1"])
+        self.assertIn("label", value_list[0]["p1"])
+        self.assertIn("value", value_list[0]["p1"])
+        self.assertIn("color", value_list[0]["p1"])
+        self.assertEqual(value_list[0]["p1"]["map_name"], "landuse96_28m")
+
+        time.sleep(1)
+
+   def test_sync_sampling_geojson(self):
+
+       rv = self.server.post(
+           f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/"
+           "landuse96_28m/sampling_sync_geojson",
+           headers=self.user_auth_header,
+           data=json_dump(JSON),
+           content_type="application/json")
+
+       pprint(json_load(rv.data))
+       self.assertEqual(
+           rv.status_code, 200, "HTML status code is wrong %i"
+           % rv.status_code)
+       self.assertEqual(
+           rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
+
+       value_list = json_load(rv.data)["process_results"]
+
+       self.assertEqual(value_list[0][0], "easting")
+       self.assertEqual(value_list[0][1], "northing")
+       self.assertEqual(value_list[0][2], "site_name")
+       self.assertEqual(value_list[0][3], "landuse96_28m")
+       self.assertEqual(value_list[0][4], "landuse96_28m_label")
+       self.assertEqual(value_list[0][5], "landuse96_28m_color")
+    """
 
 
 if __name__ == "__main__":

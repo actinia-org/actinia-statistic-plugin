@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Compute areal categorical statistics on a space-time raster dataset based on an input polygon.
+Compute areal categorical statistics on a space-time raster dataset based on
+an input polygon.
 """
 
 import pickle
@@ -34,13 +35,15 @@ __email__ = "soerengebbert@googlemail.com"
 
 SCHEMA_DOC = {
     "tags": ["STRDS Statistics"],
-    "description": "Compute areal categorical statistics on a raster map layer contained in a "
+    "description": "Compute areal categorical statistics on a raster map "
+    "layer contained in a "
     "space-time raster dataset based on an input polygon. "
     "The input polygon must be provided as GeoJSON content"
     " in the request body. A correct "
     "coordinate reference system must be present in the GeoJSON definition. "
     "For each category the "
-    "size of the occupied area, the number of pixel of the area and the percentage of the area size "
+    "size of the occupied area, the number of pixel of the area and the "
+    "percentage of the area size "
     "in relation to all other categories inclusive NULL data are computed. "
     "Minimum required user role: user.",
     "consumes": ["application/json"],
@@ -54,22 +57,26 @@ SCHEMA_DOC = {
         },
         {
             "name": "mapset_name",
-            "description": "The name of the mapset that contains the required space-time raster dataset",
+            "description": "The name of the mapset that contains the required "
+            "space-time raster dataset",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "strds_name",
-            "description": "The name of the space-time raster dataset to select the raster map layer from",
+            "description": "The name of the space-time raster dataset to "
+            "select the raster map layer from",
             "required": True,
             "in": "path",
             "type": "string",
         },
         {
             "name": "timestamp",
-            "description": "The time stamp that should be used for raster map layer selection. "
-            "Required format is: YYYY-MM-DDTHH:MM:SS for example 2001-03-16T12:30:15.",
+            "description": "The time stamp that should be used for raster map "
+            "layer selection. "
+            "Required format is: YYYY-MM-DDTHH:MM:SS for example "
+            "2001-03-16T12:30:15.",
             "required": True,
             "in": "path",
             "type": "string",
@@ -77,7 +84,8 @@ SCHEMA_DOC = {
         },
         {
             "name": "shape",
-            "description": "GeoJSON definition of the polygon to compute the statistics for. The .",
+            "description": "GeoJSON definition of the polygon to compute the "
+            "statistics for. The .",
             "required": True,
             "in": "body",
             "schema": {"type": "string"},
@@ -85,11 +93,13 @@ SCHEMA_DOC = {
     ],
     "responses": {
         "200": {
-            "description": "The result of the areal raster statistical computation",
+            "description": "The result of the areal raster statistical "
+            "computation",
             "schema": RasterAreaStatsResponseModel,
         },
         "400": {
-            "description": "The error message and a detailed log why raster statistic did not succeeded",
+            "description": "The error message and a detailed log why raster "
+            "statistic did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },
@@ -97,7 +107,10 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
-    """Compute area statistics based on a vector map for a single raster layer that is temporally sampled from a STRDS by a timestamp."""
+    """
+    Compute area statistics based on a vector map for a single raster layer
+    that is temporally sampled from a STRDS by a timestamp.
+    """
 
     decorators = [log_api_call, auth.login_required]
 
@@ -105,12 +118,13 @@ class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
         """Prepare and enqueue the raster area statistics
 
         Raises:
-            InvalidUsage: In case the timestamp is wrong or the XML content is missing
+            InvalidUsage: In case the timestamp is wrong or the XML content
+                          is missing
         """
         # Check the time stamp
         try:
             datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
-        except ValueError as e:
+        except ValueError:
             msg = (
                 "Wrong timestamp format. Required format is: "
                 "YYYY-MM-DDTHH:MM:SS for example 2001-03-16T12:30:15"
@@ -132,11 +146,13 @@ class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, strds_name, timestamp):
-        """Compute area statistics based on a vector map for a single raster
+        """
+        Compute area statistics based on a vector map for a single raster
         layer that is temporally sampled from a STRDS by a timestamp.
 
         Raises:
-            InvalidUsage: In case the timestamp is wrong or the XML content is missing
+            InvalidUsage: In case the timestamp is wrong or the XML content
+                          is missing
         """
         self._execute(location_name, mapset_name, strds_name, timestamp)
         html_code, response_model = pickle.loads(self.response_data)
@@ -158,7 +174,8 @@ class SyncEphemeralSTRDSAreaStatsResource(
         layer that is temporally sampled from a STRDS by a timestamp.
 
         Raises:
-            InvalidUsage: In case the timestamp is wrong or the XML content is missing
+            InvalidUsage: In case the timestamp is wrong or the XML content
+                          is missing
 
         """
         check = self._execute(
@@ -177,7 +194,8 @@ def start_job(*args):
 
 
 class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
-    """Compute area statistics based on a vector map for a single raster layer
+    """
+    Compute area statistics based on a vector map for a single raster layer
     that is temporally sampled from a STRDS by a timestamp.
     """
 
@@ -247,7 +265,8 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
             "superquiet": False,
         }
 
-        # Setup the grass environment, check the process chain and run the modules
+        # Setup the grass environment, check the process chain and run the
+        # modules
         self.skip_region_check = True
         process_list = (
             self._create_temporary_grass_environment_and_process_list(
@@ -268,7 +287,7 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
             # Select the first raster name from a list of names
             if "," in raster_name:
                 raster_name = raster_name.split(",")[0]
-        except:
+        except Exception:
             raise AsyncProcessError(
                 "No raster maps found for timestamp: " + timestamp
             )
