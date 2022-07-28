@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-from flask.json import loads as json_load
+# from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
 try:
