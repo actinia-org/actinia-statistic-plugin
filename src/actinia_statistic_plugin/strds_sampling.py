@@ -29,8 +29,8 @@ __email__ = "soerengebbert@googlemail.com"
 class STRDSSampleResponseModel(ProcessingResponseModel):
     """Response schema for a STRDS sampling result.
 
-    This schema is a derivative of the ProcessingResponseModel that defines "
-    "a different *process_results* schema.
+    This schema is a derivative of the ProcessingResponseModel that defines
+    a different *process_results* schema.
     """
 
     type = "object"
