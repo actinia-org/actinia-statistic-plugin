@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-from pprint import pprint
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
@@ -79,7 +78,6 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             200,
@@ -107,7 +105,6 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             200,
@@ -133,7 +130,6 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/XML",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             400,
@@ -153,7 +149,6 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             400,
@@ -173,7 +168,6 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             400,

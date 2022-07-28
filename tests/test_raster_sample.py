@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
 import time
-from pprint import pprint
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
@@ -57,7 +56,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             200,
@@ -115,7 +113,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
                                        ["p2", "635676.0", "226371.0"]]}),
             content_type="application/json")
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code, 200, "HTML status code is wrong %i"
             % rv.status_code)
@@ -145,7 +142,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
            data=json_dump(JSON),
            content_type="application/json")
 
-       pprint(json_load(rv.data))
        self.assertEqual(
            rv.status_code, 200, "HTML status code is wrong %i"
            % rv.status_code)
