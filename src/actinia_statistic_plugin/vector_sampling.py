@@ -194,17 +194,6 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
         pc = {
             "list": [
                 {
-                    "id": "g_region",
-                    "module": "g.region",
-                    "inputs": [
-                        {
-                            "param": "vector",
-                            "value": "%s@%s" % (vector_name, self.mapset_name),
-                        }
-                    ],
-                    "flags": "p",
-                },
-                {
                     "id": "v_what",
                     "module": "v.what",
                     "inputs": [
