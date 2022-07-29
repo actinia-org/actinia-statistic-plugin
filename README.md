@@ -31,6 +31,10 @@ python3 setup.py install
 After installation set the plugin name in the actinia core configuration
 and restart the actinia core server.
 
+### Required GRASS GIS Addons
+
+The statistic plugin needs the GRASS GIS addon [t.rast.sample](https://github.com/mundialis/t.rast.sample) to be installed in actinia.
+
 
 ## Testing locally
 
