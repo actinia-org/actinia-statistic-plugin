@@ -37,7 +37,7 @@ curl -u ${AUTH} -H 'Content-Type: application/json' -X POST ${BASE_URL}/location
 ## Raster sampling
 Raster statistics of area
 ```
-curl -u ${AUTH} -H 'Content-Type: application/json' -X POST ${BASE_URL}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync -d @area.geojson
+curl -u ${AUTH} -H 'Content-Type: application/json' -X POST ${BASE_URL}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync -d @area2.geojson
 ```
 
 Univar raster statistics of area
