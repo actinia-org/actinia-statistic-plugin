@@ -219,50 +219,107 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
         tmp_file.write(dumps(self.request_data))
         tmp_file.close()
 
-        pc = {}
-        # v.in.ogr
-        pc["1"] = {
-            "module": "v.import",
-            "inputs": {"input": gml_file.name},
-            "outputs": {"output": {"name": "polygon"}},
-            "superquiet": True,
-        }
-        # t.create
-        pc["2"] = {
-            "module": "t.create",
-            "inputs": {
-                "type": "stvds",
-                "temporaltype": "absolute",
-                "semantictype": "mean",
-                "title": "Polygon",
-                "description": "Polygon",
-            },
-            "outputs": {"output": {"name": "polygon_stvds"}},
-            "superquiet": True,
-        }
-        # t.register
-        pc["3"] = {
-            "module": "t.register",
-            "inputs": {
-                "type": "vector",
-                "input": "polygon_stvds",
-                "maps": "polygon",
-                "start": timestamp,
-                "increment": "1 second",
-            },
-            "flags": "i",
-            "superquiet": False,
-        }
-        # t.sample
-        pc["4"] = {
-            "module": "t.sample",
-            "inputs": {
-                "sample": "polygon_stvds",
-                "inputs": strds_name + "@" + self.mapset_name,
-                "samtype": "stvds",
-                "intype": "strds",
-            },
-            "superquiet": False,
+        pc = {
+            "list": [
+                {
+                    "id": "v_import_1",
+                    "module": "v.import",
+                    "inputs": [
+                        {
+                            "param": "input",
+                            "value": gml_file.name,
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": "polygon",
+                        }
+                    ],
+                },
+                {
+                    "id": "t_create_2",
+                    "module": "t.create",
+                    "inputs": [
+                        {
+                            "param": "type",
+                            "value": "stvds",
+                        },
+                        {
+                            "param": "temporaltype",
+                            "value": "absolute",
+                        },
+                        {
+                            "param": "semantictype",
+                            "value": "mean",
+                        },
+                        {
+                            "param": "title",
+                            "value": "Polygon",
+                        },
+                        {
+                            "param": "description",
+                            "value": "Polygon",
+                        },
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": "polygon_stvds",
+                        }
+                    ],
+                },
+                {
+                    "id": "t_register_3",
+                    "module": "t.register",
+                    "inputs": [
+                        {
+                            "param": "type",
+                            "value": "vector",
+                        },
+                        {
+                            "param": "input",
+                            "value": "polygon_stvds",
+                        },
+                        {
+                            "param": "maps",
+                            "value": "polygon",
+                        },
+                        {
+                            "param": "start",
+                            "value": timestamp,
+                        },
+                        {
+                            "param": "increment",
+                            "value": "1 second",
+                        },
+                    ],
+                    "flags": "i"
+                },
+                {
+                    "id": "t_sample_4",
+                    "module": "t.sample",
+                    "inputs": [
+                        {
+                            "param": "sample",
+                            "value": "polygon_stvds",
+                        },
+                        {
+                            "param": "inputs",
+                            "value": strds_name + "@" + self.mapset_name,
+                        },
+                        {
+                            "param": "samtype",
+                            "value": "stvds",
+                        },
+                        {
+                            "param": "intype",
+                            "value": "strds",
+                        },
+                    ],
+                },
+            ],
+            "version": "1",
         }
 
         # Setup the grass environment, check the process chain and run the
@@ -301,25 +358,55 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
             dir=self.temp_file_path, delete=True
         )
 
-        pc = {}
-        # g.region
-        pc["5"] = {
-            "module": "g.region",
-            "inputs": {"vector": "polygon", "align": raster_name},
-        }
-        # r.mask
-        pc["6"] = {
-            "module": "r.mask",
-            "inputs": {"vector": "polygon"},
-            "superquiet": True,
-        }
-        # r.stats
-        pc["7"] = {
-            "module": "r.stats",
-            "inputs": {"input": raster_name, "separator": "|"},
-            "outputs": {"output": {"name": result_file.name}},
-            "flags": "acpl",
-            "superquiet": True,
+        pc = {
+            "list": [
+                {
+                    "id": "g_region_5",
+                    "module": "g.region",
+                    "inputs": [
+                        {
+                            "param": "vector",
+                            "value": "polygon",
+                        },
+                        {
+                            "param": "align",
+                            "value": raster_name,
+                        },
+                    ],
+                },
+                {
+                    "id": "r_mask_6",
+                    "module": "r.mask",
+                    "inputs": [
+                        {
+                            "param": "vector",
+                            "value": "polygon",
+                        }
+                    ],
+                },
+                {
+                    "id": "r_stats_7",
+                    "module": "r.stats",
+                    "inputs": [
+                        {
+                            "param": "input",
+                            "value": raster_name,
+                        },
+                        {
+                            "param": "separator",
+                            "value": "|",
+                        },
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": result_file.name,
+                        }
+                    ],
+                    "flags": "acpl"
+                },
+            ],
+            "version": "1",
         }
 
         # Check the process chain and run the modules
