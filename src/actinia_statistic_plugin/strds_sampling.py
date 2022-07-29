@@ -348,7 +348,8 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                         },
                         {
                             "param": "column",
-                            "value": "id text, x double precision, y double precision",
+                            "value": "id text, x double precision, y double "
+                                     "precision",
                         },
                         {
                             "param": "x",
