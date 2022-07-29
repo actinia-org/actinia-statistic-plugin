@@ -206,7 +206,7 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         pc = {
             "list": [
                 {
-                    "id": "v_in_ascii",
+                    "id": "v_in_ascii_1",
                     "module": "v.in.ascii",
                     "inputs": [
                         {"param": "input", "value": point_file.name},
@@ -220,9 +220,10 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         {"param": "y", "value": "3"},
                     ],
                     "outputs": [{"param": "output", "value": "input_points"}],
+                    "superquiet": True
                 },
                 {
-                    "id": "g_region",
+                    "id": "g_region_2",
                     "module": "g.region",
                     "inputs": [
                         {"param": "vector", "value": "input_points"},
@@ -232,9 +233,10 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         },
                     ],
                     "flags": "p",
+                    "superquiet": True
                 },
                 {
-                    "id": "r_what",
+                    "id": "r_what_3",
                     "module": "r.what",
                     "inputs": [
                         {

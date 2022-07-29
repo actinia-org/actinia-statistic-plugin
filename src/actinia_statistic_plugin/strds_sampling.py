@@ -366,6 +366,7 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                             "value": "input_points",
                         }
                     ],
+                    "superquiet": True
                 },
                 {
                     "id": "t_rast_sample_2",
@@ -390,7 +391,8 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                             "value": result_file.name,
                         }
                     ],
-                    "flags": "rn"
+                    "flags": "rn",
+                    "superquiet": True
                 },
             ],
             "version": "1",

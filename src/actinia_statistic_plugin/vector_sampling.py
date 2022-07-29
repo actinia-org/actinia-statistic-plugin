@@ -194,7 +194,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
         pc = {
             "list": [
                 {
-                    "id": "g_region",
+                    "id": "g_region_1",
                     "module": "g.region",
                     "inputs": [
                         {
@@ -203,9 +203,10 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                         }
                     ],
                     "flags": "p",
+                    "superquiet": True
                 },
                 {
-                    "id": "v_what",
+                    "id": "v_what_2",
                     "module": "v.what",
                     "inputs": [
                         {
@@ -223,6 +224,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                         "delimiter": "|",
                     },
                     "flags": "ag",
+                    "superquiet": True
                 },
             ],
             "version": "1",

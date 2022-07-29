@@ -34,9 +34,14 @@ Sampeling STRDS by area
 curl -u ${AUTH} -H 'Content-Type: application/json' -X POST ${BASE_URL}/locations/nc_spm_08/mapsets/modis_lst/strds/LST_Day_monthly/timestamp/2016-01-01T00:00:00/area_stats_sync -d @area.geojson
 ```
 
+## Raster sampeling
+Sampeling raster by area
+```
+curl -u ${AUTH} -H 'Content-Type: application/json' -X POST ${BASE_URL}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync -d @area.geojson
+```
 
 
-## Vector sampling
+## Vector sampeling
 ```
 curl -u ${AUTH} -H 'Content-Type: application/json' -X POST ${BASE_URL}/locations/nc_spm_08/mapsets/PERMANENT/vector_layers/nc_state/sampling_async -d @points2.json
 ```

@@ -236,6 +236,7 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": "polygon",
                         }
                     ],
+                    "superquiet": True
                 },
                 {
                     "id": "t_create_2",
@@ -268,6 +269,7 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": "polygon_stvds",
                         }
                     ],
+                    "superquiet": True
                 },
                 {
                     "id": "t_register_3",
@@ -294,7 +296,8 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": "1 second",
                         },
                     ],
-                    "flags": "i"
+                    "flags": "i",
+                    "superquiet": True
                 },
                 {
                     "id": "t_sample_4",
@@ -317,6 +320,7 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": "strds",
                         },
                     ],
+                    "superquiet": True
                 },
             ],
             "version": "1",
@@ -373,6 +377,7 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": raster_name,
                         },
                     ],
+                    "superquiet": True
                 },
                 {
                     "id": "r_mask_6",
@@ -383,6 +388,7 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": "polygon",
                         }
                     ],
+                    "superquiet": True
                 },
                 {
                     "id": "r_stats_7",
@@ -403,7 +409,8 @@ class AsyncEphemeralSTRDSAreaStats(EphemeralProcessing):
                             "value": result_file.name,
                         }
                     ],
-                    "flags": "acpl"
+                    "flags": "acpl",
+                    "superquiet": True
                 },
             ],
             "version": "1",
