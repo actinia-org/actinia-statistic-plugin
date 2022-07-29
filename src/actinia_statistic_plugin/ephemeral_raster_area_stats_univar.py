@@ -100,7 +100,10 @@ class AsyncEphemeralRasterAreaStatsUnivarResource(ResourceBase):
             map_name=raster_name,
         )
         if rdc:
-            enqueue_job(self.job_timeout, start_job, rdc)
+            # for debugging
+            processing = AsyncEphemeralRasterAreaStatsUnivar(rdc)
+            processing.run()
+            # enqueue_job(self.job_timeout, start_job, rdc)
 
         return rdc
 
@@ -167,12 +170,27 @@ class AsyncEphemeralRasterAreaStatsUnivar(EphemeralProcessing):
             dir=self.temp_file_path, delete=True
         )
 
-        pc = dict()
-        pc["1"] = {
-            "module": "v.import",
-            "inputs": {"input": gml_file.name},
-            "outputs": {"output": {"name": "polygon"}},
-            "superquiet": True,
+        pc = {
+            "list": [
+                {
+                    "id": "v_import_1",
+                    "module": "v.import",
+                    "inputs": [
+                        {
+                            "param": "input",
+                            "value": gml_file.name,
+                        },
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": "polygon",
+                        }
+                    ],
+                    "superquiet": True
+                },
+            ],
+            "version": "1",
         }
 
         # Run the selected modules
@@ -184,29 +202,62 @@ class AsyncEphemeralRasterAreaStatsUnivar(EphemeralProcessing):
         )
         self._execute_process_list(process_list)
 
-        pc = dict()
-        pc["2"] = {
-            "module": "g.region",
-            "inputs": {"vector": "polygon"},
-            "flags": "p",
-        }
-
-        pc["3"] = {
-            "module": "v.rast.stats",
-            "inputs": {
-                "map": "polygon",
-                "method": "number,minimum,maximum,range,average,median,stddev,"
-                          "sum,variance,coeff_var",
-                "raster": raster_name + "@" + self.mapset_name,
-                "column_prefix": "raster",
-            },
-            "superquiet": True,
-        }
-
-        pc["4"] = {
-            "module": "v.db.select",
-            "inputs": {"map": "polygon"},
-            "outputs": {"file": {"name": result_file.name}},
+        pc = {
+            "list": [
+                {
+                    "id": "g_region_2",
+                    "module": "g.region",
+                    "inputs": [
+                        {
+                            "param": "vector",
+                            "value": "polygon",
+                        },
+                    ],
+                    "flags": "p",
+                },
+                {
+                    "id": "v_rast_stats_3",
+                    "module": "v.rast.stats",
+                    "inputs": [
+                        {
+                            "param": "map",
+                            "value": "polygon",
+                        },
+                        {
+                            "param": "method",
+                            "value": "number,minimum,maximum,range,average,"
+                                     "median,stddev,sum,variance,coeff_var",
+                        },
+                        {
+                            "param": "raster",
+                            "value": raster_name + "@" + self.mapset_name
+                        },
+                        {
+                            "param": "column_prefix",
+                            "value": "raster"
+                        },
+                    ],
+                    "superquiet": True
+                },
+                {
+                    "id": "v_db_select_4",
+                    "module": "v.db.select",
+                    "inputs": [
+                        {
+                            "param": "map",
+                            "value": "polygon",
+                        },
+                    ],
+                    "outputs": [
+                        {
+                            "param": "file",
+                            "value": result_file.name,
+                        },
+                    ],
+                    "superquiet": True
+                },
+            ],
+            "version": "1",
         }
 
         # Run the area statistics and check for correct region settings
