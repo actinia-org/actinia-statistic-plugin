@@ -101,7 +101,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
 
         time.sleep(1)
 
-    
     def test_sync_sampling(self):
         # PROBLEM: Not yet returned!
 
@@ -132,7 +131,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(value_list[0]["p1"]["map_name"], "landuse96_28m")
 
         time.sleep(1)
-
 
 
 if __name__ == "__main__":
