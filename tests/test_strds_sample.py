@@ -11,10 +11,9 @@ except Exception:
 
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
-__maintainer__ = "Soeren Gebbert"
-__email__ = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert, Anika Weinmann"
+__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
+__maintainer__ = "mundialis GmbH & Co. KG"
 
 LOCATION = "nc_spm_08"
 MAPSET = "modis_lst"

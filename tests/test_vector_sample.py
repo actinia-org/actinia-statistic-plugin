@@ -10,7 +10,7 @@ except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 __license__ = "GPLv3"
-__author__ = "Markus Neteler"
+__author__ = "Markus Neteler, Anika Weinmann"
 __copyright__ = (
     "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co. KG"
 )
