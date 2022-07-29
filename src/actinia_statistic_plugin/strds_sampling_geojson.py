@@ -253,6 +253,9 @@ class AsyncEphemeralSTRDSSamplingGeoJSONResource(ResourceBase):
             map_name=strds_name,
         )
         if rdc:
+            # # for debugging
+            # processing = AsyncEphemeralSTRDSSamplingGeoJSON(rdc)
+            # processing.run()
             enqueue_job(self.job_timeout, start_job, rdc)
 
         return rdc
@@ -273,6 +276,7 @@ class SyncEphemeralSTRDSSamplingGeoJSONResource(
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, location_name, mapset_name, strds_name):
         """Sample a strds by point coordinates, synchronous call"""
+
         check = self._execute(location_name, mapset_name, strds_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
