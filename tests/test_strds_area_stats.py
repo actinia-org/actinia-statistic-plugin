@@ -3,8 +3,6 @@ import unittest
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
-from pprint import pprint
-
 try:
     from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 except Exception:
@@ -129,7 +127,6 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             400,
@@ -182,7 +179,6 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             400,
@@ -202,7 +198,6 @@ class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
             content_type="application/json",
         )
 
-        pprint(json_load(rv.data))
         self.assertEqual(
             rv.status_code,
             400,
