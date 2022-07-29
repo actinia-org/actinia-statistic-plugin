@@ -310,23 +310,47 @@ class AsyncEphemeralSTRDSSamplingGeoJSON(EphemeralProcessing):
         point_file.write(json_dumps(geojson).encode())
         point_file.flush()
 
-        pc = dict()
-        pc["1"] = {
-            "module": "v.import",
-            "inputs": {"input": point_file.name},
-            "outputs": {"output": {"name": "input_points"}},
-        }
-
-        pc["2"] = {
-            "module": "t.rast.sample",
-            "inputs": {
-                "strds": "%s@%s" % (strds_name, self.mapset_name),
-                "points": "input_points",
-            },
-            "outputs": {"output": {"name": result_file.name}},
-            "flags": "rn",
-            "overwrite": True,
-            "verbose": True,
+        pc = {
+            "list": [
+                {
+                    "id": "v_import_1",
+                    "module": "v.import",
+                    "inputs": [
+                        {
+                            "param": "input",
+                            "value": point_file.name,
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": "input_points",
+                        }
+                    ],
+                },
+                {
+                    "id": "t_rast_sample_2",
+                    "module": "t.rast.sample",
+                    "inputs": [
+                        {
+                            "param": "strds",
+                            "value": "%s@%s" % (strds_name, self.mapset_name),
+                        },
+                        {
+                            "param": "points",
+                            "value": "input_points",
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": result_file.name,
+                        }
+                    ],
+                    "flags": "rn"
+                },
+            ],
+            "version": "1",
         }
 
         self.request_data = pc
