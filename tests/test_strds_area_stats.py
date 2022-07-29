@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-import time
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
