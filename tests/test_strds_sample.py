@@ -190,7 +190,6 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(value_list[0][1], "end_time")
         self.assertEqual(value_list[0][2], "1")
         self.assertEqual(value_list[0][3], "2")
-        self.assertEqual(value_list[0][4], "3")
 
 
 if __name__ == "__main__":
