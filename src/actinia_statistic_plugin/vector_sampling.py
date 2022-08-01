@@ -23,7 +23,7 @@ from .response_models import VectorSamplingResponseModel
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
 __copyright__ = (
-    "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+    "Copyright 2022-2022, Markus Neteler and mundialis GmbH & Co. KG"
 )
 
 
@@ -194,19 +194,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
         pc = {
             "list": [
                 {
-                    "id": "g_region_1",
-                    "module": "g.region",
-                    "inputs": [
-                        {
-                            "param": "vector",
-                            "value": "%s@%s" % (vector_name, self.mapset_name),
-                        }
-                    ],
-                    "flags": "p",
-                    "superquiet": True
-                },
-                {
-                    "id": "v_what_2",
+                    "id": "v_what",
                     "module": "v.what",
                     "inputs": [
                         {

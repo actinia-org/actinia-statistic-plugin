@@ -1,79 +1,61 @@
 # -*- coding: utf-8 -*-
 import unittest
-# import time
-# from flask.json import loads as json_load
-# from flask.json import dumps as json_dump
-#
-# try:
-#     from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
-# except Exception:
-#     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
+import time
+from flask.json import loads as json_load
+from flask.json import dumps as json_dump
+
+try:
+    from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
+except Exception:
+    from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
-__maintainer__ = "Soeren Gebbert"
-__email__ = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert, Anika Weinmann"
+__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
+__maintainer__ = "mundialis GmbH & Co. KG"
 
-# TODO use modis data
 LOCATION = "nc_spm_08"
 MAPSET = "modis_lst"
 STRDS = "LST_Day_monthly"
 
-# TODO change coordinates
 JSON = {
     "type": "FeatureCollection",
     "crs": {
         "type": "name",
-        "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"},
+        "properties": {"name": "urn:x-ogc:def:crs:EPSG:3358"}
     },
     "features": [
         {
             "type": "Feature",
             "properties": {"cat": 1},
-            "geometry": {
-                "type": "Point",
-                "coordinates": [-5.095406, 38.840583],
-            },
+            "geometry": {"type": "Point", "coordinates": [330000.0, 65000.0]}
         },
         {
             "type": "Feature",
             "properties": {"cat": 2},
-            "geometry": {
-                "type": "Point",
-                "coordinates": [9.9681980, 51.666166],
-            },
-        },
-        {
-            "type": "Feature",
-            "properties": {"cat": 3},
-            "geometry": {
-                "type": "Point",
-                "coordinates": [24.859647, 52.699099],
-            },
-        },
-    ],
+            "geometry": {"type": "Point", "coordinates": [500000.0, 500000.0]}
+        }
+    ]
 }
+POINT_LIST = [
+    ["a", "330000.0", "65000.0"],
+    ["b", "300000.0", "60000.0"],
+    ["c", "500000.0", "500000.0"],
+]
+WHERE = "start_time >'2016-01-01'"
 
 
-"""
 class STRDSTestCase(ActiniaResourceTestCaseBase):
     def test_async_sampling(self):
 
+        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
+            f"{STRDS}/sampling_async"
+
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/"
-            "temperature_mean_1950_2013_yearly_celsius/sampling_async",
+            url,
             headers=self.user_auth_header,
-            data=json_dump(
-                {
-                    "points": [
-                        ["a", "-5.095406", "38.840583"],
-                        ["b", "9.9681980", "51.666166"],
-                        ["c", "24.859647", "52.699099"],
-                    ]
-                }
-            ),
+            data=json_dump({"points": POINT_LIST}),
             content_type="application/json",
         )
 
@@ -120,19 +102,12 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling(self):
 
+        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
+            f"{STRDS}/sampling_sync"
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/"
-            "temperature_mean_1950_2013_yearly_celsius/sampling_sync",
+            url,
             headers=self.user_auth_header,
-            data=json_dump(
-                {
-                    "points": [
-                        ["a", "-5.095406", "38.840583"],
-                        ["b", "9.9681980", "51.666166"],
-                        ["c", "24.859647", "52.699099"],
-                    ]
-                }
-            ),
+            data=json_dump({"points": POINT_LIST}),
             content_type="application/json",
         )
 
@@ -155,47 +130,17 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
         time.sleep(1)
 
-    def test_sync_sampling_geojson(self):
-
-        rv = self.server.post(
-            f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/"
-            "temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
-            headers=self.user_auth_header,
-            data=json_dump(JSON),
-            content_type="application/json",
-        )
-
-        self.assertEqual(
-            rv.status_code,
-            200,
-            "HTML status code is wrong %i" % rv.status_code,
-        )
-        self.assertEqual(
-            rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype
-        )
-
-        value_list = json_load(rv.data)["process_results"]
-
-        self.assertEqual(value_list[0][0], "start_time")
-        self.assertEqual(value_list[0][1], "end_time")
-        self.assertEqual(value_list[0][2], "1")
-        self.assertEqual(value_list[0][3], "2")
-        self.assertEqual(value_list[0][4], "3")
-
     def test_sync_sampling_where(self):
 
+        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
+            f"{STRDS}/sampling_sync"
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/"
-            "temperature_mean_1950_2013_yearly_celsius/sampling_sync",
+            url,
             headers=self.user_auth_header,
             data=json_dump(
                 {
-                    "points": [
-                        ["a", "-5.095406", "38.840583"],
-                        ["b", "9.9681980", "51.666166"],
-                        ["c", "24.859647", "52.699099"],
-                    ],
-                    "where": "start_time >'2010-01-01'",
+                    "points": POINT_LIST,
+                    "where": WHERE,
                 }
             ),
             content_type="application/json",
@@ -217,7 +162,33 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(value_list[0][2], "a")
         self.assertEqual(value_list[0][3], "b")
         self.assertEqual(value_list[0][4], "c")
-"""
+
+    def test_sync_sampling_geojson(self):
+
+        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
+            f"{STRDS}/sampling_sync_geojson"
+        rv = self.server.post(
+            url,
+            headers=self.user_auth_header,
+            data=json_dump(JSON),
+            content_type="application/json",
+        )
+
+        self.assertEqual(
+            rv.status_code,
+            200,
+            "HTML status code is wrong %i" % rv.status_code,
+        )
+        self.assertEqual(
+            rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype
+        )
+
+        value_list = json_load(rv.data)["process_results"]
+
+        self.assertEqual(value_list[0][0], "start_time")
+        self.assertEqual(value_list[0][1], "end_time")
+        self.assertEqual(value_list[0][2], "1")
+        self.assertEqual(value_list[0][3], "2")
 
 
 if __name__ == "__main__":

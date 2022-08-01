@@ -1,40 +1,39 @@
 # -*- coding: utf-8 -*-
 import unittest
-# import time
-# from flask.json import loads as json_load
-# from flask.json import dumps as json_dump
-#
-# try:
-#     from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
-# except Exception:
-#     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
+import time
+from flask.json import loads as json_load
+from flask.json import dumps as json_dump
 
+try:
+    from .test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
+except Exception:
+    from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 __license__ = "GPLv3"
-__author__ = "Markus Neteler"
+__author__ = "Markus Neteler, Anika Weinmann"
 __copyright__ = (
-    "Copyright 2016-present, Markus Neteler and mundialis GmbH & Co. KG"
+    "Copyright 2016-2022, Markus Neteler and mundialis GmbH & Co. KG"
 )
 
-# TODO zipcodes_wake not in test GRASS GIS DB
+LOCATION = "nc_spm_08"
+MAPSET = "PERMANENT"
+VECTOR = "nc_state"
+
+POINTS_LIST = [
+    ["p1", "638684.0", "220210.0"],
+    ["p2", "635676.0", "226371.0"],
+]
 
 
-"""
 class VectorTestCase(ActiniaResourceTestCaseBase):
     def test_async_sampling(self):
 
+        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/" \
+            f"vector_layers/{VECTOR}/sampling_async"
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/vector_layers"
-            "/zipcodes_wake/sampling_async",
+            url,
             headers=self.user_auth_header,
-            data=json_dump(
-                {
-                    "points": [
-                        ["a", "638684.0", "220210.0"],
-                        ["b", "635676.0", "226371.0"],
-                    ]
-                }
-            ),
+            data=json_dump({"points": POINTS_LIST}),
             content_type="application/json",
         )
 
@@ -62,10 +61,7 @@ class VectorTestCase(ActiniaResourceTestCaseBase):
                 break
             time.sleep(0.2)
 
-        import pdb
-
-        pdb.set_trace()
-        self.assertEquals(resp["status"], "finished")
+        self.assertEqual(resp["status"], "finished", resp)
         self.assertEqual(
             rv.status_code,
             200,
@@ -74,27 +70,21 @@ class VectorTestCase(ActiniaResourceTestCaseBase):
 
         value_list = json_load(rv.data)["process_results"]
 
-        self.assertIn("East", value_list["p1"])
-        self.assertIn("North", value_list["p2"])
-        self.assertIn("ZIPCODE", value_list["p2"])
-        self.assertEqual(value_list["p2"]["ZIPCODE"], "RALEIGH_27606")
+        self.assertIn("East", value_list[0]["p1"])
+        self.assertIn("North", value_list[1]["p2"])
+        self.assertIn("STATE", value_list[1]["p2"])
+        self.assertEqual(value_list[1]["p2"]["STATE"], "NORTH_CAROLINA")
 
         time.sleep(1)
 
     def test_sync_sampling(self):
 
+        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/" \
+            f"vector_layers/{VECTOR}/sampling_sync"
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/vector_layers"
-            "/zipcodes_wake/sampling_sync",
+            url,
             headers=self.user_auth_header,
-            data=json_dump(
-                {
-                    "points": [
-                        ["p1", "638684.0", "220210.0"],
-                        ["p2", "635676.0", "226371.0"],
-                    ]
-                }
-            ),
+            data=json_dump({"points": POINTS_LIST}),
             content_type="application/json",
         )
 
@@ -109,13 +99,12 @@ class VectorTestCase(ActiniaResourceTestCaseBase):
 
         value_list = json_load(rv.data)["process_results"]
 
-        self.assertIn("East", value_list["p1"])
-        self.assertIn("North", value_list["p2"])
-        self.assertIn("ZIPCODE", value_list["p2"])
-        self.assertEqual(value_list["p2"]["ZIPCODE"], "RALEIGH_27606")
+        self.assertIn("East", value_list[0]["p1"])
+        self.assertIn("North", value_list[1]["p2"])
+        self.assertIn("STATE", value_list[1]["p2"])
+        self.assertEqual(value_list[1]["p2"]["STATE"], "NORTH_CAROLINA")
 
         time.sleep(1)
-"""
 
 
 if __name__ == "__main__":

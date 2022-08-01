@@ -253,6 +253,9 @@ class AsyncEphemeralSTRDSSamplingGeoJSONResource(ResourceBase):
             map_name=strds_name,
         )
         if rdc:
+            # # for debugging
+            # processing = AsyncEphemeralSTRDSSamplingGeoJSON(rdc)
+            # processing.run()
             enqueue_job(self.job_timeout, start_job, rdc)
 
         return rdc

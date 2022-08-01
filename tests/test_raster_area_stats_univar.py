@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import unittest
-# from flask.json import loads as json_load
+from flask.json import loads as json_load
 from flask.json import dumps as json_dump
 
 try:
@@ -10,69 +10,65 @@ except Exception:
 
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
-__maintainer__ = "Soeren Gebbert"
-__email__ = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert, Anika Weinmann"
+__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
+__maintainer__ = "mundialis GmbH & Co. KG"
 
-
+LOCATION = "nc_spm_08"
+MAPSET = "PERMANENT"
+RASTER = "elevation"
+RASTER2 = "aspect"
 JSON = {
     "type": "FeatureCollection",
     "crs": {
         "type": "name",
-        "properties": {"name": "urn:ogc:def:crs:EPSG::3358"},
+        "properties": {"name": "urn:x-ogc:def:crs:EPSG:3358"}
     },
     "features": [
         {
             "type": "Feature",
-            "properties": {"fid": "swwake_10m.0"},
+            "properties": {"fid": "test"},
             "geometry": {
                 "type": "Polygon",
                 "coordinates": [
                     [
-                        [630000.0, 215000.0],
-                        [630000.0, 228500.0],
-                        [645000.0, 228500.0],
-                        [645000.0, 215000.0],
-                        [630000.0, 215000.0],
+                        [635000.0, 220000.0],
+                        [637000.0, 220000.0],
+                        [637000.0, 221000.0],
+                        [635000.0, 221000.0],
+                        [635000.0, 220000.0]
                     ]
-                ],
-            },
+                ]
+            }
         }
-    ],
+    ]
 }
 
 
 class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
-    """
+
     def test_async_raster_area_stats_json(self):
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/"
-            "area_stats_univar_async",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/"
+            f"raster_layers/{RASTER}/area_stats_univar_async",
             headers=self.admin_auth_header,
             data=json_dump(JSON),
             content_type="application/json",
         )
 
-        import pdb
-
-        pdb.set_trace()
         rv = self.waitAsyncStatusAssertHTTP(rv, headers=self.admin_auth_header)
 
         value_list = rv["process_results"]
-        import pdb
 
-        pdb.set_trace()
         self.assertEqual(value_list[0]["cat"], "1")
-        self.assertEqual(value_list[0]["raster_number"], 2025000)
+        self.assertEqual(value_list[0]["raster_number"], 20000.0)
+        self.assertEqual(value_list[0]["raster_maximum"], 138.268508911133)
 
     def test_sync_raster_area_stats_1(self):
 
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/elevation/"
-            "area_stats_univar_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/"
+            f"raster_layers/{RASTER}/area_stats_univar_sync",
             headers=self.admin_auth_header,
             data=json_dump(JSON),
             content_type="application/json",
@@ -89,17 +85,14 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
         value_list = json_load(rv.data)["process_results"]
         self.assertEqual(value_list[0]["cat"], "1")
-        self.assertEqual(value_list[0]["raster_number"], 2025000)
+        self.assertEqual(value_list[0]["raster_number"], 20000.0)
+        self.assertEqual(value_list[0]["raster_maximum"], 138.268508911133)
 
     def test_sync_raster_area_stats_2(self):
 
-        import pdb
-
-        pdb.set_trace()
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/towns/"
-            "area_stats_univar_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/"
+            f"raster_layers/{RASTER2}/area_stats_univar_sync",
             headers=self.admin_auth_header,
             data=json_dump(JSON),
             content_type="application/json",
@@ -116,15 +109,14 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
         value_list = json_load(rv.data)["process_results"]
         self.assertEqual(value_list[0]["cat"], "1")
-        self.assertEqual(value_list[0]["raster_number"], 2025000)
-    """
+        self.assertEqual(value_list[0]["raster_number"], 20000.0)
+        self.assertEqual(value_list[0]["raster_maximum"], 359.995971679688)
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
 
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/"
-            "area_stats_univar_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/"
+            f"raster_layers/{RASTER}/area_stats_univar_sync",
             headers=self.admin_auth_header,
             data=" This is no data",
             content_type="application/XML",
@@ -141,9 +133,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_module_error(self):
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/"
-            "area_stats_univar_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/"
+            f"raster_layers/{RASTER}/area_stats_univar_sync",
             headers=self.admin_auth_header,
             data=json_dump({}),
             content_type="application/json",
@@ -160,9 +151,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_nodata_error(self):
         rv = self.server.post(
-            URL_PREFIX
-            + "/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/basin_50K/"
-            "area_stats_univar_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/"
+            f"raster_layers/{RASTER}/area_stats_univar_sync",
             headers=self.admin_auth_header,
             data=None,
             content_type="application/json",
