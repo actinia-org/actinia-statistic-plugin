@@ -100,6 +100,9 @@ class AsyncEphemeralRasterAreaStatsUnivarResource(ResourceBase):
             map_name=raster_name,
         )
         if rdc:
+            # # for debugging
+            # processing = AsyncEphemeralRasterAreaStatsUnivar(rdc)
+            # processing.run()
             enqueue_job(self.job_timeout, start_job, rdc)
 
         return rdc

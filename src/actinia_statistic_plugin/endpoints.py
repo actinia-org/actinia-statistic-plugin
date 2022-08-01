@@ -40,7 +40,7 @@ from .vector_sampling import (
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
 __copyright__ = (
-    "Copyright 2016-present, Sören Gebbert and mundialis GmbH & Co. KG"
+    "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co. KG"
 )
 
 

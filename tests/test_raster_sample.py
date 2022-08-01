@@ -13,7 +13,7 @@ except Exception:
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
 __copyright__ = (
-    "Copyright 2022-present, Markus Neteler and mundialis GmbH & Co. KG"
+    "Copyright 2022-2022, Markus Neteler and mundialis GmbH & Co. KG"
 )
 
 JSON = {
