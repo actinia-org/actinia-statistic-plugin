@@ -10,11 +10,14 @@ except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
 __license__ = "GPLv3"
-__author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
-__maintainer__ = "Soeren Gebbert"
-__email__ = "soerengebbert@googlemail.com"
+__author__ = "Sören Gebbert, Anika Weinmann"
+__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
+__maintainer__ = "mundialis GmbH & Co. KG"
 
+LOCATION = "nc_spm_08"
+MAPSET = "PERMANENT"
+RASTER = "landuse96_28m"
+RASTER2 = "basin_50K"
 JSON = {
     "type": "FeatureCollection",
     "crs": {
@@ -45,8 +48,8 @@ JSON = {
 class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
     def test_async_raster_area_stats_json(self):
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/landuse96_28m/area_stats_async",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/raster_layers"
+            f"/{RASTER}/area_stats_async",
             headers=self.admin_auth_header,
             data=json_dump(JSON),
             content_type="application/json",
@@ -60,8 +63,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_1(self):
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/landuse96_28m/area_stats_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/raster_layers"
+            f"/{RASTER}/area_stats_sync",
             headers=self.admin_auth_header,
             data=json_dump(JSON),
             content_type="application/json",
@@ -82,8 +85,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
     def test_sync_raster_area_stats_2(self):
 
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/basin_50K/area_stats_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/raster_layers"
+            f"/{RASTER2}/area_stats_sync",
             headers=self.admin_auth_header,
             data=json_dump(JSON),
             content_type="application/json",
@@ -103,8 +106,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_error_wrong_content_type(self):
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/basin_50K/area_stats_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/raster_layers"
+            f"/{RASTER}/area_stats_sync",
             headers=self.admin_auth_header,
             data="{}",
             content_type="application/json",
@@ -121,8 +124,8 @@ class RasterAreaStatsTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_raster_area_stats_error_wrong_request_missing_json(self):
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/towns/area_stats_sync",
+            f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/raster_layers"
+            f"/{RASTER}/area_stats_sync",
             headers=self.admin_auth_header,
             data=None,
             content_type="application/json",
