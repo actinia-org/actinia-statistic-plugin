@@ -80,7 +80,7 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
                 break
             time.sleep(0.2)
 
-        self.assertEquals(resp["status"], "finished", "Process not finished.")
+        self.assertEqual(resp["status"], "finished", "Process not finished.")
         self.assertEqual(
             rv.status_code,
             200,
@@ -101,7 +101,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
 
         time.sleep(1)
 
-    """
     def test_sync_sampling(self):
         # PROBLEM: Not yet returned!
 
@@ -132,31 +131,6 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
         self.assertEqual(value_list[0]["p1"]["map_name"], "landuse96_28m")
 
         time.sleep(1)
-
-   def test_sync_sampling_geojson(self):
-
-       rv = self.server.post(
-           f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers/"
-           "landuse96_28m/sampling_sync_geojson",
-           headers=self.user_auth_header,
-           data=json_dump(JSON),
-           content_type="application/json")
-
-       self.assertEqual(
-           rv.status_code, 200, "HTML status code is wrong %i"
-           % rv.status_code)
-       self.assertEqual(
-           rv.mimetype, "application/json", "Wrong mimetype %s" % rv.mimetype)
-
-       value_list = json_load(rv.data)["process_results"]
-
-       self.assertEqual(value_list[0][0], "easting")
-       self.assertEqual(value_list[0][1], "northing")
-       self.assertEqual(value_list[0][2], "site_name")
-       self.assertEqual(value_list[0][3], "landuse96_28m")
-       self.assertEqual(value_list[0][4], "landuse96_28m_label")
-       self.assertEqual(value_list[0][5], "landuse96_28m_color")
-    """
 
 
 if __name__ == "__main__":
