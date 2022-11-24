@@ -175,12 +175,17 @@ class AsyncEphemeralRasterAreaStats(EphemeralProcessing):
             dir=self.temp_file_path, delete=False
         )
 
-        pc = {}
-        pc["1"] = {
-            "module": "v.import",
-            "inputs": {"input": gml_file.name},
-            "outputs": {"output": {"name": "polygon"}},
-            "superquiet": True,
+        pc = {
+            "list": [
+                {
+                    "id": "v_import_1",
+                    "module": "v.import",
+                    "inputs": [{"param": "input", "value": gml_file.name}],
+                    "outputs": [{"param": "output", "value": "polygon"}],
+                    "superquiet": True
+                },
+            ],
+            "version": "1",
         }
 
         # Run the import, ignore region settings
@@ -192,29 +197,59 @@ class AsyncEphemeralRasterAreaStats(EphemeralProcessing):
         )
         self._execute_process_list(process_list)
 
-        pc = {}
-        pc["2"] = {
-            "module": "g.region",
-            "inputs": {
-                "vector": "polygon",
-                "align": raster_name + "@" + self.mapset_name,
-            },
-            "flags": "p",
-        }
-        pc["3"] = {
-            "module": "r.mask",
-            "inputs": {"vector": "polygon"},
-            "superquiet": True,
-        }
-        pc["4"] = {
-            "module": "r.stats",
-            "inputs": {
-                "input": raster_name + "@" + self.mapset_name,
-                "separator": "|",
-            },
-            "outputs": {"output": {"name": result_file.name}},
-            "flags": "acpl",
-            "superquiet": True,
+        pc = {
+            "list": [
+                {
+                    "id": "g_region_2",
+                    "module": "g.region",
+                    "inputs": [
+                        {
+                            "param": "vector",
+                            "value": "polygon"
+                        },
+                        {
+                            "param": "align",
+                            "value": raster_name + "@" + self.mapset_name
+                        }
+                    ],
+                    "flags": "p",
+                    "superquiet": True
+                },
+                {
+                    "id": "r_mask_3",
+                    "module": "r.mask",
+                    "inputs": [
+                        {
+                            "param": "vector",
+                            "value": "polygon"
+                        }
+                    ],
+                    "superquiet": True
+                },
+                {
+                    "id": "r_stats_4",
+                    "module": "r.stats",
+                    "inputs": [
+                        {
+                            "param": "input",
+                            "value": raster_name + "@" + self.mapset_name
+                        },
+                        {
+                            "param": "separator",
+                            "value": "|"
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": result_file.name
+                        }
+                    ],
+                    "flags": "acpl",
+                    "superquiet": True
+                },
+            ],
+            "version": "1",
         }
 
         # Run the area statistics and check for correct region settings

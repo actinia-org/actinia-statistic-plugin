@@ -134,254 +134,197 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
     properties["process_results"]["items"] = CategoricalStatisticsResultModel
     required = deepcopy(ProcessingResponseModel.required)
     example = {
-        "accept_datetime": "2018-05-04 22:02:42.503999",
-        "accept_timestamp": 1525464162.5039973,
-        "api_info": {
-            "endpoint": "syncephemeralrasterareastatsresource",
-            "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
-                    "raster_layers/landuse96_28m/area_stats_sync",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/"
-            "mapsets/PERMANENT/raster_layers/landuse96_28m/area_stats_sync",
-        },
-        "datetime": "2018-05-04 22:02:43.014544",
-        "http_code": 200,
-        "message": "Processing successfully finished",
-        "process_chain_list": [
+      "accept_datetime": "2022-07-31 16:57:18.978035",
+      "accept_timestamp": 1659286638.9780345,
+      "api_info": {
+        "endpoint": "syncephemeralrasterareastatsresource",
+        "method": "POST",
+        "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+                "raster_layers/landuse96_28m/area_stats_sync",
+        "request_url": f"http://localhost:8088{URL_PREFIX}/locations/"
+                       "nc_spm_08/mapsets/PERMANENT/raster_layers/"
+                       "landuse96_28m/area_stats_sync"
+      },
+      "datetime": "2022-07-31 16:57:21.441611",
+      "http_code": 200,
+      "message": "Processing successfully finished",
+      "process_chain_list": [
+        {
+          "list": [
             {
-                "1": {
-                    "inputs": {
-                        "input": "/tmp/gisdbase_c9071ae8c7844743a40fc2f8649"
-                        "11a69/.tmp/tmpfgs_4jur"
-                    },
-                    "module": "v.import",
-                    "outputs": {"output": {"name": "polygon"}},
-                    "superquiet": True,
+              "id": "v_import_1",
+              "inputs": [
+                {
+                  "param": "input",
+                  "value": "/tmp/gisdbase_f74f788c0834401d990582fbafc3eb1f/"
+                           ".tmp/tmpjh3rr_ra"
                 }
-            },
-            {
-                "2": {
-                    "flags": "p",
-                    "inputs": {
-                        "align": "landuse96_28m@PERMANENT",
-                        "vector": "polygon",
-                    },
-                    "module": "g.region",
-                },
-                "3": {
-                    "inputs": {"vector": "polygon"},
-                    "module": "r.mask",
-                    "superquiet": True,
-                },
-                "4": {
-                    "flags": "acpl",
-                    "inputs": {
-                        "input": "landuse96_28m@PERMANENT",
-                        "separator": "|",
-                    },
-                    "module": "r.stats",
-                    "outputs": {
-                        "output": {
-                            "name": "/tmp/gisdbase_c9071ae8c7844743a40fc2f86"
-                            "4911a69/.tmp/tmp00trsfwh"
-                        }
-                    },
-                    "superquiet": True,
-                },
-            },
-        ],
-        "process_log": [
-            {
-                "executable": "v.import",
-                "parameter": [
-                    "input=/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/"
-                    ".tmp/tmpfgs_4jur",
-                    "output=polygon",
-                    "--qq",
-                ],
-                "return_code": 0,
-                "run_time": 0.15042471885681152,
-                "stderr": [
-                    "WARNING: Width for column fid set to 255 (was "
-                    "not specified by OGR), some strings may be "
-                    "truncated!",
-                    "",
-                ],
-                "stdout": "",
-            },
-            {
-                "executable": "g.region",
-                "parameter": [
-                    "vector=polygon",
-                    "align=landuse96_28m@PERMANENT",
-                    "-p",
-                ],
-                "return_code": 0,
-                "run_time": 0.050189971923828125,
-                "stderr": [""],
-                "stdout": "projection: 99 (Lambert Conformal Conic)\n"
-                "zone:       0\n"
-                "datum:      nad83\n"
-                "ellipsoid:  a=6378137 es=0.006694380022900787\n"
-                "north:      228527.25\n"
-                "south:      214989.75\n"
-                "west:       629980\n"
-                "east:       645028\n"
-                "nsres:      28.5\n"
-                "ewres:      28.5\n"
-                "rows:       475\n"
-                "cols:       528\n"
-                "cells:      250800\n",
-            },
-            {
-                "executable": "r.mask",
-                "parameter": ["vector=polygon", "--qq"],
-                "return_code": 0,
-                "run_time": 0.1504218578338623,
-                "stderr": [""],
-                "stdout": "",
-            },
-            {
-                "executable": "r.stats",
-                "parameter": [
-                    "separator=|",
-                    "input=landuse96_28m@PERMANENT",
-                    "output=/tmp/gisdbase_c9071ae8c7844743a40fc2f864911a69/"
-                    ".tmp/tmp00trsfwh",
-                    "-acpl",
-                    "--qq",
-                ],
-                "return_code": 0,
-                "run_time": 0.050148725509643555,
-                "stderr": [""],
-                "stdout": "",
-            },
-        ],
-        "process_results": [
-            {
-                "area": 812.25,
-                "cat": "0",
-                "cell_count": 1,
-                "name": "not classified",
-                "percent": 0.0,
-            },
-            {
-                "area": 28297165.5,
-                "cat": "1",
-                "cell_count": 34838,
-                "name": "High Intensity Developed",
-                "percent": 13.89,
-            },
-            {
-                "area": 30871185.75,
-                "cat": "2",
-                "cell_count": 38007,
-                "name": "Low Intensity Developed",
-                "percent": 15.16,
-            },
-            {
-                "area": 1727655.75,
-                "cat": "3",
-                "cell_count": 2127,
-                "name": "Cultivated",
-                "percent": 0.85,
-            },
-            {
-                "area": 20610843.75,
-                "cat": "4",
-                "cell_count": 25375,
-                "name": "Managed Herbaceous Cover",
-                "percent": 10.12,
-            },
-            {
-                "area": 24367.5,
-                "cat": "6",
-                "cell_count": 30,
-                "name": "Riverine/Estuarine Herbaceous",
-                "percent": 0.01,
-            },
-            {
-                "area": 13308716.25,
-                "cat": "7",
-                "cell_count": 16385,
-                "name": "Evergreen Shrubland",
-                "percent": 6.53,
-            },
-            {
-                "area": 256671.0,
-                "cat": "8",
-                "cell_count": 316,
-                "name": "Deciduous Shrubland",
-                "percent": 0.13,
-            },
-            {
-                "area": 36551.25,
-                "cat": "9",
-                "cell_count": 45,
-                "name": "Mixed Shrubland",
-                "percent": 0.02,
-            },
-            {
-                "area": 6394032.0,
-                "cat": "10",
-                "cell_count": 7872,
-                "name": "Mixed Hardwoods",
-                "percent": 3.14,
-            },
-            {
-                "area": 15972896.25,
-                "cat": "11",
-                "cell_count": 19665,
-                "name": "Bottomland Hardwoods/Hardwood Swamps",
-                "percent": 7.84,
-            },
-            {
-                "area": 52401496.5,
-                "cat": "15",
-                "cell_count": 64514,
-                "name": "Southern Yellow Pine",
-                "percent": 25.72,
-            },
-            {
-                "area": 27352518.75,
-                "cat": "18",
-                "cell_count": 33675,
-                "name": "Mixed Hardwoods/Conifers",
-                "percent": 13.43,
-            },
-            {
-                "area": 4289492.25,
-                "cat": "20",
-                "cell_count": 5281,
-                "name": "Water Bodies",
-                "percent": 2.11,
-            },
-            {
-                "area": 157576.5,
-                "cat": "21",
-                "cell_count": 194,
-                "name": "Unconsolidated Sediment",
-                "percent": 0.08,
-            },
-            {
-                "area": 2010318.75,
-                "cat": "*",
-                "cell_count": 2475,
-                "name": "no data",
-                "percent": 0.99,
-            },
-        ],
-        "progress": {"num_of_steps": 4, "step": 4},
-        "resource_id": "resource_id-9757d66b-4986-4bc7-9b7d-7f985900fb20",
-        "status": "finished",
-        "time_delta": 0.5105781555175781,
-        "timestamp": 1525464163.0145323,
-        "urls": {
-            "resources": [],
-            "status": f"http://localhost{URL_PREFIX}/resources/admin/resource"
-            "_id-9757d66b-4986-4bc7-9b7d-7f985900fb20",
+              ],
+              "module": "v.import",
+              "outputs": [
+                {
+                  "param": "output",
+                  "value": "polygon"
+                }
+              ],
+              "superquiet": True
+            }
+          ],
+          "version": "1"
         },
-        "user_id": "admin",
+        {
+          "list": [
+            {
+              "flags": "p",
+              "id": "g_region_2",
+              "inputs": [
+                {
+                  "param": "vector",
+                  "value": "polygon"
+                },
+                {
+                  "param": "align",
+                  "value": "landuse96_28m@PERMANENT"
+                }
+              ],
+              "module": "g.region",
+              "superquiet": True
+            },
+            {
+              "id": "r_mask_3",
+              "inputs": [
+                {
+                  "param": "vector",
+                  "value": "polygon"
+                }
+              ],
+              "module": "r.mask",
+              "superquiet": True
+            },
+            {
+              "flags": "acpl",
+              "id": "r_stats_4",
+              "inputs": [
+                {
+                  "param": "input",
+                  "value": "landuse96_28m@PERMANENT"
+                },
+                {
+                  "param": "separator",
+                  "value": "|"
+                }
+              ],
+              "module": "r.stats",
+              "outputs": [
+                {
+                  "param": "output",
+                  "value": "/tmp/gisdbase_f74f788c0834401d990582fbafc3eb1f/"
+                           ".tmp/tmp8wtkfuox"
+                }
+              ],
+              "superquiet": True
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "process_log": [
+        {
+          "executable": "v.import",
+          "id": "v_import_1",
+          "mapset_size": 15979,
+          "parameter": [
+            "input=/tmp/gisdbase_f74f788c0834401d990582fbafc3eb1f/.tmp/"
+            "tmpjh3rr_ra",
+            "output=polygon",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.3008110523223877,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "g.region",
+          "id": "g_region_2",
+          "mapset_size": 16025,
+          "parameter": [
+            "vector=polygon",
+            "align=landuse96_28m@PERMANENT",
+            "-p",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.10030579566955566,
+          "stderr": [
+            ""
+          ],
+          "stdout": "projection: 99 (NAD83(HARN) / North Carolina)\nzone:    "
+          "   0\ndatum:      nad83harn\nellipsoid:  grs80\nnorth:      "
+          "647021.25\nsouth:      64994.25\nwest:       329989\neast:       "
+          "337000\nnsres:      28.5\newres:      28.5\nrows:       20422\n"
+          "cols:       246\ncells:      5023812\n"
+        },
+        {
+          "executable": "r.mask",
+          "id": "r_mask_3",
+          "mapset_size": 956099,
+          "parameter": [
+            "vector=polygon",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.952303409576416,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "r.stats",
+          "id": "r_stats_4",
+          "mapset_size": 956099,
+          "parameter": [
+            "input=landuse96_28m@PERMANENT",
+            "separator=|",
+            "output=/tmp/gisdbase_f74f788c0834401d990582fbafc3eb1f/.tmp/"
+            "tmp8wtkfuox",
+            "-acpl",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.501760721206665,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        }
+      ],
+      "process_results": [
+        {
+          "area": 4080591297.0,
+          "cat": "*",
+          "cell_count": 5023812,
+          "name": "no data",
+          "percent": 100.0
+        }
+      ],
+      "progress": {
+        "num_of_steps": 4,
+        "step": 4
+      },
+      "resource_id": "resource_id-67fab95f-2782-41c8-9b89-b767f67a9df9",
+      "status": "finished",
+      "time_delta": 2.4635958671569824,
+      "timestamp": 1659286641.4415936,
+      "urls": {
+        "resources": [],
+        "status": f"http://localhost:8088{URL_PREFIX}/resources/actinia-gdi/"
+                  "resource_id-67fab95f-2782-41c8-9b89-b767f67a9df9"
+      },
+      "user_id": "actinia-gdi"
     }
 
 
@@ -480,154 +423,353 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
     required = deepcopy(ProcessingResponseModel.required)
     # required.append("process_results")
     example = {
-        "accept_datetime": "2018-05-04 22:07:14.108967",
-        "accept_timestamp": 1525464434.1089664,
-        "api_info": {
-            "endpoint": "syncephemeralrasterareastatsunivarresource",
-            "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
-            "raster_layers/towns/area_stats_univar_sync",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08/"
-            "mapsets/PERMANENT/raster_layers/towns/area_stats_univar_sync",
-        },
-        "datetime": "2018-05-04 22:07:15.793146",
-        "http_code": 200,
-        "message": "Processing successfully finished",
-        "process_chain_list": [
+      "accept_datetime": "2022-07-31 17:08:36.534924",
+      "accept_timestamp": 1659287316.5349228,
+      "api_info": {
+        "endpoint": "syncephemeralstrdsareastatsunivarresource",
+        "method": "POST",
+        "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/modis_lst/strds/"
+                "LST_Day_monthly/timestamp/2016-01-01T00:00:00/"
+                "area_stats_univar_sync",
+        "request_url": f"http://localhost:8088{URL_PREFIX}/locations/nc_spm_08"
+                       "/mapsets/modis_lst/strds/LST_Day_monthly/timestamp/"
+                       "2016-01-01T00:00:00/area_stats_univar_sync"
+      },
+      "datetime": "2022-07-31 17:08:42.056326",
+      "http_code": 200,
+      "message": "Processing successfully finished",
+      "process_chain_list": [
+        {
+          "list": [
             {
-                "1": {
-                    "inputs": {
-                        "input": "/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adc"
-                        "f527/.tmp/tmpdqtuzub4"
-                    },
-                    "module": "v.import",
-                    "outputs": {"output": {"name": "polygon"}},
-                    "superquiet": True,
+              "id": "v_import_1",
+              "inputs": [
+                {
+                  "param": "input",
+                  "value": "/tmp/gisdbase_a9254feb879d4381bbcffb2a1f08a67c/"
+                           ".tmp/tmptsev20y3"
                 }
+              ],
+              "module": "v.import",
+              "outputs": [
+                {
+                  "param": "output",
+                  "value": "polygon"
+                }
+              ],
+              "superquiet": True
             },
             {
-                "2": {
-                    "flags": "p",
-                    "inputs": {"vector": "polygon"},
-                    "module": "g.region",
+              "id": "t_create_2",
+              "inputs": [
+                {
+                  "param": "type",
+                  "value": "stvds"
                 },
-                "3": {
-                    "inputs": {
-                        "column_prefix": "raster",
-                        "map": "polygon",
-                        "method": "number,minimum,maximum,range,average,"
-                        "median,stddev,sum,variance,coeff_var",
-                        "raster": "towns@PERMANENT",
-                    },
-                    "module": "v.rast.stats",
-                    "superquiet": True,
+                {
+                  "param": "temporaltype",
+                  "value": "absolute"
                 },
-                "4": {
-                    "inputs": {"map": "polygon"},
-                    "module": "v.db.select",
-                    "outputs": {
-                        "file": {
-                            "name": "/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5"
-                            "adcf527/.tmp/tmpztw47z19"
-                        }
-                    },
+                {
+                  "param": "semantictype",
+                  "value": "mean"
                 },
-            },
-        ],
-        "process_log": [
-            {
-                "executable": "v.import",
-                "parameter": [
-                    "input=/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/"
-                    ".tmp/tmpdqtuzub4",
-                    "output=polygon",
-                    "--qq",
-                ],
-                "return_code": 0,
-                "run_time": 0.1504511833190918,
-                "stderr": [
-                    "WARNING: Width for column fid set to 255 (was "
-                    "not specified by OGR), some strings may be "
-                    "truncated!",
-                    "",
-                ],
-                "stdout": "",
+                {
+                  "param": "title",
+                  "value": "Polygon"
+                },
+                {
+                  "param": "description",
+                  "value": "Polygon"
+                }
+              ],
+              "module": "t.create",
+              "outputs": [
+                {
+                  "param": "output",
+                  "value": "polygon_stvds"
+                }
+              ],
+              "superquiet": True
             },
             {
-                "executable": "g.region",
-                "parameter": ["vector=polygon", "-p"],
-                "return_code": 0,
-                "run_time": 0.050218820571899414,
-                "stderr": [""],
-                "stdout": "projection: 99 (Lambert Conformal Conic)\n"
-                "zone:       0\n"
-                "datum:      nad83\n"
-                "ellipsoid:  a=6378137 es=0.006694380022900787\n"
-                "north:      228500\n"
-                "south:      215000\n"
-                "west:       630000\n"
-                "east:       645000\n"
-                "nsres:      500\n"
-                "ewres:      500\n"
-                "rows:       27\n"
-                "cols:       30\n"
-                "cells:      810\n",
+              "flags": "i",
+              "id": "t_register_3",
+              "inputs": [
+                {
+                  "param": "type",
+                  "value": "vector"
+                },
+                {
+                  "param": "input",
+                  "value": "polygon_stvds"
+                },
+                {
+                  "param": "maps",
+                  "value": "polygon"
+                },
+                {
+                  "param": "start",
+                  "value": "2016-01-01T00:00:00"
+                },
+                {
+                  "param": "increment",
+                  "value": "1 second"
+                }
+              ],
+              "module": "t.register",
+              "superquiet": True
             },
             {
-                "executable": "v.rast.stats",
-                "parameter": [
-                    "raster=towns@PERMANENT",
-                    "map=polygon",
-                    "column_prefix=raster",
-                    "method=number,minimum,maximum,range,average,median,stddev"
-                    ",sum,variance,coeff_var",
-                    "--qq",
-                ],
-                "return_code": 0,
-                "run_time": 1.354858636856079,
-                "stderr": [""],
-                "stdout": "",
-            },
-            {
-                "executable": "v.db.select",
-                "parameter": [
-                    "map=polygon",
-                    "file=/tmp/gisdbase_d36dd6841e7446f3b8d3b1bf5adcf527/"
-                    ".tmp/tmpztw47z19",
-                ],
-                "return_code": 0,
-                "run_time": 0.05019712448120117,
-                "stderr": [""],
-                "stdout": "",
-            },
-        ],
-        "process_results": [
-            {
-                "cat": "1",
-                "fid": "swwake_10m.0",
-                "raster_average": 4.27381481481481,
-                "raster_coeff_var": 36.2154244540989,
-                "raster_maximum": 6.0,
-                "raster_median": 5.0,
-                "raster_minimum": 1.0,
-                "raster_number": 2025000.0,
-                "raster_range": 5.0,
-                "raster_stddev": 1.54778017556735,
-                "raster_sum": 8654475.0,
-                "raster_variance": 2.39562347187929,
+              "id": "t_sample_4",
+              "inputs": [
+                {
+                  "param": "sample",
+                  "value": "polygon_stvds"
+                },
+                {
+                  "param": "samtype",
+                  "value": "stvds"
+                },
+                {
+                  "param": "intype",
+                  "value": "strds"
+                },
+                {
+                  "param": "inputs",
+                  "value": "LST_Day_monthly@modis_lst"
+                }
+              ],
+              "module": "t.sample",
+              "superquiet": True
             }
-        ],
-        "progress": {"num_of_steps": 4, "step": 4},
-        "resource_id": "resource_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590",
-        "status": "finished",
-        "time_delta": 1.6842188835144043,
-        "timestamp": 1525464435.7931283,
-        "urls": {
-            "resources": [],
-            "status": f"http://localhost{URL_PREFIX}/resources/admin/resource"
-            "_id-ed2c2fdb-9963-4f71-acd0-1fbdff93f590",
+          ],
+          "version": "1"
         },
-        "user_id": "admin",
+        {
+          "list": [
+            {
+              "id": "g_region_5",
+              "inputs": [
+                {
+                  "param": "vector",
+                  "value": "polygon"
+                }
+              ],
+              "module": "g.region",
+              "superquiet": True
+            },
+            {
+              "id": "v_rast_stats_6",
+              "inputs": [
+                {
+                  "param": "map",
+                  "value": "polygon"
+                },
+                {
+                  "param": "method",
+                  "value": "number,minimum,maximum,range,average,median,stddev"
+                           ",sum,variance,coeff_var"
+                },
+                {
+                  "param": "raster",
+                  "value": "MOD11B3.A2016001.h11v05.single_LST_Day_6km@"
+                           "modis_lst"
+                },
+                {
+                  "param": "column_prefix",
+                  "value": "raster"
+                }
+              ],
+              "module": "v.rast.stats",
+              "superquiet": True
+            },
+            {
+              "id": "v_db_select_7",
+              "inputs": [
+                {
+                  "param": "map",
+                  "value": "polygon"
+                }
+              ],
+              "module": "v.db.select",
+              "outputs": [
+                {
+                  "param": "file",
+                  "value": "/tmp/gisdbase_a9254feb879d4381bbcffb2a1f08a67c/"
+                           ".tmp/tmp19gkkrii"
+                }
+              ],
+              "superquiet": True
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "process_log": [
+        {
+          "executable": "v.import",
+          "id": "v_import_1",
+          "mapset_size": 16040,
+          "parameter": [
+            "input=/tmp/gisdbase_a9254feb879d4381bbcffb2a1f08a67c/.tmp/"
+            "tmptsev20y3",
+            "output=polygon",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.3008089065551758,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "t.create",
+          "id": "t_create_2",
+          "mapset_size": 495359,
+          "parameter": [
+            "type=stvds",
+            "temporaltype=absolute",
+            "semantictype=mean",
+            "title=Polygon",
+            "description=Polygon",
+            "output=polygon_stvds",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.6529664993286133,
+          "stderr": [
+            "WARNING: Temporal database connection defined as:",
+            "/tmp/gisdbase_a9254feb879d4381bbcffb2a1f08a67c/nc_spm_08/"
+            "mapset_a9254feb879d4381bbcffb2a1f08a67c/tgis/sqlite.db",
+            "But database file does not exist.",
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "t.register",
+          "id": "t_register_3",
+          "mapset_size": 495401,
+          "parameter": [
+            "type=vector",
+            "input=polygon_stvds",
+            "maps=polygon",
+            "start=2016-01-01T00:00:00",
+            "increment=1 second",
+            "-i",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.6026990413665771,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "t.sample",
+          "id": "t_sample_4",
+          "mapset_size": 495401,
+          "parameter": [
+            "sample=polygon_stvds",
+            "samtype=stvds",
+            "intype=strds",
+            "inputs=LST_Day_monthly@modis_lst",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.652012825012207,
+          "stderr": [
+            ""
+          ],
+          "stdout": "polygon@mapset_a9254feb879d4381bbcffb2a1f08a67c|"
+          "MOD11B3.A2016001.h11v05.single_LST_Day_6km@modis_lst|2016-01-01 "
+          "00:00:00|2016-01-01 00:00:01|1.1574074074074073e-05|0.0\n"
+        },
+        {
+          "executable": "g.region",
+          "id": "g_region_5",
+          "mapset_size": 495437,
+          "parameter": [
+            "vector=polygon",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.10033965110778809,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "v.rast.stats",
+          "id": "v_rast_stats_6",
+          "mapset_size": 496399,
+          "parameter": [
+            "map=polygon",
+            "method=number,minimum,maximum,range,average,median,stddev,sum,"
+            "variance,coeff_var",
+            "raster=MOD11B3.A2016001.h11v05.single_LST_Day_6km@modis_lst",
+            "column_prefix=raster",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 1.9554402828216553,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        },
+        {
+          "executable": "v.db.select",
+          "id": "v_db_select_7",
+          "mapset_size": 496399,
+          "parameter": [
+            "map=polygon",
+            "file=/tmp/gisdbase_a9254feb879d4381bbcffb2a1f08a67c/.tmp/"
+            "tmp19gkkrii",
+            "--qq"
+          ],
+          "return_code": 0,
+          "run_time": 0.1003561019897461,
+          "stderr": [
+            ""
+          ],
+          "stdout": ""
+        }
+      ],
+      "process_results": [
+        {
+          "cat": "1",
+          "fid": "test",
+          "raster_average": 13868.2019230769,
+          "raster_coeff_var": 1.04355110326768,
+          "raster_maximum": 14170.0,
+          "raster_median": 13824.0,
+          "raster_minimum": 13649.0,
+          "raster_number": 104.0,
+          "raster_range": 521.0,
+          "raster_stddev": 144.721774171659,
+          "raster_sum": 1442293.0,
+          "raster_variance": 20944.3919193928
+        }
+      ],
+      "progress": {
+        "num_of_steps": 7,
+        "step": 7
+      },
+      "resource_id": "resource_id-a314816e-bc38-4c58-8601-78fe20c9aea6",
+      "status": "finished",
+      "time_delta": 5.521468162536621,
+      "timestamp": 1659287322.056266,
+      "urls": {
+        "resources": [],
+        "status": f"http://localhost:8088{URL_PREFIX}/resources/actinia-gdi/"
+        "resource_id-a314816e-bc38-4c58-8601-78fe20c9aea6"
+      },
+      "user_id": "actinia-gdi"
     }
 
 
@@ -670,7 +812,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                         "inputs": [
                             {
                                 "param": "input",
-                                "value": "/actinia_core/workspace/temp_db/"
+                                "value": "/tmp/"
                                 "gisdbase_3ef25f3f447844f2aaea07b4a34a2107/"
                                 ".tmp/tmpnk7lt8rx",
                             },
@@ -714,7 +856,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                         "outputs": [
                             {
                                 "param": "output",
-                                "value": "/actinia_core/workspace/temp_db/"
+                                "value": "/tmp/"
                                 "gisdbase_3ef25f3f447844f2aaea07b4a34a2107/"
                                 ".tmp/tmp0ktsyzl6",
                             }
@@ -732,7 +874,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "id": "v_in_ascii",
                 "mapset_size": 15753,
                 "parameter": [
-                    "input=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f4"
+                    "input=/tmp/gisdbase_3ef25f3f4"
                     "47844f2aaea07b4a34a2107/.tmp/tmpnk7lt8rx",
                     "format=point",
                     "column=id text, x double precision, y double precision",
@@ -783,7 +925,7 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
                 "parameter": [
                     "map=landuse96_28m@PERMANENT",
                     "points=input_points",
-                    "output=/actinia_core/workspace/temp_db/gisdbase_3ef25f3f4"
+                    "output=/tmp/gisdbase_3ef25f3f4"
                     "47844f2aaea07b4a34a2107/.tmp/tmp0ktsyzl6",
                     "-nrf",
                     "--o",
@@ -956,7 +1098,7 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                 "p1": {
                     "Acres": "32340.135",
                     "Category": "40",
-                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5ce"
+                    "Database": "/tmp/gisdbase_5ce"
                     "6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite"
                     "/sqlite.db",
                     "Driver": "sqlite",
@@ -989,7 +1131,7 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
                 "p2": {
                     "Acres": "15609.488",
                     "Category": "42",
-                    "Database": "/actinia_core/workspace/temp_db/gisdbase_5c"
+                    "Database": "/tmp/gisdbase_5c"
                     "e6c4cf9b8f47628f816e89b7767819/nc_spm_08/PERMANENT/sqlite"
                     "/sqlite.db",
                     "Driver": "sqlite",

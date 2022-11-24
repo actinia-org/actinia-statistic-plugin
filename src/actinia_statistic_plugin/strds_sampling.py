@@ -332,34 +332,74 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
 
         point_file.flush()
 
-        pc = dict()
-        pc["1"] = {
-            "module": "v.in.ascii",
-            "inputs": {
-                "input": point_file.name,
-                "format": "point",
-                "column": "id text, x double precision, y double precision",
-                "x": 2,
-                "y": 3,
-            },
-            "outputs": {"output": {"name": "input_points"}},
-        }
-
-        pc["2"] = {
-            "module": "t.rast.sample",
-            "inputs": {
-                "strds": "%s@%s" % (strds_name, self.mapset_name),
-                "points": "input_points",
-                "column": "id",
-            },
-            "outputs": {"output": {"name": result_file.name}},
-            "flags": "rn",
-            "overwrite": True,
-            "verbose": True,
+        pc = {
+            "list": [
+                {
+                    "id": "v_in_ascii_1",
+                    "module": "v.in.ascii",
+                    "inputs": [
+                        {
+                            "param": "input",
+                            "value": point_file.name,
+                        },
+                        {
+                            "param": "format",
+                            "value": "point",
+                        },
+                        {
+                            "param": "column",
+                            "value": "id text, x double precision, y double "
+                                     "precision",
+                        },
+                        {
+                            "param": "x",
+                            "value": "2",
+                        },
+                        {
+                            "param": "y",
+                            "value": "3",
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": "input_points",
+                        }
+                    ],
+                    "superquiet": True
+                },
+                {
+                    "id": "t_rast_sample_2",
+                    "module": "t.rast.sample",
+                    "inputs": [
+                        {
+                            "param": "strds",
+                            "value": "%s@%s" % (strds_name, self.mapset_name),
+                        },
+                        {
+                            "param": "points",
+                            "value": "input_points",
+                        },
+                        {
+                            "param": "column",
+                            "value": "id",
+                        }
+                    ],
+                    "outputs": [
+                        {
+                            "param": "output",
+                            "value": result_file.name,
+                        }
+                    ],
+                    "flags": "rn",
+                    "superquiet": True
+                },
+            ],
+            "version": "1",
         }
 
         if where is not None:
-            pc["2"]["inputs"]["where"] = where
+            pc["list"][1]["inputs"].append({"param": "where", "value": where})
 
         self.request_data = pc
 

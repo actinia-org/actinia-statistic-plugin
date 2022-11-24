@@ -212,6 +212,7 @@ class AsyncEphemeralVectorSampling(EphemeralProcessing):
                         "delimiter": "|",
                     },
                     "flags": "ag",
+                    "superquiet": True
                 },
             ],
             "version": "1",
