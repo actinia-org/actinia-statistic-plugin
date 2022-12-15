@@ -1,5 +1,6 @@
 # Actinia Statistic Plugin
 
+
 This actinia plugin is deigned for to compute raster map layer and raster-time-series statistics
 for categorical and continuous data. It provides endpoints to sample raster
 time series data.
