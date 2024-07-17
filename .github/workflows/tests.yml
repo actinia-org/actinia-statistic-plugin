@@ -23,7 +23,7 @@ jobs:
         sed -i "s+# RUN make test+RUN make test+g" docker/actinia-plugin-tests/Dockerfile
     - name: Tests of actinia_statistic_plugin
       id: docker_build
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         push: false
         tags: actinia-plugin-tests:alpine
