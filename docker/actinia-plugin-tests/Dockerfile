@@ -10,7 +10,7 @@ ENV DEFAULT_CONFIG_PATH /etc/default/actinia_test
 
 # install things only for tests
 RUN apk add redis
-RUN pip3 install iniconfig colorlog
+RUN pip3 install iniconfig colorlog pytest pytest-cov
 
 # add data for tests
 RUN wget --quiet https://grass.osgeo.org/sampledata/north_carolina/nc_spm_08_micro.zip && \
