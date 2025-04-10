@@ -9,13 +9,14 @@ try:
 except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
+from actinia_core.version import init_versions, G_VERSION
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Anika Weinmann"
 __copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
 __maintainer__ = "mundialis GmbH & Co. KG"
 
-LOCATION = "nc_spm_08"
+PROJECT = "nc_spm_08"
 MAPSET = "modis_lst"
 STRDS = "LST_Day_monthly"
 
@@ -47,10 +48,19 @@ WHERE = "start_time >'2016-01-01'"
 
 
 class STRDSTestCase(ActiniaResourceTestCaseBase):
+
+    project_url_part = "projects"
+    # set project_url_part to "locations" if GRASS GIS version < 8.4
+    init_versions()
+    grass_version_s = G_VERSION["version"]
+    grass_version = [int(item) for item in grass_version_s.split(".")[:2]]
+    if grass_version < [8, 4]:
+        project_url_part = "locations"
+
     def test_async_sampling(self):
 
-        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
-            f"{STRDS}/sampling_async"
+        url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
+            f"mapsets/{MAPSET}strds/{STRDS}/sampling_async"
 
         rv = self.server.post(
             url,
@@ -102,8 +112,8 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling(self):
 
-        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
-            f"{STRDS}/sampling_sync"
+        url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
+            f"mapsets/{MAPSET}/strds/{STRDS}/sampling_sync"
         rv = self.server.post(
             url,
             headers=self.user_auth_header,
@@ -132,8 +142,8 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling_where(self):
 
-        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
-            f"{STRDS}/sampling_sync"
+        url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
+            f"mapsets/{MAPSET}/strds/{STRDS}/sampling_sync"
         rv = self.server.post(
             url,
             headers=self.user_auth_header,
@@ -165,8 +175,8 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling_geojson(self):
 
-        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
-            f"{STRDS}/sampling_sync_geojson"
+        url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
+            f"mapsets/{MAPSET}/strds/{STRDS}/sampling_sync_geojson"
         rv = self.server.post(
             url,
             headers=self.user_auth_header,
