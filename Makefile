@@ -20,3 +20,6 @@ dist:
 
 test:
 	./tests_with_redis.sh
+
+devtest:
+	./tests_with_redis.sh dev
