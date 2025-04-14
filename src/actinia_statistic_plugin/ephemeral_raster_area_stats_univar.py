@@ -13,7 +13,7 @@ from actinia_core.processing.actinia_processing.ephemeral_processing import (
     EphemeralProcessing,
 )
 from actinia_core.rest.base.resource_base import ResourceBase
-from actinia_core.core.common.redis_interface import enqueue_job
+from actinia_core.core.common.kvdb_interface import enqueue_job
 from flask_restful_swagger_2 import swagger
 from actinia_core.core.common.app import auth
 from actinia_core.core.common.api_logger import log_api_call
