@@ -34,6 +34,7 @@ RUN pip3 install -r /src/requirements.txt
 # TODO: Postgres for tests
 # using tests/data/poly.gpkg
 
+RUN pip3 uninstall actinia_statistic_plugin -y
 COPY . /src/actinia_statistic_plugin
 WORKDIR /src/actinia_statistic_plugin
 RUN chmod a+x tests_with_redis.sh
