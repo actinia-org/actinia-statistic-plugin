@@ -60,7 +60,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
     def test_async_sampling(self):
 
         url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
-            f"mapsets/{MAPSET}strds/{STRDS}/sampling_async"
+            f"mapsets/{MAPSET}/strds/{STRDS}/sampling_async"
 
         rv = self.server.post(
             url,
@@ -93,7 +93,7 @@ class STRDSTestCase(ActiniaResourceTestCaseBase):
                 break
             time.sleep(0.2)
 
-        self.assertEquals(resp["status"], "finished")
+        self.assertEqual(resp["status"], "finished")
         self.assertEqual(
             rv.status_code,
             200,
