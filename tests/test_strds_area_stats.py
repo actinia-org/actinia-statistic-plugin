@@ -8,12 +8,14 @@ try:
 except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
+from actinia_core.version import init_versions, G_VERSION
+
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Anika Weinmann"
 __copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
 __maintainer__ = "mundialis GmbH & Co. KG"
 
-LOCATION = "nc_spm_08"
+PROJECT = "nc_spm_08"
 MAPSET = "modis_lst"
 STRDS = "LST_Day_monthly"
 
@@ -42,14 +44,24 @@ JSON = {
         }
     ],
 }
+
+PROJECT_URL_PART = "projects"
+# set project_url_part to "locations" if GRASS GIS version < 8.4
+init_versions()
+GRASS_VERSION_S = G_VERSION["version"]
+GRASS_VERSION = [int(item) for item in GRASS_VERSION_S.split(".")[:2]]
+if GRASS_VERSION < [8, 4]:
+    PROJECT_URL_PART = "locations"
+
 TIMESTAMP = "2016-01-01T00:00:00"
-BASE_URL = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/strds/" \
-    f"{STRDS}/timestamp/{TIMESTAMP}"
+BASE_URL = f"{URL_PREFIX}/{PROJECT_URL_PART}/{PROJECT}/mapsets/{MAPSET}" \
+    f"/strds/{STRDS}/timestamp/{TIMESTAMP}"
 ASYNC_URL = f"{BASE_URL}/area_stats_async"
 SYNC_URL = f"{BASE_URL}/area_stats_sync"
 
 
 class STRDSAreaStatsTestCase(ActiniaResourceTestCaseBase):
+
     def test_async_raster_area_stats_json(self):
 
         rv = self.server.post(

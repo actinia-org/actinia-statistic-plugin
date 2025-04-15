@@ -9,13 +9,15 @@ try:
 except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
+from actinia_core.version import init_versions, G_VERSION
+
 __license__ = "GPLv3"
 __author__ = "Markus Neteler, Anika Weinmann"
 __copyright__ = (
     "Copyright 2016-2022, Markus Neteler and mundialis GmbH & Co. KG"
 )
 
-LOCATION = "nc_spm_08"
+PROJECT = "nc_spm_08"
 MAPSET = "PERMANENT"
 VECTOR = "nc_state"
 
@@ -26,10 +28,19 @@ POINTS_LIST = [
 
 
 class VectorTestCase(ActiniaResourceTestCaseBase):
+
+    project_url_part = "projects"
+    # set project_url_part to "locations" if GRASS GIS version < 8.4
+    init_versions()
+    grass_version_s = G_VERSION["version"]
+    grass_version = [int(item) for item in grass_version_s.split(".")[:2]]
+    if grass_version < [8, 4]:
+        project_url_part = "locations"
+
     def test_async_sampling(self):
 
-        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/" \
-            f"vector_layers/{VECTOR}/sampling_async"
+        url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
+            f"mapsets/{MAPSET}/vector_layers/{VECTOR}/sampling_async"
         rv = self.server.post(
             url,
             headers=self.user_auth_header,
@@ -79,8 +90,8 @@ class VectorTestCase(ActiniaResourceTestCaseBase):
 
     def test_sync_sampling(self):
 
-        url = f"{URL_PREFIX}/locations/{LOCATION}/mapsets/{MAPSET}/" \
-            f"vector_layers/{VECTOR}/sampling_sync"
+        url = f"{URL_PREFIX}/{self.project_url_part}/{PROJECT}/" \
+            f"mapsets/{MAPSET}/vector_layers/{VECTOR}/sampling_sync"
         rv = self.server.post(
             url,
             headers=self.user_auth_header,

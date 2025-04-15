@@ -49,8 +49,8 @@ SCHEMA_DOC = {
     "consumes": ["application/json"],
     "parameters": [
         {
-            "name": "location_name",
-            "description": "The location name",
+            "name": "project_name",
+            "description": "The project name",
             "required": True,
             "in": "path",
             "type": "string",
@@ -114,7 +114,7 @@ class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
 
     decorators = [log_api_call, auth.login_required]
 
-    def _execute(self, location_name, mapset_name, strds_name, timestamp):
+    def _execute(self, project_name, mapset_name, strds_name, timestamp):
         """Prepare and enqueue the raster area statistics
 
         Raises:
@@ -134,7 +134,7 @@ class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
         rdc = self.preprocess(
             has_json=True,
             has_xml=False,
-            location_name=location_name,
+            project_name=project_name,
             mapset_name=mapset_name,
             map_name=strds_name,
         )
@@ -145,7 +145,7 @@ class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
         return rdc
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name, timestamp):
+    def post(self, project_name, mapset_name, strds_name, timestamp):
         """
         Compute area statistics based on a vector map for a single raster
         layer that is temporally sampled from a STRDS by a timestamp.
@@ -154,7 +154,7 @@ class AsyncEphemeralSTRDSAreaStatsResource(ResourceBase):
             InvalidUsage: In case the timestamp is wrong or the XML content
                           is missing
         """
-        self._execute(location_name, mapset_name, strds_name, timestamp)
+        self._execute(project_name, mapset_name, strds_name, timestamp)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
@@ -169,7 +169,7 @@ class SyncEphemeralSTRDSAreaStatsResource(
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name, timestamp):
+    def post(self, project_name, mapset_name, strds_name, timestamp):
         """Compute area statistics based on a vector map for a single raster
         layer that is temporally sampled from a STRDS by a timestamp.
 
@@ -179,7 +179,7 @@ class SyncEphemeralSTRDSAreaStatsResource(
 
         """
         check = self._execute(
-            location_name, mapset_name, strds_name, timestamp
+            project_name, mapset_name, strds_name, timestamp
         )
         if check is not None:
             http_code, response_model = self.wait_until_finish()

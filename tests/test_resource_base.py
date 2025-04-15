@@ -11,8 +11,7 @@ from flask_restful import Api
 from actinia_core.testsuite import ActiniaTestCaseBase, URL_PREFIX
 from actinia_core.core.common.config import global_config
 from actinia_core.core.common.app import flask_api
-from actinia_statistic_plugin.endpoints import create_endpoints
-from actinia_core.endpoints import create_endpoints as create_actinia_endpoints
+from actinia_core.endpoints import create_endpoints
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"
@@ -26,8 +25,8 @@ server_test = False
 custom_actinia_cfg = False
 
 # Create endpoints
-create_actinia_endpoints()
-create_endpoints(flask_api)
+# actinia-statisitc-plugin endpoints are included as defined in actinia_core
+create_endpoints()
 
 # If this environmental variable is set, then a real http request will be send
 # instead of using the flask test_client.

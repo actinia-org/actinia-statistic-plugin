@@ -9,6 +9,7 @@ try:
 except Exception:
     from test_resource_base import ActiniaResourceTestCaseBase, URL_PREFIX
 
+from actinia_core.version import init_versions, G_VERSION
 
 __license__ = "GPLv3"
 __author__ = "Markus Neteler"
@@ -39,11 +40,19 @@ JSON = {
 
 class RasterTestCase(ActiniaResourceTestCaseBase):
 
+    project_url_part = "projects"
+    # set project_url_part to "locations" if GRASS GIS version < 8.4
+    init_versions()
+    grass_version_s = G_VERSION["version"]
+    grass_version = [int(item) for item in grass_version_s.split(".")[:2]]
+    if grass_version < [8, 4]:
+        project_url_part = "locations"
+
     def test_async_sampling(self):
 
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/landuse96_28m/sampling_async",
+            f"{URL_PREFIX}/{self.project_url_part}/nc_spm_08/mapsets/PERMANENT"
+            "/raster_layers/landuse96_28m/sampling_async",
             headers=self.user_auth_header,
             data=json_dump(
                 {
@@ -105,8 +114,8 @@ class RasterTestCase(ActiniaResourceTestCaseBase):
         # PROBLEM: Not yet returned!
 
         rv = self.server.post(
-            f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/raster_layers"
-            "/landuse96_28m/sampling_sync",
+            f"{URL_PREFIX}/{self.project_url_part}/nc_spm_08/mapsets/PERMANENT"
+            "/raster_layers/landuse96_28m/sampling_sync",
             headers=self.user_auth_header,
             data=json_dump({"points": [["p1", "638684.0", "220210.0"],
                                        ["p2", "635676.0", "226371.0"]]}),
