@@ -48,9 +48,9 @@ class STRDSSampleResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplingresource",
             "method": "POST",
-            "path": "/locations/ECAD/mapsets/PERMANENT/strds/temperature_mean_"
+            "path": "/projects/ECAD/mapsets/PERMANENT/strds/temperature_mean_"
             "1950_2013_yearly_celsius/sampling_sync",
-            "request_url": "http://localhost/locations/ECAD/mapsets/PERMANENT/"
+            "request_url": "http://localhost/projects/ECAD/mapsets/PERMANENT/"
             "strds/temperature_mean_1950_2013_yearly_celsius/sampling_sync",
         },
         "datetime": "2017-05-11 10:09:48.376521",
@@ -194,7 +194,7 @@ SCHEMA_DOC = {
     "tags": ["STRDS Sampling"],
     "description": "Spatial sampling of a space-time raster dataset with "
     "vector points. The vector points must be in the same coordinate reference"
-    " system as the location that contains the space-time raster dataset. "
+    " system as the project that contains the space-time raster dataset. "
     "The result of the sampling is located in the resource response"
     "JSON docuement after the processing was finished, "
     "as a list of timestamped values for each vector point. "
@@ -202,8 +202,8 @@ SCHEMA_DOC = {
     "consumes": ["application/json"],
     "parameters": [
         {
-            "name": "location_name",
-            "description": "The location name",
+            "name": "project_name",
+            "description": "The project name",
             "required": True,
             "in": "path",
             "type": "string",
@@ -229,7 +229,7 @@ SCHEMA_DOC = {
             "description": "The sampling point array [[id, x, y],[id, x, y]] "
             "and an optional where statement. "
             "The coordinates of the sampling points must be the same as of "
-            "the location "
+            "the project "
             "that contains the space-time raster dataset.",
             "required": True,
             "in": "body",
@@ -251,14 +251,14 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralSTRDSSamplingResource(ResourceBase):
-    """Sample a STRDS at vector point locations, asynchronous call"""
+    """Sample a STRDS at vector point projects, asynchronous call"""
 
-    def _execute(self, location_name, mapset_name, strds_name):
+    def _execute(self, project_name, mapset_name, strds_name):
 
         rdc = self.preprocess(
             has_json=True,
             has_xml=False,
-            location_name=location_name,
+            project_name=project_name,
             mapset_name=mapset_name,
             map_name=strds_name,
         )
@@ -268,20 +268,20 @@ class AsyncEphemeralSTRDSSamplingResource(ResourceBase):
         return rdc
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name):
+    def post(self, project_name, mapset_name, strds_name):
         """Sample a strds by point coordinates, asynchronous call"""
-        self._execute(location_name, mapset_name, strds_name)
+        self._execute(project_name, mapset_name, strds_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
 
 class SyncEphemeralSTRDSSamplingResource(AsyncEphemeralSTRDSSamplingResource):
-    """Sample a STRDS at vector point locations, synchronous call"""
+    """Sample a STRDS at vector point projects, synchronous call"""
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name):
+    def post(self, project_name, mapset_name, strds_name):
         """Sample a strds by point coordinates, synchronous call"""
-        check = self._execute(location_name, mapset_name, strds_name)
+        check = self._execute(project_name, mapset_name, strds_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
         else:

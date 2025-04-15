@@ -42,8 +42,8 @@ SCHEMA_DOC = {
     "consumes": ["application/json"],
     "parameters": [
         {
-            "name": "location_name",
-            "description": "The location name",
+            "name": "project_name",
+            "description": "The project name",
             "required": True,
             "in": "path",
             "type": "string",
@@ -96,12 +96,12 @@ class AsyncEphemeralRasterAreaStatsResource(ResourceBase):
 
     decorators = [log_api_call, auth.login_required]
 
-    def _execute(self, location_name, mapset_name, raster_name):
+    def _execute(self, project_name, mapset_name, raster_name):
 
         rdc = self.preprocess(
             has_json=True,
             has_xml=False,
-            location_name=location_name,
+            project_name=project_name,
             mapset_name=mapset_name,
             map_name=raster_name,
         )
@@ -111,12 +111,12 @@ class AsyncEphemeralRasterAreaStatsResource(ResourceBase):
         return rdc
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, raster_name):
+    def post(self, project_name, mapset_name, raster_name):
         """
         Compute areal categorical statistics on a raster map layer based on
         an input polygon asynchronously
         """
-        self._execute(location_name, mapset_name, raster_name)
+        self._execute(project_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
@@ -132,12 +132,12 @@ class SyncEphemeralRasterAreaStatsResource(
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, raster_name):
+    def post(self, project_name, mapset_name, raster_name):
         """
         Compute areal categorical statistics on a raster map layer based on an
         input polygon synchronously
         """
-        check = self._execute(location_name, mapset_name, raster_name)
+        check = self._execute(project_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
         else:

@@ -45,9 +45,9 @@ class STRDSSampleGeoJSONResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralstrdssamplinggeojsonresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/ECAD/mapsets/PERMANENT/strds/"
+            "path": f"{URL_PREFIX}/projects/ECAD/mapsets/PERMANENT/strds/"
             "temperature_mean_1950_2013_yearly_celsius/sampling_sync_geojson",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/ECAD"
+            "request_url": f"http://localhost{URL_PREFIX}/projects/ECAD"
             "/mapsets/PERMANENT/strds/temperature_mean_1950_2013_yearly_"
             "celsius/sampling_sync_geojson",
         },
@@ -177,8 +177,8 @@ SCHEMA_DOC = {
     "consumes": ["application/json"],
     "parameters": [
         {
-            "name": "location_name",
-            "description": "The location name",
+            "name": "project_name",
+            "description": "The project name",
             "required": True,
             "in": "path",
             "type": "string",
@@ -241,14 +241,14 @@ SCHEMA_DOC = {
 
 
 class AsyncEphemeralSTRDSSamplingGeoJSONResource(ResourceBase):
-    """Sample a STRDS at vector point locations, asynchronous call"""
+    """Sample a STRDS at vector point projects, asynchronous call"""
 
-    def _execute(self, location_name, mapset_name, strds_name):
+    def _execute(self, project_name, mapset_name, strds_name):
 
         rdc = self.preprocess(
             has_json=True,
             has_xml=False,
-            location_name=location_name,
+            project_name=project_name,
             mapset_name=mapset_name,
             map_name=strds_name,
         )
@@ -261,9 +261,9 @@ class AsyncEphemeralSTRDSSamplingGeoJSONResource(ResourceBase):
         return rdc
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name):
+    def post(self, project_name, mapset_name, strds_name):
         """Sample a strds by point coordinates, asynchronous call"""
-        self._execute(location_name, mapset_name, strds_name)
+        self._execute(project_name, mapset_name, strds_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
@@ -271,12 +271,12 @@ class AsyncEphemeralSTRDSSamplingGeoJSONResource(ResourceBase):
 class SyncEphemeralSTRDSSamplingGeoJSONResource(
     AsyncEphemeralSTRDSSamplingGeoJSONResource
 ):
-    """Sample a STRDS at vector point locations, synchronous call"""
+    """Sample a STRDS at vector point projects, synchronous call"""
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name):
+    def post(self, project_name, mapset_name, strds_name):
         """Sample a strds by point coordinates, synchronous call"""
-        check = self._execute(location_name, mapset_name, strds_name)
+        check = self._execute(project_name, mapset_name, strds_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
         else:

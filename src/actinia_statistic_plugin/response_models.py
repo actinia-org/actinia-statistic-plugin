@@ -139,9 +139,9 @@ class RasterAreaStatsResponseModel(ProcessingResponseModel):
       "api_info": {
         "endpoint": "syncephemeralrasterareastatsresource",
         "method": "POST",
-        "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+        "path": f"{URL_PREFIX}/projects/nc_spm_08/mapsets/PERMANENT/"
                 "raster_layers/landuse96_28m/area_stats_sync",
-        "request_url": f"http://localhost:8088{URL_PREFIX}/locations/"
+        "request_url": f"http://localhost:8088{URL_PREFIX}/projects/"
                        "nc_spm_08/mapsets/PERMANENT/raster_layers/"
                        "landuse96_28m/area_stats_sync"
       },
@@ -428,10 +428,10 @@ class RasterAreaUnivarStatsResponseModel(ProcessingResponseModel):
       "api_info": {
         "endpoint": "syncephemeralstrdsareastatsunivarresource",
         "method": "POST",
-        "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/modis_lst/strds/"
+        "path": f"{URL_PREFIX}/projects/nc_spm_08/mapsets/modis_lst/strds/"
                 "LST_Day_monthly/timestamp/2016-01-01T00:00:00/"
                 "area_stats_univar_sync",
-        "request_url": f"http://localhost:8088{URL_PREFIX}/locations/nc_spm_08"
+        "request_url": f"http://localhost:8088{URL_PREFIX}/projects/nc_spm_08"
                        "/mapsets/modis_lst/strds/LST_Day_monthly/timestamp/"
                        "2016-01-01T00:00:00/area_stats_univar_sync"
       },
@@ -796,9 +796,9 @@ class RasterSamplingResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralrastersamplingresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+            "path": f"{URL_PREFIX}/projects/nc_spm_08/mapsets/PERMANENT/"
             "raster_layers/landuse96_28m/sampling_sync",
-            "request_url": f"http://localhost{URL_PREFIX}/locations/nc_spm_08"
+            "request_url": f"http://localhost{URL_PREFIX}/projects/nc_spm_08"
             "/mapsets/PERMANENT/raster_layers/landuse96_28m/sampling_sync",
         },
         "datetime": "2022-03-17 12:29:28.431388",
@@ -996,9 +996,9 @@ class VectorSamplingResponseModel(ProcessingResponseModel):
         "api_info": {
             "endpoint": "syncephemeralvectorsamplingresource",
             "method": "POST",
-            "path": f"{URL_PREFIX}/locations/nc_spm_08/mapsets/PERMANENT/"
+            "path": f"{URL_PREFIX}/projects/nc_spm_08/mapsets/PERMANENT/"
             "vector_layers/zipcodes_wake/sampling_sync",
-            "request_url": f"http://localhost{URL_PREFIX}//locations/nc_spm_08"
+            "request_url": f"http://localhost{URL_PREFIX}//projects/nc_spm_08"
             "/mapsets/PERMANENT/vector_layers/zipcodes_wake/sampling_sync",
         },
         "datetime": "2022-03-17 13:41:44.467395",

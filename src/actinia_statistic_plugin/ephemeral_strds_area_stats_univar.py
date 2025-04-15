@@ -43,8 +43,8 @@ SCHEMA_DOC = {
     "consumes": ["application/json"],
     "parameters": [
         {
-            "name": "location_name",
-            "description": "The location name",
+            "name": "project_name",
+            "description": "The project name",
             "required": True,
             "in": "path",
             "type": "string",
@@ -108,7 +108,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
 
     decorators = [log_api_call, auth.login_required]
 
-    def _execute(self, location_name, mapset_name, strds_name, timestamp):
+    def _execute(self, project_name, mapset_name, strds_name, timestamp):
         """Prepare and enqueue the raster area statistics
 
         Raises:
@@ -130,7 +130,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
         rdc = self.preprocess(
             has_json=True,
             has_xml=False,
-            location_name=location_name,
+            project_name=project_name,
             mapset_name=mapset_name,
             map_name=strds_name,
         )
@@ -142,12 +142,12 @@ class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
         return False
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name, timestamp):
+    def post(self, project_name, mapset_name, strds_name, timestamp):
         """
         Compute areal univariate statistics on a raster map layer contained in
         a space-time raster dataset based on an input polygon.
         """
-        self._execute(location_name, mapset_name, strds_name, timestamp)
+        self._execute(project_name, mapset_name, strds_name, timestamp)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
@@ -162,13 +162,13 @@ class SyncEphemeralSTRDSAreaStatsUnivarResource(
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, strds_name, timestamp):
+    def post(self, project_name, mapset_name, strds_name, timestamp):
         """
         Compute areal univariate statistics on a raster map layer contained in
         a space-time raster dataset based on an input polygon.
         """
         check = self._execute(
-            location_name, mapset_name, strds_name, timestamp
+            project_name, mapset_name, strds_name, timestamp
         )
         if check is True:
             http_code, response_model = self.wait_until_finish()

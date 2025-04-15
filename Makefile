@@ -20,3 +20,6 @@ dist:
 
 test:
 	./tests_with_kvdb.sh
+
+devtest:
+	./tests_with_kvdb.sh dev

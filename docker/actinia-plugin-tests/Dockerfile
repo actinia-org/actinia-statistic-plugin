@@ -10,7 +10,7 @@ ENV DEFAULT_CONFIG_PATH /etc/default/actinia_test
 
 # install things only for tests
 RUN apk add valkey valkey-cli
-RUN pip3 install iniconfig colorlog
+RUN pip3 install iniconfig colorlog pytest pytest-cov
 
 # add data for tests
 RUN wget --quiet https://grass.osgeo.org/sampledata/north_carolina/nc_spm_08_micro.zip && \
@@ -34,6 +34,7 @@ RUN pip3 install -r /src/requirements.txt
 # TODO: Postgres for tests
 # using tests/data/poly.gpkg
 
+RUN pip3 uninstall actinia_statistic_plugin -y
 COPY . /src/actinia_statistic_plugin
 WORKDIR /src/actinia_statistic_plugin
 RUN chmod a+x tests_with_kvdb.sh

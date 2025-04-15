@@ -51,7 +51,7 @@ SCHEMA_DOC = {
     "tags": ["Raster Sampling"],
     "description": "Spatial sampling of a raster dataset with vector points. "
     "The vector points must be in the same coordinate reference system as the "
-    "location that contains the raster dataset. The result of the sampling "
+    "project that contains the raster dataset. The result of the sampling "
     "is located in the resource response"
     "JSON document after the processing was finished, "
     "as a list of values for each vector point. "
@@ -59,8 +59,8 @@ SCHEMA_DOC = {
     "consumes": ["application/json"],
     "parameters": [
         {
-            "name": "location_name",
-            "description": "The location name",
+            "name": "project_name",
+            "description": "The project name",
             "required": True,
             "in": "path",
             "type": "string",
@@ -85,7 +85,7 @@ SCHEMA_DOC = {
             "name": "points",
             "description": "The sampling point array [[id, x, y],[id, x, y]]. "
             "The coordinates of the sampling points must be in the same "
-            "coordinate reference system as the location "
+            "coordinate reference system as the project "
             "that contains the vector dataset.",
             "required": True,
             "in": "body",
@@ -114,12 +114,12 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
 
     decorators = [log_api_call, auth.login_required]
 
-    def _execute(self, location_name, mapset_name, raster_name):
+    def _execute(self, project_name, mapset_name, raster_name):
 
         rdc = self.preprocess(
             has_json=True,
             has_xml=False,
-            location_name=location_name,
+            project_name=project_name,
             mapset_name=mapset_name,
             map_name=raster_name,
         )
@@ -129,12 +129,12 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
         return rdc
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, raster_name):
+    def post(self, project_name, mapset_name, raster_name):
         """
         Perform raster map sampling on a raster map layer based on input
         points asynchronously
         """
-        self._execute(location_name, mapset_name, raster_name)
+        self._execute(project_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
 
@@ -150,12 +150,12 @@ class SyncEphemeralRasterSamplingResource(
     decorators = [log_api_call, auth.login_required]
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
-    def post(self, location_name, mapset_name, raster_name):
+    def post(self, project_name, mapset_name, raster_name):
         """
         Perform raster map sampling on a raster map layer based on input
         points synchronously
         """
-        check = self._execute(location_name, mapset_name, raster_name)
+        check = self._execute(project_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
         else:

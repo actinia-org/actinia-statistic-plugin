@@ -41,7 +41,7 @@ The statistic plugin needs the GRASS GIS addon [t.rast.sample](https://github.co
 
 ```
 docker build -f docker/actinia-plugin-tests/Dockerfile -t actinia-plugin-test .
-docker run -v /path/to/actinia_statistic_plugin/tests:/src/actinia_statistic_plugin/tests -it actinia-plugin-test:latest -i
+docker run -v </path/to/actinia_statistic_plugin/tests>:/src/actinia_statistic_plugin/tests -it actinia-plugin-test:latest -i
 
 # run tests with
 make test
