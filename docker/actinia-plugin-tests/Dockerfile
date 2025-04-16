@@ -28,9 +28,6 @@ RUN chown -R 1001:1001 /actinia_core/grassdb/nc_spm_08/modis_lst && chmod -R g+w
 COPY docker/actinia-plugin-tests/actinia-test.cfg /etc/default/actinia
 COPY docker/actinia-plugin-tests/actinia-test.cfg /etc/default/actinia_test
 
-COPY requirements.txt /src/requirements.txt
-RUN pip3 install -r /src/requirements.txt
-
 # TODO: Postgres for tests
 # using tests/data/poly.gpkg
 
