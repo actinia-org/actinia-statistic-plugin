@@ -12,12 +12,10 @@ from actinia_core.models.response_models import (
     ProcessingResponseModel,
     ProcessingErrorResponseModel,
 )
-from actinia_core.processing.actinia_processing.ephemeral_processing import (
-    EphemeralProcessing,
-)
-from actinia_core.rest.base.resource_base import ResourceBase
+from actinia_processing_lib.ephemeral_processing import EphemeralProcessing
+from actinia_rest_lib.resource_base import ResourceBase
 from actinia_core.core.common.kvdb_interface import enqueue_job
-from actinia_core.core.common.exceptions import AsyncProcessError
+from actinia_processing_lib.exceptions import AsyncProcessError
 
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert"

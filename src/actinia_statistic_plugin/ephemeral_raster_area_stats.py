@@ -5,10 +5,8 @@ polygon.
 """
 
 from flask import jsonify, make_response
-from actinia_core.processing.actinia_processing.ephemeral_processing import (
-    EphemeralProcessing,
-)
-from actinia_core.rest.base.resource_base import ResourceBase
+from actinia_processing_lib.ephemeral_processing import EphemeralProcessing
+from actinia_rest_lib.resource_base import ResourceBase
 from actinia_core.core.common.kvdb_interface import enqueue_job
 from flask.json import dumps
 import pickle

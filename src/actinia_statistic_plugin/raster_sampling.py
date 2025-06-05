@@ -10,11 +10,9 @@ from copy import deepcopy
 from flask_restful_swagger_2 import swagger
 from flask_restful_swagger_2 import Schema
 from actinia_core.models.response_models import ProcessingErrorResponseModel
-from actinia_core.processing.actinia_processing.ephemeral_processing import (
-    EphemeralProcessing,
-)
-from actinia_core.core.common.exceptions import AsyncProcessError
-from actinia_core.rest.base.resource_base import ResourceBase
+from actinia_processing_lib.ephemeral_processing import EphemeralProcessing
+from actinia_processing_lib.exceptions import AsyncProcessError
+from actinia_rest_lib.resource_base import ResourceBase
 from actinia_core.core.common.kvdb_interface import enqueue_job
 from actinia_core.core.common.app import auth
 from actinia_core.core.common.api_logger import log_api_call

@@ -3,6 +3,8 @@
 """
 Actinia statistic plugin endpoint definitions
 """
+from flask_restful_swagger_2 import Resource
+
 from .ephemeral_strds_area_stats_univar import (
     AsyncEphemeralSTRDSAreaStatsUnivarResource,
     SyncEphemeralSTRDSAreaStatsUnivarResource,
@@ -36,13 +38,24 @@ from .vector_sampling import (
     SyncEphemeralVectorSamplingResource,
 )
 
-from actinia_core.endpoints import get_endpoint_class_name
-
 __license__ = "GPLv3"
 __author__ = "Sören Gebbert, Markus Neteler"
 __copyright__ = (
     "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co. KG"
 )
+
+
+def get_endpoint_class_name(
+    endpoint_class: Resource,
+    projects_url_part: str = "projects",
+) -> str:
+    """Create the name for the given endpoint class."""
+    endpoint_class_name = endpoint_class.__name__.lower()
+    if projects_url_part != "projects":
+        name = f"{endpoint_class_name}_{projects_url_part}"
+    else:
+        name = endpoint_class_name
+    return name
 
 
 def create_project_endpoints(flask_api, projects_url_part="projects"):
