@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""SPDX-FileCopyrightText: (c) 2016-2025 mundialis GmbH & Co. KG
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
+Test vector sample.
+"""
+
 import unittest
 import time
 from flask.json import loads as json_load
@@ -11,10 +18,10 @@ except Exception:
 
 from actinia_core.version import init_versions, G_VERSION
 
-__license__ = "GPLv3"
+__license__ = "GPL-3.0-or-later"
 __author__ = "Markus Neteler, Anika Weinmann"
 __copyright__ = (
-    "Copyright 2016-2022, Markus Neteler and mundialis GmbH & Co. KG"
+    "Copyright 2016-2025, Markus Neteler and mundialis GmbH & Co. KG"
 )
 
 PROJECT = "nc_spm_08"

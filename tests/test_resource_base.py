@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+"""SPDX-FileCopyrightText: (c) 2016-2025 mundialis GmbH & Co. KG
 
-"""
+SPDX-License-Identifier: GPL-3.0-or-later
+
 Tests: Actinia statistic plugin resource test case base
 """
 import atexit
@@ -13,10 +15,10 @@ from actinia_core.core.common.config import global_config
 from actinia_core.core.common.app import flask_api
 from actinia_core.endpoints import create_endpoints
 
-__license__ = "GPLv3"
+__license__ = "GPL-3.0-or-later"
 __author__ = "Sören Gebbert"
 __copyright__ = (
-    "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co. KG"
+    "Copyright 2016-2025, Sören Gebbert and mundialis GmbH & Co. KG"
 )
 __maintainer__ = "mundialis GmbH & Co. KG"
 

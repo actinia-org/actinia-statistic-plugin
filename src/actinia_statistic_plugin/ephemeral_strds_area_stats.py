@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-Compute areal categorical statistics on a space-time raster dataset based on
-an input polygon.
+"""SPDX-FileCopyrightText: (c) 2016-2025 mundialis GmbH & Co. KG
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
+Compute areal categorical statistics on a space-time raster dataset based
+on an input polygon.
 """
 
 import pickle
@@ -24,9 +27,9 @@ from .response_models import (
 from actinia_core.models.response_models import ProcessingErrorResponseModel
 
 
-__license__ = "GPLv3"
+__license__ = "GPL-3.0-or-later"
 __author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
+__copyright__ = "Copyright 2016-2025, Sören Gebbert"
 __maintainer__ = "Sören Gebbert"
 __email__ = "soerengebbert@googlemail.com"
 

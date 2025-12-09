@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-Sample a space-time raster dataset at specific vector points
+"""SPDX-FileCopyrightText: (c) 2016-2025 mundialis GmbH & Co. KG
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
+Sample a space-time raster dataset at specific vector points.
 """
 
 import pickle
@@ -18,9 +21,9 @@ from actinia_rest_lib.resource_base import ResourceBase
 from actinia_core.core.common.kvdb_interface import enqueue_job
 from actinia_api import URL_PREFIX
 
-__license__ = "GPLv3"
+__license__ = "GPL-3.0-or-later"
 __author__ = "Sören Gebbert"
-__copyright__ = "Copyright 2016, Sören Gebbert"
+__copyright__ = "Copyright 2016-2025, Sören Gebbert"
 __maintainer__ = "Sören Gebbert"
 __email__ = "soerengebbert@googlemail.com"
 

@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""SPDX-FileCopyrightText: (c) 2016-2025 mundialis GmbH & Co. KG
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
+Test raster area univar statistics.
+"""
+
 import unittest
 from flask.json import loads as json_load
 from flask.json import dumps as json_dump
@@ -10,9 +17,9 @@ except Exception:
 
 from actinia_core.version import init_versions, G_VERSION
 
-__license__ = "GPLv3"
+__license__ = "GPL-3.0-or-later"
 __author__ = "Sören Gebbert, Anika Weinmann"
-__copyright__ = "Copyright 2016-2022, Sören Gebbert and mundialis GmbH & Co.KG"
+__copyright__ = "Copyright 2016-2025, Sören Gebbert and mundialis GmbH & Co.KG"
 __maintainer__ = "mundialis GmbH & Co. KG"
 
 PROJECT = "nc_spm_08"

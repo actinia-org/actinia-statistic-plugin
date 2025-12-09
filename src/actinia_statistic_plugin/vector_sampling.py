@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
+"""SPDX-FileCopyrightText: (c) 2016-2025 mundialis GmbH & Co. KG
+
+SPDX-License-Identifier: GPL-3.0-or-later
+
 Perform vector map sampling on a vector map layer based on input points.
 """
 
@@ -18,10 +21,10 @@ from actinia_core.core.common.api_logger import log_api_call
 from .response_models import VectorSamplingResponseModel
 
 
-__license__ = "GPLv3"
+__license__ = "GPL-3.0-or-later"
 __author__ = "Markus Neteler"
 __copyright__ = (
-    "Copyright 2022-2022, Markus Neteler and mundialis GmbH & Co. KG"
+    "Copyright 2016-2025, Markus Neteler and mundialis GmbH & Co. KG"
 )
 
 
