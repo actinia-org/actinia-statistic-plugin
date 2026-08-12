@@ -26,7 +26,6 @@ from .response_models import (
 )
 from actinia_core.models.response_models import ProcessingErrorResponseModel
 
-
 __license__ = "GPL-3.0-or-later"
 __author__ = "Sören Gebbert"
 __copyright__ = "Copyright 2016-2025, Sören Gebbert"
@@ -53,7 +52,7 @@ SCHEMA_DOC = {
         {
             "name": "mapset_name",
             "description": "The name of the mapset that contains the required "
-                           "space-time raster dataset",
+            "space-time raster dataset",
             "required": True,
             "in": "path",
             "type": "string",
@@ -61,7 +60,7 @@ SCHEMA_DOC = {
         {
             "name": "strds_name",
             "description": "The name of the space-time raster dataset to "
-                           "select the raster map layer from",
+            "select the raster map layer from",
             "required": True,
             "in": "path",
             "type": "string",
@@ -145,8 +144,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivarResource(ResourceBase):
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, strds_name, timestamp):
         """
-        Compute areal univariate statistics on a raster map layer contained in
-        a space-time raster dataset based on an input polygon.
+        Compute STRDS-based areal univariate raster statistics asynchronously."
         """
         self._execute(project_name, mapset_name, strds_name, timestamp)
         html_code, response_model = pickle.loads(self.response_data)
@@ -165,12 +163,9 @@ class SyncEphemeralSTRDSAreaStatsUnivarResource(
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, strds_name, timestamp):
         """
-        Compute areal univariate statistics on a raster map layer contained in
-        a space-time raster dataset based on an input polygon.
+        Compute STRDS-based areal univariate raster statistics synchronously.
         """
-        check = self._execute(
-            project_name, mapset_name, strds_name, timestamp
-        )
+        check = self._execute(project_name, mapset_name, strds_name, timestamp)
         if check is True:
             http_code, response_model = self.wait_until_finish()
         else:
@@ -229,7 +224,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                             "value": "polygon",
                         }
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "t_create_2",
@@ -262,7 +257,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                             "value": "polygon_stvds",
                         }
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "t_register_3",
@@ -290,7 +285,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                         },
                     ],
                     "flags": "i",
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "t_sample_4",
@@ -313,7 +308,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                             "value": strds_name + "@" + self.mapset_name,
                         },
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
             ],
             "version": "1",
@@ -365,7 +360,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                             "value": "polygon",
                         },
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "v_rast_stats_6",
@@ -378,7 +373,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                         {
                             "param": "method",
                             "value": "number,minimum,maximum,range,average,"
-                                     "median,stddev,sum,variance,coeff_var",
+                            "median,stddev,sum,variance,coeff_var",
                         },
                         {
                             "param": "raster",
@@ -389,7 +384,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                             "value": "raster",
                         },
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "v_db_select_7",
@@ -406,7 +401,7 @@ class AsyncEphemeralSTRDSAreaStatsUnivar(EphemeralProcessing):
                             "value": result_file.name,
                         },
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
             ],
             "version": "1",

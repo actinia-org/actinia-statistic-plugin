@@ -21,7 +21,6 @@ from actinia_core.core.common.app import auth
 from actinia_core.core.common.api_logger import log_api_call
 from .response_models import RasterSamplingResponseModel
 
-
 __license__ = "GPL-3.0-or-later"
 __author__ = "Markus Neteler"
 __copyright__ = (
@@ -132,8 +131,7 @@ class AsyncEphemeralRasterSamplingResource(ResourceBase):
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, raster_name):
         """
-        Perform raster map sampling on a raster map layer based on input
-        points asynchronously
+        Sample a raster map layer using input points asynchronously.
         """
         self._execute(project_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
@@ -153,8 +151,7 @@ class SyncEphemeralRasterSamplingResource(
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, raster_name):
         """
-        Perform raster map sampling on a raster map layer based on input
-        points synchronously
+        Sample a raster map layer using input points synchronously.
         """
         check = self._execute(project_name, mapset_name, raster_name)
         if check is not None:
@@ -215,13 +212,13 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         {
                             "param": "column",
                             "value": "id text, x double precision, y double "
-                                     "precision",
+                            "precision",
                         },
                         {"param": "x", "value": "2"},
                         {"param": "y", "value": "3"},
                     ],
                     "outputs": [{"param": "output", "value": "input_points"}],
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "g_region_2",
@@ -234,7 +231,7 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
                         },
                     ],
                     "flags": "p",
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "r_what_3",
@@ -268,10 +265,12 @@ class AsyncEphemeralRasterSampling(EphemeralProcessing):
         raster_name_qualified = "%s@%s" % (raster_name, self.mapset_name)
         # remove map name from columns
         colum_name = [
-            col
-            if raster_name_qualified not in col
-            else col.replace(f"{raster_name_qualified}_", "").replace(
-                raster_name_qualified, "value"
+            (
+                col
+                if raster_name_qualified not in col
+                else col.replace(f"{raster_name_qualified}_", "").replace(
+                    raster_name_qualified, "value"
+                )
             )
             for col in result[0].strip().split("|")
         ]

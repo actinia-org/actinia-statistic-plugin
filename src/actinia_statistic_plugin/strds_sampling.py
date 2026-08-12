@@ -270,7 +270,7 @@ class AsyncEphemeralSTRDSSamplingResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, strds_name):
-        """Sample a strds by point coordinates, asynchronous call"""
+        """Sample a strds by point coordinates, asynchronous call."""
         self._execute(project_name, mapset_name, strds_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
@@ -281,7 +281,7 @@ class SyncEphemeralSTRDSSamplingResource(AsyncEphemeralSTRDSSamplingResource):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, strds_name):
-        """Sample a strds by point coordinates, synchronous call"""
+        """Sample a strds by point coordinates, synchronous call."""
         check = self._execute(project_name, mapset_name, strds_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
@@ -350,7 +350,7 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                         {
                             "param": "column",
                             "value": "id text, x double precision, y double "
-                                     "precision",
+                            "precision",
                         },
                         {
                             "param": "x",
@@ -359,7 +359,7 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                         {
                             "param": "y",
                             "value": "3",
-                        }
+                        },
                     ],
                     "outputs": [
                         {
@@ -367,7 +367,7 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                             "value": "input_points",
                         }
                     ],
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "t_rast_sample_2",
@@ -384,7 +384,7 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                         {
                             "param": "column",
                             "value": "id",
-                        }
+                        },
                     ],
                     "outputs": [
                         {
@@ -393,7 +393,7 @@ class AsyncEphemeralSTRDSSampling(EphemeralProcessing):
                         }
                     ],
                     "flags": "rn",
-                    "superquiet": True
+                    "superquiet": True,
                 },
             ],
             "version": "1",

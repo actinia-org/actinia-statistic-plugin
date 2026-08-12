@@ -52,7 +52,7 @@ SCHEMA_DOC = {
         {
             "name": "mapset_name",
             "description": "The name of the mapset that contains the required "
-                           "raster map layer",
+            "raster map layer",
             "required": True,
             "in": "path",
             "type": "string",
@@ -60,7 +60,7 @@ SCHEMA_DOC = {
         {
             "name": "raster_name",
             "description": "The name of the raster map layer to compute the "
-                           "statistics from",
+            "statistics from",
             "required": True,
             "in": "path",
             "type": "string",
@@ -68,7 +68,7 @@ SCHEMA_DOC = {
         {
             "name": "shape",
             "description": "GeoJSON definition of the polygon to compute the "
-                           "statistics for.",
+            "statistics for.",
             "required": True,
             "in": "body",
             "schema": {"type": "string"},
@@ -77,12 +77,12 @@ SCHEMA_DOC = {
     "responses": {
         "200": {
             "description": "The result of the areal raster statistical "
-                           "computation",
+            "computation",
             "schema": RasterAreaStatsResponseModel,
         },
         "400": {
             "description": "The error message and a detailed log why raster"
-                           " statistic did not succeeded",
+            " statistic did not succeeded",
             "schema": ProcessingErrorResponseModel,
         },
     },
@@ -113,10 +113,9 @@ class AsyncEphemeralRasterAreaStatsResource(ResourceBase):
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, raster_name):
-        """
-        Compute areal categorical statistics on a raster map layer based on
-        an input polygon asynchronously
-        """
+        """Compute areal categorical raster statistics asynchronously.
+
+        Statistics are based on an input polygon."""
         self._execute(project_name, mapset_name, raster_name)
         html_code, response_model = pickle.loads(self.response_data)
         return make_response(jsonify(response_model), html_code)
@@ -134,10 +133,9 @@ class SyncEphemeralRasterAreaStatsResource(
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, raster_name):
-        """
-        Compute areal categorical statistics on a raster map layer based on an
-        input polygon synchronously
-        """
+        """Compute areal categorical raster statistics synchronously.
+
+        Statistics are based on an input polygon."""
         check = self._execute(project_name, mapset_name, raster_name)
         if check is not None:
             http_code, response_model = self.wait_until_finish()
@@ -183,7 +181,7 @@ class AsyncEphemeralRasterAreaStats(EphemeralProcessing):
                     "module": "v.import",
                     "inputs": [{"param": "input", "value": gml_file.name}],
                     "outputs": [{"param": "output", "value": "polygon"}],
-                    "superquiet": True
+                    "superquiet": True,
                 },
             ],
             "version": "1",
@@ -204,28 +202,20 @@ class AsyncEphemeralRasterAreaStats(EphemeralProcessing):
                     "id": "g_region_2",
                     "module": "g.region",
                     "inputs": [
-                        {
-                            "param": "vector",
-                            "value": "polygon"
-                        },
+                        {"param": "vector", "value": "polygon"},
                         {
                             "param": "align",
-                            "value": raster_name + "@" + self.mapset_name
-                        }
+                            "value": f"{raster_name}@{self.mapset_name}",
+                        },
                     ],
                     "flags": "p",
-                    "superquiet": True
+                    "superquiet": True,
                 },
                 {
                     "id": "r_mask_3",
                     "module": "r.mask",
-                    "inputs": [
-                        {
-                            "param": "vector",
-                            "value": "polygon"
-                        }
-                    ],
-                    "superquiet": True
+                    "inputs": [{"param": "vector", "value": "polygon"}],
+                    "superquiet": True,
                 },
                 {
                     "id": "r_stats_4",
@@ -233,21 +223,15 @@ class AsyncEphemeralRasterAreaStats(EphemeralProcessing):
                     "inputs": [
                         {
                             "param": "input",
-                            "value": raster_name + "@" + self.mapset_name
+                            "value": f"{raster_name}@{self.mapset_name}",
                         },
-                        {
-                            "param": "separator",
-                            "value": "|"
-                        }
+                        {"param": "separator", "value": "|"},
                     ],
                     "outputs": [
-                        {
-                            "param": "output",
-                            "value": result_file.name
-                        }
+                        {"param": "output", "value": result_file.name}
                     ],
                     "flags": "acpl",
-                    "superquiet": True
+                    "superquiet": True,
                 },
             ],
             "version": "1",
