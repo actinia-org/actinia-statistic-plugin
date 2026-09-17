@@ -171,7 +171,7 @@ class SyncEphemeralSTRDSAreaStatsResource(
 
     @swagger.doc(deepcopy(SCHEMA_DOC))
     def post(self, project_name, mapset_name, strds_name, timestamp):
-        """Compute STRDS-based areal categorical raster statistics synchronously.
+        """Compute STRDS-based areal categorical raster statistics.
 
         Statistics are based on a vector map for a single raster layer that is
         temporally sampled from a STRDS by a timestamp.
